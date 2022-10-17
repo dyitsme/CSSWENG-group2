@@ -4,3 +4,6 @@ function redirectRegister(){
 function logoutUser(){
     location.href="http://localhost:3000/"
 }
+function changePassword(){
+    location.href="/changePassword"
+}

@@ -60,6 +60,9 @@ app.get('/userhome', (req, res)=>{
 app.get('/register', (req, res)=>{
     res.render('register.hbs');
 })
+app.get('/changepassword', (req, res) => {
+    res.render('changepassword.hbs')
+})
 app.post('/login-post', (req,res)=>{
     Account.findOne({username : req.body.username}, (err, user)=>{
         if(err){
@@ -130,6 +133,26 @@ app.post('/register-post', async(req, res)=>{
         res.redirect('/adminhome');
     }
   
+});
+app.post('/change-password-post', async (req, res) => {
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.newPassword, 10)
+
+        Account.findOne({ username: req.session.name }, (err, user) => {
+            if (user) {
+                bcrypt.compare(req.body.oldPassword, user.pass, (err, success) => {
+                    if (success) {
+                        Account.updateOne({ username: user.username }, { pass: hashedPassword }, (err, result) => {
+                            if (result) { res.redirect('/userhome') }
+                            else { res.render('changepassword.hbs', { error: "Password Change Error!" }) }
+                        })
+                    }
+                    else { res.render('changepassword.hbs', { error: "Password Change Error!" }) }
+                })
+            }
+            else { res.render('changepassword.hbs', { error: "Password Change Error!" }) }
+        })
+    } catch { res.redirect('/userhome') }
 });
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
