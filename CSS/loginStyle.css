@@ -1,3 +1,51 @@
 #loginform{
-    margin: 250px 0 0 0
+    margin: 156px 0 0 0;
+    width:579px;
+    height:400px;
+    border-width: 3px;
+    border-color:  #b70707;
+    border-style:solid;
+    background-color:white;
+    border-radius:15px;
+}
+#redbox{
+    height:50px;
+    width:100px;
+    margin:52px 0 0 0;
+    border-color:  #b70707;
+    background-color:#b70707;
+
+}
+body{
+    background-color: #8E8E8E;
+}
+#header{
+    font-family:"Roboto";
+    font-weight:400;
+}
+#loginButton{
+    height:49px;
+    width:362px;
+    margin:45px 0 0 0 ;
+    border-radius:45px;
+    background-color:#AE0000
+}
+#loginButton:hover{
+    background-color:green;
+}
+#labelLogin{
+    color:white;
+    font-family:"Roboto";
+    font-weight:400;
+}
+#loginform input{
+    margin:15px 0 0 0;
+    background-color:#ECECEC;
+}
+#error{
+    height:15px;
+    width:150px;
+    font-family:"Roboto";
+    font-weight:400;
+    color:#b70707;
 }

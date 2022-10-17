@@ -26,7 +26,7 @@ app.get('/', async(req, res)=>{
     
     //set the credentials of the admin
     adminuser = "admin1";
-    adminpass = "abcdef12345";
+    adminpass = "abc1234";
     Account.findOne({username: adminuser}, async(err, result)=>{
         if(result){
 
@@ -51,6 +51,15 @@ app.get('/', async(req, res)=>{
     res.render('login.hbs');
 
 })
+app.get('/adminhome', (req, res)=>{
+    res.render('adminhome.hbs');
+})
+app.get('/userhome', (req, res)=>{
+    res.render('userhome.hbs');
+})
+app.get('/register', (req, res)=>{
+    res.render('register.hbs');
+})
 app.post('/login-post', (req,res)=>{
     Account.findOne({username : req.body.username}, (err, user)=>{
         if(err){
@@ -63,8 +72,16 @@ app.post('/login-post', (req,res)=>{
                     if(result){
                         req.session.user = user._id;
                         req.session.name = user.username;
+                    
                         console.log("Hello, " +req.body.username);
-                        res.redirect("/");
+                       
+                        if(user.role == "Admin"){
+                            res.redirect("/adminhome");
+                        }
+                        else{
+                            res.redirect("/userhome")
+                        }
+                        
                     }
                     else{
                         res.render("login.hbs",{
@@ -81,6 +98,38 @@ app.post('/login-post', (req,res)=>{
         }
     })
         
+});
+app.post('/register-post', async(req, res)=>{
+    try{
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+       
+        //check if username exists
+        Account.findOne({username : req.body.username},(err,result)=>{
+            if(!result)
+            {
+                // put create here
+                Account.create({
+                    username: req.body.username,
+                    pass: hashedPassword,
+                    role: req.body.role,
+                },
+                    (error, account)=>{
+
+                })
+                res.redirect('/adminhome')
+            }
+            else
+            {
+                res.render('register.hbs',{
+                    error: "Username already exists",
+                })
+            }
+        })
+    }
+    catch{
+        res.redirect('/adminhome');
+    }
+  
 });
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
