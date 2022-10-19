@@ -135,6 +135,8 @@ app.post('/register-post', async(req, res)=>{
   
 });
 app.post('/change-password-post', async (req, res) => {
+    if (req.body.confirmPassword != req.body.newPassword) { return res.render('changepassword.hbs', { error: "Password Change Error!" }) }
+    
     try {
         const hashedPassword = await bcrypt.hash(req.body.newPassword, 10)
 
