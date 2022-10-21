@@ -37,7 +37,7 @@ app.get('/', async(req, res)=>{
                 Account.create({
                     username: adminuser,
                     pass : hashed,
-                    role : "Admin"
+                    role : "Administrator"
                 },(err, account)=>{
         
                 })
@@ -78,7 +78,7 @@ app.post('/login-post', (req,res)=>{
                     
                         console.log("Hello, " +req.body.username);
                        
-                        if(user.role == "Admin"){
+                        if(user.role == "Administrator"){
                             res.redirect("/adminhome");
                         }
                         else{
@@ -114,7 +114,7 @@ app.post('/register-post', async(req, res)=>{
                 Account.create({
                     username: req.body.username,
                     pass: hashedPassword,
-                    role: req.body.role,
+                    role: req.body.roles,
                 },
                     (error, account)=>{
 

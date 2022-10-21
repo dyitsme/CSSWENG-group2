@@ -1,0 +1,45 @@
+body{
+    margin-top:0px;
+}
+#topbar{
+    height:84px;
+    background-color:#F0F0F0;
+    margin:0px;
+    display:block;
+}
+#title{
+    color:#BF0707;
+    font-family:"Open Sans";
+    font-weight:900;
+}
+#registerform{
+    margin:70px 0 0 0;
+    border-radius:15px;
+    border-color:#BF0707;
+    border-style:solid;
+    width:700px;
+    height:500px;
+}
+#registerform input,select{
+    margin:15px 0 0 0;
+    height:50px;
+    width:565px;
+    font-size:20px;
+    background-color:#ECECEC;
+}
+#registerbutton{
+    height:49px;
+    width:362px;
+    margin:150px 0 0 0 ;
+    border-radius:45px;
+    background-color:#AE0000
+}
+#registerbutton:hover{
+    background-color:green;
+}
+
+#labelRegister{
+    color:white;
+    font-family:"Roboto";
+    font-weight:400;
+}
