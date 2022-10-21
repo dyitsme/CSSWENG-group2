@@ -3,7 +3,12 @@
         <link rel="stylesheet" href="../../CSS/registerStyle.css">
     </head>
     <body>
-        <div id="topbar"><center><h1 id="title">User Creation</h1></center></div>
+        <div id="topbar">
+            <div id="redbox"></div>
+            <a href="/adminhome">Files</a>
+            <a href="">Profile</a>
+            <h1 id="title">User Creation</h1>
+        </div>
         <center>
             <form id="registerform" action="/register-post" method="POST">
             <p>{{error}}</p>

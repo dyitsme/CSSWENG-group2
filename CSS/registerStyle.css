@@ -3,6 +3,7 @@ body{
 }
 #topbar{
     height:84px;
+    width:1920px;
     background-color:#F0F0F0;
     margin:0px;
     display:block;
@@ -11,6 +12,10 @@ body{
     color:#BF0707;
     font-family:"Open Sans";
     font-weight:900;
+    margin:0 0 0 380px;
+    display:inline;
+    text-align: center;
+    line-height:75px;
 }
 #registerform{
     margin:70px 0 0 0;
@@ -42,4 +47,25 @@ body{
     color:white;
     font-family:"Roboto";
     font-weight:400;
+}
+#redbox{
+    height:50px;
+    width:100px;
+    margin:20px 0 0 35px;
+    border-color:  #b70707;
+    background-color:#b70707;
+    float:left;
+    display:inline;
+}
+#topbar a{
+    font-family:"Roboto";
+    font-weight:400;
+    color:black;
+    font-size:25px;
+    margin:5px 5px 5px 50px;
+    text-decoration:none;
+    width:100px;
+    height:100px;
+    text-align: center;
+    line-height:75px;
 }
