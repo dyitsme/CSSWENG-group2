@@ -145,7 +145,15 @@ app.post('/change-password-post', async (req, res) => {
                 bcrypt.compare(req.body.oldPassword, user.pass, (err, success) => {
                     if (success) {
                         Account.updateOne({ username: user.username }, { pass: hashedPassword }, (err, result) => {
-                            if (result) { res.redirect('/userhome') }
+                            if (result) {
+                                if(user.role == "Administrator"){
+                                    res.redirect('/adminhome')
+                                }
+                                else{
+                                    res.redirect('/userhome') 
+                                }
+                                
+                                }
                             else { res.render('changepassword.hbs', { error: "Password Change Error!" }) }
                         })
                     }
