@@ -1,51 +1,87 @@
-#loginform{
-    margin: 156px 0 0 0;
-    width:579px;
-    height:400px;
-    border-width: 3px;
-    border-color:  #b70707;
-    border-style:solid;
-    background-color:white;
-    border-radius:15px;
-}
-#redbox{
-    height:50px;
-    width:100px;
-    margin:52px 0 0 0;
-    border-color:  #b70707;
-    background-color:#b70707;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    background-color: #D9D9D9;
 }
-body{
-    background-color: #8E8E8E;
+
+#loginform {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    width: 579px;
+    height: 670px;
+    margin: 156px 0;
+    padding-top: 62px;
+    border: 3px solid #BF0707;
+    border-radius: 25px;
+
+    background-color: white;
 }
-#header{
-    font-family:"Roboto";
-    font-weight:400;
+
+#redbox {
+    width: 100px;
+    height: 50px;
+
+    border-color: #BF0707;
+
+    background-color: #BF0707;
 }
-#loginButton{
-    height:49px;
-    width:362px;
-    margin:45px 0 0 0 ;
-    border-radius:45px;
-    background-color:#AE0000
+
+#header {
+    margin: 21px 20% 50px;
+
+    font: 400 32px "Roboto";
+    color: #000;
+    text-align: center;
 }
-#loginButton:hover{
-    background-color:green;
+
+#loginpost {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
 }
-#labelLogin{
-    color:white;
-    font-family:"Roboto";
-    font-weight:400;
+
+#loginpost input {
+    margin-top: 34px;
+    padding: 12px 18px;
+
+    border: none;
+    border-radius: 10px;
+
+    background-color: #ECECEC;
+
+    font: 400 24px "Roboto";
+    color: black;
 }
-#loginform input{
-    margin:15px 0 0 0;
-    background-color:#ECECEC;
+
+#loginButton {
+    width: 362px;
+    height: 49px;
+    margin-top: 45px;
+    border: none;
+    border-radius: 20px;
+
+    background-color: #AE0000;
+
+    font: 400 24px "Roboto";
+    color: white;
+
+    transition: 500ms;
 }
-#error{
-    height:15px;
-    width:150px;
-    font-family:"Roboto";
-    font-weight:400;
-    color:#b70707;
+
+#loginButton:hover {
+    background-color: #00AEAE;
+
+    cursor: pointer;
+}
+
+#error {
+    font: 400 24px "Roboto";
+    color: #BF0707;
+    text-align: center;
 }

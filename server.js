@@ -37,7 +37,7 @@ app.get('/', async(req, res)=>{
                 Account.create({
                     username: adminuser,
                     pass : hashed,
-                    role : "Admin"
+                    role : "Administrator"
                 },(err, account)=>{
         
                 })
@@ -78,7 +78,7 @@ app.post('/login-post', (req,res)=>{
                     
                         console.log("Hello, " +req.body.username);
                        
-                        if(user.role == "Admin"){
+                        if(user.role == "Administrator"){
                             res.redirect("/adminhome");
                         }
                         else{
@@ -114,7 +114,7 @@ app.post('/register-post', async(req, res)=>{
                 Account.create({
                     username: req.body.username,
                     pass: hashedPassword,
-                    role: req.body.role,
+                    role: req.body.roles,
                 },
                     (error, account)=>{
 
@@ -145,7 +145,15 @@ app.post('/change-password-post', async (req, res) => {
                 bcrypt.compare(req.body.oldPassword, user.pass, (err, success) => {
                     if (success) {
                         Account.updateOne({ username: user.username }, { pass: hashedPassword }, (err, result) => {
-                            if (result) { res.redirect('/userhome') }
+                            if (result) {
+                                if(user.role == "Administrator"){
+                                    res.redirect('/adminhome')
+                                }
+                                else{
+                                    res.redirect('/userhome') 
+                                }
+                                
+                                }
                             else { res.render('changepassword.hbs', { error: "Password Change Error!" }) }
                         })
                     }
