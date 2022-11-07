@@ -52,7 +52,15 @@ app.get('/', async(req, res)=>{
 
 })
 app.get('/profile', (req,res)=>{
-    res.render('profile.hbs');
+    Account.findOne({username: req.session.name}, (err, user)=>{
+        if(user.role == "Administrator"){
+            res.render('profile.hbs',{link:"/adminhome",profilename: req.session.name, role:user.role, C:"regisbutton",act:"redirectRegister()", content:"Register an Account"});
+        }
+        else{
+            res.render('profile.hbs',{link:"/userhome",profilename: req.session.name, role:user.role, design:"background:transparent; border: none !important;"});
+        }
+        
+    })
 })
 
 app.get('/adminhome', (req, res)=>{
@@ -65,7 +73,19 @@ app.get('/register', (req, res)=>{
     res.render('register.hbs');
 })
 app.get('/changepassword', (req, res) => {
-    res.render('changepassword.hbs')
+   
+   
+    Account.findOne({username: req.session.name}, (err, user)=>{
+        if(user){
+            
+            if(user.role == "Administrator"){
+                res.render('changepassword.hbs',{link: "/adminhome"})
+            }
+            else{
+                res.render('changepassword.hbs',{link: "/userhome"})
+            }
+        }
+    })
 })
 app.post('/login-post', (req,res)=>{
     Account.findOne({username : req.body.username}, (err, user)=>{
@@ -158,13 +178,37 @@ app.post('/change-password-post', async (req, res) => {
                                 }
                                 
                                 }
-                            else { res.render('changepassword.hbs', { error: "Password Change Error!" }) }
+                            else {
+                                if(user.role == "Administrator"){
+                                    res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!" }) 
+                                }
+                                else{
+                                    res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!" }) 
+                                }
+                                
+                                }
                         })
                     }
-                    else { res.render('changepassword.hbs', { error: "Password Change Error!" }) }
+                    else {  
+
+                        if(user.role == "Administrator"){
+                        res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!" }) 
+                        }
+
+                        else{
+                            res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!" }) 
+                            } 
+                        }
                 })
             }
-            else { res.render('changepassword.hbs', { error: "Password Change Error!" }) }
+            else { 
+                if(user.role == "Administrator"){
+                res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!" }) 
+                }
+                else{
+                    res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!" }) 
+                }
+            }
         })
     } catch { res.redirect('/userhome') }
 });

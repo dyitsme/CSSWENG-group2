@@ -54,7 +54,7 @@ body {
     background-color: #BF0707;
     opacity: 0;
 
-    transition: 500ms;
+    transition: 100ms;
 }
 
 #redbox:hover #navbar {

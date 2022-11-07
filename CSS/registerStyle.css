@@ -65,7 +65,7 @@ select {
     font: 400 24px "Roboto";
     color: white;
 
-    transition: 500ms;
+    transition: 100ms;
 }
 
 #registerbutton:hover {
