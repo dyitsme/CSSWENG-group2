@@ -17,7 +17,7 @@ body {
 
 #title {
     display: inline;
-    margin-left: calc(50% - 465px);
+    margin-left: calc(50% - 500px);
 
     font: 700 30px "Roboto";
     color: #BF0707;
@@ -25,7 +25,7 @@ body {
     line-height: 75px;
 }
 
-#registerform {
+#changePassword {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -38,8 +38,7 @@ body {
     border-radius: 15px;
 }
 
-#registerform input,
-select {
+#changePassword input{
     width: 565.82px;
     height: 49px;
     margin-top: 45px;
@@ -53,7 +52,7 @@ select {
     color: black;
 }
 
-#registerbutton {
+#changeButton {
     width: 565.82px;
     height: 49px;
     margin-top: 150px;
@@ -68,7 +67,7 @@ select {
     transition: 500ms;
 }
 
-#registerbutton:hover {
+#changeButton:hover {
     background-color: #00AEAE;
 
     cursor: pointer;
