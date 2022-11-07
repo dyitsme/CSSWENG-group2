@@ -96,3 +96,8 @@ body {
     text-align: center;
     line-height: 75px;
 }
+#error {
+    font: 400 24px "Roboto";
+    color: #BF0707;
+    text-align: center;
+}

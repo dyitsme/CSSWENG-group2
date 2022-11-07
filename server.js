@@ -51,6 +51,10 @@ app.get('/', async(req, res)=>{
     res.render('login.hbs');
 
 })
+app.get('/profile', (req,res)=>{
+    res.render('profile.hbs');
+})
+
 app.get('/adminhome', (req, res)=>{
     res.render('adminhome.hbs');
 })
