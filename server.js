@@ -134,16 +134,22 @@ app.post('/register-post', async(req, res)=>{
         Account.findOne({username : req.body.username},(err,result)=>{
             if(!result)
             {
-                // put create here
-                Account.create({
-                    username: req.body.username,
-                    pass: hashedPassword,
-                    role: req.body.roles,
-                },
-                    (error, account)=>{
+                if ((req.body.username).length > 30){
+                    res.render('register.hbs',{error:"Username should not be greater than 30 chars"});
+                }
+                else{
+                    // put create here
+                    Account.create({
+                        username: req.body.username,
+                        pass: hashedPassword,
+                        role: req.body.roles,
+                    },
+                        (error, account)=>{
 
-                })
-                res.redirect('/adminhome')
+                    })
+                    res.redirect('/adminhome')
+                }
+                
             }
             else
             {
