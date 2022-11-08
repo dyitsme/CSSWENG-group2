@@ -115,6 +115,7 @@ body {
     border-radius:25px;
     width:900px;
     height: 670px;
+    height:max-content;
     
 }
 
@@ -150,7 +151,7 @@ body {
     cursor:pointer;
 }
 #regisbutton{
-    margin:25px 0 0 360px;
+    margin:25px 0 70px 360px;
     background-color: #AE0000; /* Green */
     border: none;
     color: #FFFFFF;
