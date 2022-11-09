@@ -32,85 +32,32 @@
                 </div>
                 <div>
                     <img src="/pictures/New Folder.png" width="45px" height="30px" alt="">
-                    <button>New Folder</button>
+                    <button onclick="openForm()">New Folder</button>
+                    <form class="formpopup" id="popup" method="POST" action="/createfolder">
+                        <label for="foldername"><b>Folder Name:</b></label>
+                        <input type="text" placeholder="Name" name="foldername" required>
+                        <button type="submit" id="createbutton">Create Folder</button>
+                        <button type="button" id="cancelbutton" onclick="closeForm()">Cancel</button>
+                    </form>
                 </div>
             </div>
         </div>
 
         <div class="folder-file">
+        {{#each files}}
             <div class="folder">
                 <img src="/pictures/Folder.png" alt="">
-                <p>Folder Name</p>
+                <p>{{this.name}}</p>
             </div>
-        
-            <div class="folder">
-                <img src="/pictures/Folder.png" alt="">
-                <p>Folder Name</p>
-            </div>
-        
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-        
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
+        {{/each}}
 
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
 
+        {{#each file}}
             <div class="file">
                 <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
+                <p>{{name}}</p>
             </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>Very Long File Name</p>
-            </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-            
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-            
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>Very Long File Name</p>
-            </div>
+        {{/each}}
         </div>
         
     </body>

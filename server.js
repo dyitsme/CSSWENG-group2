@@ -6,8 +6,8 @@ const path = require('path');
 const hbs = require("hbs");
 const fileUpload = require('express-fileupload')
 const Account = require('./database/models/Account');
-const session = require('express-session')
-
+const session = require('express-session');
+const Files = require('./database/models/Files');
 app.use(session({
     secret: 'secretcode',
     resave: false,
@@ -63,11 +63,13 @@ app.get('/profile', (req,res)=>{
     })
 })
 
-app.get('/adminhome', (req, res)=>{
-    res.render('adminhome.hbs');
+app.get('/adminhome', async(req, res)=>{
+    const files  = await Files.find({});
+    res.render('adminhome.hbs', {files});
 })
-app.get('/userhome', (req, res)=>{
-    res.render('userhome.hbs');
+app.get('/userhome', async(req, res)=>{
+    const files  = await Files.find({});
+    res.render('userhome.hbs', {files});
 })
 app.get('/register', (req, res)=>{
     res.render('register.hbs');
@@ -218,6 +220,21 @@ app.post('/change-password-post', async (req, res) => {
         })
     } catch { res.redirect('/userhome') }
 });
+app.post('/createfolder', (req, res)=>{
+    Files.create({
+        name:req.body.foldername,
+    });
+    
+    Account.findOne({ username: req.session.name }, (err, user) => {
+        if(user.role == 'Administrator'){
+            console.log('worked');
+            res.redirect('/adminhome');
+        }
+        else{
+            res.redirect('/userhome');
+        }
+    });
+})
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
 });

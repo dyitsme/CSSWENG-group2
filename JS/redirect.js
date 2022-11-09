@@ -7,3 +7,9 @@ function logoutUser(){
 function changePassword(){
     location.href="/changepassword"
 }
+function openForm(){
+    document.getElementById("popup").style.display = "block";
+}
+function closeForm(){
+    document.getElementById("popup").style.display = "none";
+}
