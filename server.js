@@ -79,10 +79,10 @@ app.get('/changepassword', (req, res) => {
         if(user){
             
             if(user.role == "Administrator"){
-                res.render('changepassword.hbs',{link: "/adminhome"})
+                res.render('changepassword.hbs',{link: "/adminhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User" })
             }
             else{
-                res.render('changepassword.hbs',{link: "/userhome"})
+                res.render('changepassword.hbs',{link: "/userhome", design:"background:transparent; border: none !important;cursor: context-menu;"})
             }
         }
     })
@@ -186,10 +186,10 @@ app.post('/change-password-post', async (req, res) => {
                                 }
                             else {
                                 if(user.role == "Administrator"){
-                                    res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!" }) 
+                                    res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!",ID: "registeruser", act:"redirectRegister()", Content:"Register a User" }) 
                                 }
                                 else{
-                                    res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!" }) 
+                                    res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!",design:"background:transparent; border: none !important;cursor: context-menu;" }) 
                                 }
                                 
                                 }
@@ -198,21 +198,21 @@ app.post('/change-password-post', async (req, res) => {
                     else {  
 
                         if(user.role == "Administrator"){
-                        res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!" }) 
+                        res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!",ID: "registeruser", act:"redirectRegister()", Content:"Register a User" }) 
                         }
 
                         else{
-                            res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!" }) 
+                            res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!",design:"background:transparent; border: none !important;cursor: context-menu;" }) 
                             } 
                         }
                 })
             }
             else { 
                 if(user.role == "Administrator"){
-                res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!" }) 
+                res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!",ID: "registeruser", act:"redirectRegister()", Content:"Register a User" }) 
                 }
                 else{
-                    res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!" }) 
+                    res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!",design:"background:transparent; border: none !important;cursor: context-menu;" }) 
                 }
             }
         })

@@ -1,10 +1,17 @@
 <html>
     <head>
         <link rel="stylesheet" href="../../CSS/registerStyle.css">
+        <script src="../../JS/querylib.js"></script>
+        <script src="../../JS/redirect.js"></script>
     </head>
     <body>
         <div id="topbar">
-            <div id="redbox"></div>
+            <div id="redbox">
+                <nav id="navbar">
+                    <button id="changePassword" onclick="changePassword()">Change Password</button>
+                    <button id="logout" onclick="logoutUser()">Logout</button>
+                </nav>
+            </div>
             <a href="/adminhome">Files</a>
             <a href="/profile">Profile</a>
             <h1 id="title">User Creation</h1>

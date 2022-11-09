@@ -136,7 +136,7 @@ body {
     text-align:center;
 }
 #passbutton{
-    margin:50px 0 0 380px;
+    margin:50px 0 50px 380px;
     background-color: #AE0000; /* Green */
     border: none;
     color: #FFFFFF;
