@@ -35,10 +35,13 @@
                     <img src="/pictures/New Folder.png" width="45px" height="30px" alt="">
                     <button onclick="openForm()">New Folder</button>
                     <form class="formpopup" id="popup" method="POST" action="/createfolder">
-                        <label for="foldername"><b>Folder Name:</b></label>
-                        <input type="text" placeholder="Name" name="foldername" required>
-                        <button type="submit" id="createbutton">Create Folder</button>
-                        <button type="button" id="cancelbutton" onclick="closeForm()">Cancel</button>
+                        <div id="popup-content">
+                            <label for="foldername"><b>Folder Name:</b></label>
+                            <input type="text" placeholder="Name" name="foldername" required>
+                            <button type="submit" id="createbutton">Create Folder</button>
+                            <button type="button" id="cancelbutton" onclick="closeForm()">Cancel</button>
+
+                        </div>
                     </form>
                 </div>
             </div>

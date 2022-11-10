@@ -109,21 +109,44 @@ body {
     background-color: white;
 }
 #popup {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    right: 15px;
-    border: 3px solid #f1f1f1;
-    z-index: 9;
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
+#popup-content{
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius:10px;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+#popup-content input{
+    width:400px;
+    font: 30px "Roboto";
+    padding:5px;
+    border-radius:15px;
+}
+#popup-content label{
+    font:20px "Roboto";
+    margin: 0 5px 0 0;
+}
 #popup button{
     padding: 5px;
     border: none;
     border-radius: 5px;
-
+    width:250px;
+    margin: 0 0 0 15px;
     background-color: #BF0707;
     height:auto;
-    font: 15px "Roboto";
+    font: 25px "Roboto";
     color: white;
 
     transition: 500ms;
