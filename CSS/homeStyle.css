@@ -151,7 +151,12 @@ body {
 
     transition: 500ms;
 }
-
+#errorcode {
+    font: 200 24px "Roboto";
+    color: #BF0707;
+    text-align: center;
+    font-weight:600;
+}
 .title-action {
     display: flex;
     flex-flow: row wrap;

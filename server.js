@@ -220,21 +220,38 @@ app.post('/change-password-post', async (req, res) => {
         })
     } catch { res.redirect('/userhome') }
 });
-app.post('/createfolder', (req, res)=>{
-    Files.create({
-        name:req.body.foldername,
-    });
-    
-    Account.findOne({ username: req.session.name }, (err, user) => {
-        if(user.role == 'Administrator'){
-            console.log('worked');
-            res.redirect('/adminhome');
+
+app.post('/createfolder', async(req, res) =>{
+    const files  = await Files.find({});
+    Files.findOne({name:req.body.foldername}, (err,result)=>{
+        if(!result){
+            Files.create({
+                name: req.body.foldername,
+            });
+            Account.findOne({ username: req.session.name }, (err, user) => {
+                if(user.role == 'Administrator'){
+                    console.log('worked');
+                    res.redirect('/adminhome');
+                }
+                else{
+                    res.redirect('/userhome');
+                }
+            });
         }
         else{
-            res.redirect('/userhome');
+            Account.findOne({ username: req.session.name }, (err, user) => {
+                if(user.role == 'Administrator'){
+                    console.log('worked');
+                
+                    res.render('adminhome.hbs',{error:"Folder name already exists", files});
+                }
+                else{
+                    res.render('userhome.hbs', {error:"Folder name already exists", files});
+                }
+            });
         }
-    });
-})
+    })
+});
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
 });
