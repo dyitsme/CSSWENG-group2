@@ -8,6 +8,9 @@ const fileUpload = require('express-fileupload')
 const Account = require('./database/models/Account');
 const session = require('express-session');
 const Files = require('./database/models/Files');
+const Folders = require('./database/models/Folders');
+fol = "";
+directory = "";
 app.use(session({
     secret: 'secretcode',
     resave: false,
@@ -64,12 +67,49 @@ app.get('/profile', (req,res)=>{
 })
 
 app.get('/adminhome', async(req, res)=>{
+    fol="";
+    directory="";
     const files  = await Files.find({});
-    res.render('adminhome.hbs', {files});
+    const folders = await Folders.find({});
+    res.render('adminhome.hbs', {folders,files});
+
+})
+app.get('/folder', (req,res)=>{
+    if(req.query.folder != "" && req.query.folder != null){
+        Folders.findOne({name:req.query.folder}, (err, result)=>{
+            if(result){
+               fol = result.name;
+               res.send(result);
+            }
+            else{
+                
+            }
+        });
+    }
+})
+app.get('/loadfolder', (req, res)=>{
+    Folders.findOne({name:fol},(err, result)=>{
+        if(result){
+            console.log(fol);
+            directory = "/"+fol;
+            Account.findOne({name:req.session.name}, (err, user)=>{
+                if(user.role == "Administrator"){
+                    res.render('adminhome.hbs', {folders: result.folders, path:directory});
+                }
+                else{
+                    res.render('userhome.hbs', {folders: result.folders, path:directory});
+                }
+            })
+            
+        }
+    })
 })
 app.get('/userhome', async(req, res)=>{
+    fol="";
+    directory="";
     const files  = await Files.find({});
-    res.render('userhome.hbs', {files});
+    const folders = await Folders.find({});
+    res.render('adminhome.hbs', {folders,files});
 })
 app.get('/register', (req, res)=>{
     res.render('register.hbs');
@@ -222,31 +262,62 @@ app.post('/change-password-post', async (req, res) => {
 });
 
 app.post('/createfolder', async(req, res) =>{
-    const files  = await Files.find({});
-    Files.findOne({name:req.body.foldername}, (err,result)=>{
+    const folders  = await Folders.find({});
+    const files = await Files.find({});
+    Folders.findOne({name:req.body.foldername}, (err,result)=>{
         if(!result){
-            Files.create({
-                name: req.body.foldername,
-            });
-            Account.findOne({ username: req.session.name }, (err, user) => {
-                if(user.role == 'Administrator'){
-                    console.log('worked');
-                    res.redirect('/adminhome');
+            if(!fol){
+                Folders.create({
+                    name: req.body.foldername,
+                });
+                Account.findOne({ username: req.session.name }, (err, user) => {
+                    if(user.role == 'Administrator'){
+                        console.log('worked');
+                        res.redirect('/adminhome');
+                    }
+                    else{
+                        res.redirect('/userhome');
+                    }
+                });
+            }
+            else{
+                var newfolder ={
+                    name: req.body.foldername,
                 }
-                else{
-                    res.redirect('/userhome');
-                }
-            });
+                Folders.findOneAndUpdate({name:fol},{$push:{folders:newfolder}},(err, success)=>{
+                    if(err){
+                        console.log(err)
+                    }
+                })
+                Account.findOne({ username: req.session.name }, (err, user) => {
+                    if(user){
+                        Folders.findOne({name:fol}, (err, resultingfolder)=>{
+                            if(resultingfolder){
+                                if(user.role == 'Administrator'){
+                                    console.log('worked');
+                                    res.render('adminhome.hbs', {folders: resultingfolder.folders, path:directory});
+                                }
+                                else{
+                                    res.render('userhome.hbs', {folders: resultingfolder.folders, path:directory});
+                                }
+                            }
+                        })
+                       
+                    }
+                    
+                });
+            }
+           
         }
         else{
             Account.findOne({ username: req.session.name }, (err, user) => {
                 if(user.role == 'Administrator'){
                     console.log('worked');
                 
-                    res.render('adminhome.hbs',{error:"Folder name already exists", files});
+                    res.render('adminhome.hbs',{error:"Folder name already exists", folders, files});
                 }
                 else{
-                    res.render('userhome.hbs', {error:"Folder name already exists", files});
+                    res.render('userhome.hbs', {error:"Folder name already exists", folders, files});
                 }
             });
         }

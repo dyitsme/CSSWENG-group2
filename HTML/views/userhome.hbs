@@ -46,17 +46,17 @@
                 </div>
             </div>
         </div>
-
+        <h2>{{path}}</h2>
         <div class="folder-file">
-        {{#each files}}
-            <div class="folder">
+        {{#each folders}}
+            <div class="folder" id="{{this.name}}">
                 <img src="/pictures/Folder.png" alt="">
                 <p>{{this.name}}</p>
             </div>
         {{/each}}
 
 
-        {{#each file}}
+        {{#each files}}
             <div class="file">
                 <img src="/pictures/File.png" alt="">
                 <p>{{name}}</p>
