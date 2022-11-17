@@ -6,8 +6,11 @@ const path = require('path');
 const hbs = require("hbs");
 const fileUpload = require('express-fileupload')
 const Account = require('./database/models/Account');
-const session = require('express-session')
-
+const session = require('express-session');
+const Files = require('./database/models/Files');
+const Folders = require('./database/models/Folders');
+fol = "";
+directory = "";
 app.use(session({
     secret: 'secretcode',
     resave: false,
@@ -51,17 +54,80 @@ app.get('/', async(req, res)=>{
     res.render('login.hbs');
 
 })
-app.get('/adminhome', (req, res)=>{
-    res.render('adminhome.hbs');
+app.get('/profile', (req,res)=>{
+    Account.findOne({username: req.session.name}, (err, user)=>{
+        if(user.role == "Administrator"){
+            res.render('profile.hbs',{link:"/adminhome",profilename: req.session.name, role:user.role, C:"regisbutton",act:"redirectRegister()", content:"Register an Account"});
+        }
+        else{
+            res.render('profile.hbs',{link:"/userhome",profilename: req.session.name, role:user.role, design:"background:transparent; border: none !important;"});
+        }
+        
+    })
 })
-app.get('/userhome', (req, res)=>{
-    res.render('userhome.hbs');
+
+app.get('/adminhome', async(req, res)=>{
+    fol="";
+    directory="";
+    const files  = await Files.find({});
+    const folders = await Folders.find({});
+    res.render('adminhome.hbs', {folders,files});
+
+})
+app.get('/folder', (req,res)=>{
+    if(req.query.folder != "" && req.query.folder != null){
+        Folders.findOne({name:req.query.folder}, (err, result)=>{
+            if(result){
+               fol = result.name;
+               res.send(result);
+            }
+            else{
+                
+            }
+        });
+    }
+})
+app.get('/loadfolder', (req, res)=>{
+    Folders.findOne({name:fol},(err, result)=>{
+        if(result){
+            console.log(fol);
+            directory = "/"+fol;
+            Account.findOne({name:req.session.name}, (err, user)=>{
+                if(user.role == "Administrator"){
+                    res.render('adminhome.hbs', {folders: result.folders, path:directory});
+                }
+                else{
+                    res.render('userhome.hbs', {folders: result.folders, path:directory});
+                }
+            })
+            
+        }
+    })
+})
+app.get('/userhome', async(req, res)=>{
+    fol="";
+    directory="";
+    const files  = await Files.find({});
+    const folders = await Folders.find({});
+    res.render('adminhome.hbs', {folders,files});
 })
 app.get('/register', (req, res)=>{
     res.render('register.hbs');
 })
 app.get('/changepassword', (req, res) => {
-    res.render('changepassword.hbs')
+   
+   
+    Account.findOne({username: req.session.name}, (err, user)=>{
+        if(user){
+            
+            if(user.role == "Administrator"){
+                res.render('changepassword.hbs',{link: "/adminhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User" })
+            }
+            else{
+                res.render('changepassword.hbs',{link: "/userhome", design:"background:transparent; border: none !important;cursor: context-menu;"})
+            }
+        }
+    })
 })
 app.post('/login-post', (req,res)=>{
     Account.findOne({username : req.body.username}, (err, user)=>{
@@ -110,16 +176,22 @@ app.post('/register-post', async(req, res)=>{
         Account.findOne({username : req.body.username},(err,result)=>{
             if(!result)
             {
-                // put create here
-                Account.create({
-                    username: req.body.username,
-                    pass: hashedPassword,
-                    role: req.body.roles,
-                },
-                    (error, account)=>{
+                if ((req.body.username).length > 30){
+                    res.render('register.hbs',{error:"Username should not be greater than 30 chars"});
+                }
+                else{
+                    // put create here
+                    Account.create({
+                        username: req.body.username,
+                        pass: hashedPassword,
+                        role: req.body.roles,
+                    },
+                        (error, account)=>{
 
-                })
-                res.redirect('/adminhome')
+                    })
+                    res.redirect('/adminhome')
+                }
+                
             }
             else
             {
@@ -154,16 +226,127 @@ app.post('/change-password-post', async (req, res) => {
                                 }
                                 
                                 }
-                            else { res.render('changepassword.hbs', { error: "Password Change Error!" }) }
+                            else {
+                                if(user.role == "Administrator"){
+                                    res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!",ID: "registeruser", act:"redirectRegister()", Content:"Register a User" }) 
+                                }
+                                else{
+                                    res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!",design:"background:transparent; border: none !important;cursor: context-menu;" }) 
+                                }
+                                
+                                }
                         })
                     }
-                    else { res.render('changepassword.hbs', { error: "Password Change Error!" }) }
+                    else {  
+
+                        if(user.role == "Administrator"){
+                        res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!",ID: "registeruser", act:"redirectRegister()", Content:"Register a User" }) 
+                        }
+
+                        else{
+                            res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!",design:"background:transparent; border: none !important;cursor: context-menu;" }) 
+                            } 
+                        }
                 })
             }
-            else { res.render('changepassword.hbs', { error: "Password Change Error!" }) }
+            else { 
+                if(user.role == "Administrator"){
+                res.render('changepassword.hbs', {link:'/adminhome', error: "Password Change Error!",ID: "registeruser", act:"redirectRegister()", Content:"Register a User" }) 
+                }
+                else{
+                    res.render('changepassword.hbs', {link:'/userhome', error: "Password Change Error!",design:"background:transparent; border: none !important;cursor: context-menu;" }) 
+                }
+            }
         })
     } catch { res.redirect('/userhome') }
 });
+
+app.post('/createfolder', async(req, res) =>{
+    const folders  = await Folders.find({});
+    const files = await Files.find({});
+    Folders.findOne({name:req.body.foldername}, (err,result)=>{
+        if(!result){
+            if(!fol){
+                Folders.create({
+                    name: req.body.foldername,
+                });
+                Account.findOne({ username: req.session.name }, (err, user) => {
+                    if(user.role == 'Administrator'){
+                        console.log('worked');
+                        res.redirect('/adminhome');
+                    }
+                    else{
+                        res.redirect('/userhome');
+                    }
+                });
+            }
+            else{
+                var newfolder ={
+                    name: req.body.foldername,
+                }
+                Folders.findOneAndUpdate({name:fol},{$push:{folders:newfolder}},(err, success)=>{
+                    if(err){
+                        console.log(err)
+                    }
+                })
+                Account.findOne({ username: req.session.name }, (err, user) => {
+                    if(user){
+                        Folders.findOne({name:fol}, (err, resultingfolder)=>{
+                            if(resultingfolder){
+                                if(user.role == 'Administrator'){
+                                    console.log('worked');
+                                    res.render('adminhome.hbs', {folders: resultingfolder.folders, path:directory});
+                                }
+                                else{
+                                    res.render('userhome.hbs', {folders: resultingfolder.folders, path:directory});
+                                }
+                            }
+                        })
+                       
+                    }
+                    
+                });
+            }
+           
+        }
+        else{
+            Account.findOne({ username: req.session.name }, (err, user) => {
+                if(user.role == 'Administrator'){
+                    console.log('worked');
+                
+                    res.render('adminhome.hbs',{error:"Folder name already exists", folders, files});
+                }
+                else{
+                    res.render('userhome.hbs', {error:"Folder name already exists", folders, files});
+                }
+            });
+        }
+    })
+});
+
+app.post('/uploadfile', function (req, res) {
+    const files = req.files.file
+
+    if (Array.isArray(files)) {
+        Account.findOne({ username: req.session.name }, (err, user) => {
+            files.forEach(file => {
+                file.mv(path.resolve(__dirname, 'file', file.name), (error) => {
+                    Files.create({ name: file.name, access: user.role }, (error, post) => { })
+                })
+            })
+        })
+    }
+    else {
+        Account.findOne({ username: req.session.name }, (err, user) => {
+            files.mv(path.resolve(__dirname, 'file', files.name), (error) => {
+                Files.create({ name: files.name, access: user.role }, (error, post) => { })
+            });
+        })
+    }
+
+    res.redirect('/adminhome')
+});
+
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
 });

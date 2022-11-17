@@ -14,8 +14,8 @@
                 </nav>
             </div>
     
-            <a href="/adminhome">Files</a>
-            <a href="">Profile</a>
+            <a href="/userhome">Files</a>
+            <a href="/profile">Profile</a>
 
             <form class="search" action="">
                 <input type="image" src="/pictures/Search.png">
@@ -25,6 +25,7 @@
 
         <div class="title-action">
             <h1 id="title">Files</h1>
+            <h2 id="errorcode">{{error}}</h3>
             <div class="action">
                 <div>
                     <img src="/pictures/Upload.png" width="30px" height="30px" alt="">
@@ -32,85 +33,35 @@
                 </div>
                 <div>
                     <img src="/pictures/New Folder.png" width="45px" height="30px" alt="">
-                    <button>New Folder</button>
+                    <button onclick="openForm()">New Folder</button>
+                    <form class="formpopup" id="popup" method="POST" action="/createfolder">
+                        <div id="popup-content">
+                            <label for="foldername"><b>Folder Name:</b></label>
+                            <input type="text" placeholder="Name" name="foldername" required>
+                            <button type="submit" id="createbutton">Create Folder</button>
+                            <button type="button" id="cancelbutton" onclick="closeForm()">Cancel</button>
+
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-
+        <h2>{{path}}</h2>
         <div class="folder-file">
-            <div class="folder">
+        {{#each folders}}
+            <div class="folder" id="{{this.name}}">
                 <img src="/pictures/Folder.png" alt="">
-                <p>Folder Name</p>
+                <p>{{this.name}}</p>
             </div>
-        
-            <div class="folder">
-                <img src="/pictures/Folder.png" alt="">
-                <p>Folder Name</p>
-            </div>
-        
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-        
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
+        {{/each}}
 
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
 
+        {{#each files}}
             <div class="file">
                 <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
+                <p>{{name}}</p>
             </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>Very Long File Name</p>
-            </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-            
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>File Name</p>
-            </div>
-            
-            <div class="file">
-                <img src="/pictures/File.png" alt="">
-                <p>Very Long File Name</p>
-            </div>
+        {{/each}}
         </div>
         
     </body>
