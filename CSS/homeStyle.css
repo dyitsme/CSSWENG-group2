@@ -281,3 +281,16 @@ label {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.context-menu {
+    position: relative;
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    z-index: 1;
+    margin-left: -80px;
+}

@@ -16,7 +16,6 @@ body {
 
 #topbar {
     display: block;
-
     width: 100%;
     height: 84px;
 
@@ -104,13 +103,11 @@ body {
     text-align: center;
     line-height: 75px;
 }
-
 #error {
     font: 400 24px "Roboto";
     color: #BF0707;
     text-align: center;
 }
-
 #navbar {
     display: flex;
     flex-flow: column nowrap;
