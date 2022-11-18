@@ -38,11 +38,27 @@
                     <img src="/pictures/New Folder.png" width="45px" height="30px" alt="">
                     <button onclick="openForm()">New Folder</button>
                     <form class="formpopup" id="popup" method="POST" action="/createfolder">
-                        <div id="popup-content">
+                        <div class="popup-content">
                             <label for="foldername"><b>Folder Name:</b></label>
                             <input type="text" placeholder="Name" name="foldername" required>
                             <button type="submit" id="createbutton">Create Folder</button>
                             <button type="button" id="cancelbutton" onclick="closeForm()">Cancel</button>
+                        </div>
+                    </form>
+                    <form class="formpopup" id="folderpop" method="POST" action="/rename-folder">
+                        <div class="popup-content">
+                            <label for="newname1"><b>Folder Name:</b></label>
+                            <input type="text" placeholder="Name" name="newname1" id="newname1" required>
+                            <button type="submit" id="createbutton"  onclick="renameFolder()" >Rename Folder</button>
+                            <button type="button" id="cancelbutton" onclick="folderClose()">Cancel</button>
+                        </div>
+                    </form>
+                    <form class="formpopup" id="filepop" method="POST" action="/rename-file">
+                        <div class="popup-content">
+                            <label for="newname2"><b>File Name:</b></label>
+                            <input type="text" placeholder="Name" name="newname2" id="newname2" required>
+                            <button type="submit" id="createbutton" onclick="renameFile()">Rename File</button>
+                            <button type="button" id="cancelbutton" onclick="fileClose()">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -57,7 +73,7 @@
             </div>
 
             <div class="context-menu" id="{{this.name}} cm">
-                <p onclick="rename()">Rename</p>
+                <p onclick="folderForm('{{this.name}}')">Rename</p>
                 <p onclick="deleteFolder('{{this.name}}')">Delete</p>
             </div>
         {{/each}}
@@ -70,7 +86,7 @@
             </div>
             
             <div class="context-menu" id="{{this.name}} cm">
-                <p onclick="rename()">Rename</p>
+                <p onclick="fileForm('{{this.name}}')">Rename</p>
                 <p onclick="deleteFile('{{this.name}}')">Delete</p>
             </div>
         {{/each}}
