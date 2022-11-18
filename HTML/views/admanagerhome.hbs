@@ -51,17 +51,27 @@
         <h2>{{path}}</h2>
         <div class="folder-file">
         {{#each folders}}
-            <div class="folder" id="{{this.name}}">
+            <div class="folder" id="{{this.name}}" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
                 <img src="/pictures/Folder.png" alt="">
                 <p>{{this.name}}</p>
+            </div>
+
+            <div class="context-menu" id="{{this.name}} cm">
+                <p onclick="rename()">Rename</p>
+                <p onclick="deleteFolder('{{this.name}}')">Delete</p>
             </div>
         {{/each}}
 
 
         {{#each files}}
-            <div class="file">
+            <div class="file" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
                 <img src="/pictures/File.png" alt="">
-                <p>{{name}}</p>
+                <p>{{this.name}}</p>
+            </div>
+            
+            <div class="context-menu" id="{{this.name}} cm">
+                <p onclick="rename()">Rename</p>
+                <p onclick="deleteFile('{{this.name}}')">Delete</p>
             </div>
         {{/each}}
        

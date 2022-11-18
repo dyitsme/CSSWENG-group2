@@ -617,6 +617,24 @@ app.post('/uploadfile',  async(req, res)=> {
   
 });
 
+app.get('/delete-folder', (req, res) => {
+    Account.findOne({ username: req.session.name }, (err, user) => {
+        Folders.deleteOne({ name: req.query.name }, (error) => {
+            if (user.role == 'Administrator') { res.redirect('/admanagerhome'); }
+            else { res.redirect('/userhome'); }
+        })
+    });
+});
+
+app.get('/delete-file', (req, res) => {
+    Account.findOne({ username: req.session.name }, (err, user) => {
+        Files.deleteOne({ name: req.query.name }, (error) => {
+            if (user.role == 'Administrator') { res.redirect('/admanagerhome'); }
+            else { res.redirect('/userhome'); }
+        })
+    });
+});
+
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
 });
