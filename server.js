@@ -323,6 +323,30 @@ app.post('/createfolder', async(req, res) =>{
         }
     })
 });
+
+app.post('/uploadfile', function (req, res) {
+    const files = req.files.file
+
+    if (Array.isArray(files)) {
+        Account.findOne({ username: req.session.name }, (err, user) => {
+            files.forEach(file => {
+                file.mv(path.resolve(__dirname, 'file', file.name), (error) => {
+                    Files.create({ name: file.name, access: user.role }, (error, post) => { })
+                })
+            })
+        })
+    }
+    else {
+        Account.findOne({ username: req.session.name }, (err, user) => {
+            files.mv(path.resolve(__dirname, 'file', files.name), (error) => {
+                Files.create({ name: files.name, access: user.role }, (error, post) => { })
+            });
+        })
+    }
+
+    res.redirect('/adminhome')
+});
+
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
 });

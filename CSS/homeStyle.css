@@ -190,7 +190,8 @@ body {
 }
 
 .action div:hover img,
-.action div:hover button {
+.action div:hover button,
+.action div:hover label{
     background-color: #00AEAE;
 
     cursor: pointer;
@@ -206,7 +207,8 @@ body {
     transition: 500ms;
 }
 
-.action  button {
+.action button,
+label {
     padding: 10px 25px;
     border: none;
     border-radius: 0 20px 20px 0;
@@ -217,6 +219,10 @@ body {
     color: white;
 
     transition: 500ms;
+}
+
+.action input[type=file] {
+    display: none;
 }
 
 .folder-file {
