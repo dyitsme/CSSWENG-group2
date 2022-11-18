@@ -26,25 +26,7 @@
         <div class="title-action">
             <h1 id="title">Files</h1>
             <h2 id="errorcode">{{error}}</h3>
-            <div class="action">
-                <div>
-                    <img src="/pictures/Upload.png" width="30px" height="30px" alt="">
-                    <button>Upload</button>
-                </div>
-                <div>
-                    <img src="/pictures/New Folder.png" width="45px" height="30px" alt="">
-                    <button onclick="openForm()">New Folder</button>
-                    <form class="formpopup" id="popup" method="POST" action="/createfolder">
-                        <div id="popup-content">
-                            <label for="foldername"><b>Folder Name:</b></label>
-                            <input type="text" placeholder="Name" name="foldername" required>
-                            <button type="submit" id="createbutton">Create Folder</button>
-                            <button type="button" id="cancelbutton" onclick="closeForm()">Cancel</button>
-
-                        </div>
-                    </form>
-                </div>
-            </div>
+            
         </div>
         <h2>{{path}}</h2>
         <div class="folder-file">

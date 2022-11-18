@@ -24,10 +24,11 @@ function closeForm(){
 
 function folderClick(){
     var folderName = this.getAttribute("id");
-  
+    console.log(folderName);
     $.get('/folder', {folder: folderName}, function(result){
         if(result){
-            location.href="/loadfolder"
+            location.href = "/loadfolder";
         }
     });
+
 }
