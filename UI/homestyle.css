@@ -16,15 +16,27 @@ body{
 }
 
 #topbar a{
+    align-self: center;
     font: 20px "Roboto";
-    margin: 21px 0 0 24px;
+    padding: 12px;
+    margin-left: 12px;
+}
+
+#topbar a:hover{
+    background-color: #b5b5b5;
+    border-radius: 10px;
 }
 
 #top_logo{
     height: 47px;
     width: 206px;
-    margin-top: 10px;
+    align-self: center;
     margin-left: 10px; 
+}
+
+#topbar a :hover{
+    font: 20px "Roboto";
+    margin: 21px 0 0 24px;
 }
 
 #top_search{
@@ -80,19 +92,23 @@ body{
     font: 24px "Roboto";
     align-self: center;
     height: 50px;
-
-    background: #F0F0F0;
     border: 1px solid #000000;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
+    cursor: pointer;
 }
+
+
 
 .next_btn{ 
     margin-left: 18px;
+    background: #F0F0F0;
 }
 
 #upload_btn{
     margin-left: auto;
+    color: white;
+    background-color: #1E3F5A;
 }
 
 /* BREADCRUMB BREADCRUMB BREADCRUMB BREADCRUMB BREADCRUMB BREADCRUMB BREADCRUMB */
