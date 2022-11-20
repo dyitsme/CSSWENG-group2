@@ -41,6 +41,11 @@
                         <div class="popup-content">
                             <label for="foldername"><b>Folder Name:</b></label>
                             <input type="text" placeholder="Name" name="foldername" required>
+                             <select id="accesslevel" name="accesslevel" required="true">
+                                <option value="" selected disabled hidden>Role</option>
+                                <option value="Admin/Manager">Admin/Manager Level</option>
+                                <option value="Unrestricted">Unrestricted</option>
+                            </select>
                             <button type="submit" id="createbutton">Create Folder</button>
                             <button type="button" id="cancelbutton" onclick="closeForm()">Cancel</button>
                         </div>

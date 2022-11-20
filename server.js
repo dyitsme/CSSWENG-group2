@@ -96,23 +96,42 @@ app.get('/folder', (req,res)=>{
         res.send(result);
     
 })
-app.get('/loadfolder', (req, res)=>{
+app.get('/loadfolder', async(req, res)=>{
     if(directory == "" || directory == null){
-        Folders.findOne({name:fol},(err, result)=>{
+        Folders.findOne({name:fol},async(err, result)=>{
             if(result){
+                
+            
                 directory = "/"+fol;
+                arrDirect = directory.split('/');
                 //console.log(directory);
-                Account.findOne({username:req.session.name}, (err, user)=>{
+                Account.findOne({username:req.session.name}, async(err, user)=>{
                     if(user.role == "Administrator"){
                         console.log("ADMIN");
-                        res.render('admanagerhome.hbs', {folders: result.folders, files:result.files, path:directory, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User" });
+                        res.render('admanagerhome.hbs', {folders:result.folders, files:result.files, path:directory, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User" });
                     }
                     else if(user.role == "Manager"){
                         console.log("Manager");
-                        res.render('admanagerhome.hbs', {folders: result.folders, files:result.files, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;" });
+                        res.render('admanagerhome.hbs', {folders:result.folders, files:result.files, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;" });
                     }
                     else{
-                        res.render('userhome.hbs', {folders: result.folders,files:result.files, path:directory});
+                        Folders.aggregate([
+                            {$unwind : "$folders"},
+                            {$match : {"folders.access" : "Unrestricted", name:arrDirect[1]}},
+                            {$project : {_id : "$folders._id",
+                            name : "$folders.name",
+                            access : "$folders.access",}}
+                            ], (err, userfol)=>{
+                                console.log(userfol)
+                                res.render('userhome.hbs', {folders:userfol ,files:result.files, path:directory});
+                               
+                        })   
+                            
+                        
+                            //const folders = userfol;
+                            
+                            
+                        
                     }
                 })
                 
@@ -195,7 +214,7 @@ app.get('/userhome', async(req, res)=>{
     fol="";
     directory="";
     const files  = await Files.find({});
-    const folders = await Folders.find({});
+    const folders = await Folders.find({access:"Unrestricted"});
     res.render('userhome.hbs', {folders,files});
 })
 app.get('/register', (req, res)=>{
@@ -373,6 +392,7 @@ app.post('/createfolder', async(req, res) =>{
                 
                     Folders.create({
                         name: req.body.foldername,
+                        access: req.body.accesslevel,
                     });
                     Account.findOne({ username: req.session.name }, (err, user) => {
                         if(user.role == 'Administrator' || user.role == "Manager"){
@@ -413,6 +433,7 @@ app.post('/createfolder', async(req, res) =>{
         if(arrDirect.length == 2){
             newfolder = {
                 name : req.body.foldername,
+                access : req.body.accesslevel,
             }
             Folders.findOneAndUpdate({name:arrDirect[1]},{$push:{folders:newfolder}},(err, success)=>{
                 if(err){

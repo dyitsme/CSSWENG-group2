@@ -126,7 +126,7 @@ body {
   padding: 20px;
   border: 1px solid #888;
   border-radius:10px;
-  width: 50%; /* Could be more or less, depending on screen size */
+  width: 85%; /* Could be more or less, depending on screen size */
 }
 .popup-content input{
     width:400px;
@@ -137,6 +137,19 @@ body {
 .popup-content label{
     font:20px "Roboto";
     margin: 0 5px 0 0;
+}
+.popup-content select{
+    width: 565.82px;
+    height: 49px;
+    margin-left: 10px;
+    padding-left: 15px;
+    border: none;
+    border-radius: 10px;
+
+    background-color: #ECECEC;
+
+    font: 400 24px "Roboto";
+    color: black;
 }
 .formpopup button{
     padding: 5px;
