@@ -28,7 +28,7 @@ function closeForm() {
 
 function fileForm(identifier) {
     selected = identifier;
-    $.get('/selectfile', { selected: selected }, (result) => { })
+    $.get('/select', { selected: selected }, (result) => { })
     document.getElementById("filepop").style.display = "block";
 }
 
@@ -105,10 +105,27 @@ function closeNotificationModal(type) {
     }
 }
 
-function getFileNames(){
-    file = document.getElementById('uploadFile');
+function getFileNames() {
+    input = document.getElementById('uploadFile');
 
-    for (var i = 0; i < file.files.length; i++){
-        document.getElementById('itemset').innerHTML += '<div> <p>' + file.files[i].name + '</p> <img src="pictures/remove.png" alt=""> </div>';
+    for (var i = 0; i < input.files.length; i++) {
+        document.getElementById('itemset').innerHTML += '<div id="' + input.files[i].name + '"> <p>' + input.files[i].name + '</p> <img src="pictures/remove.png" alt="" onclick="removeSelectedFileName(' + "'" + input.files[i].name + "'" + ')"> </div>';
     }
+}
+
+function removeSelectedFileName(filename) {
+    dataTransfer = new DataTransfer();
+    input = document.getElementById('uploadFile');
+    const { files } = input;
+
+    for(let i = 0; i < files.length; i++){
+        const file = files[i]
+        if (filename !== file.name){
+            dataTransfer.items.add(file)
+        }
+    }
+
+    input.files = dataTransfer.files
+
+    document.getElementById(filename).remove()
 }
