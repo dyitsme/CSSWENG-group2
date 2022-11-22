@@ -2,6 +2,7 @@
     <head>
         <title>G. Ilagan Designs and Construction</title>
         <link rel="stylesheet" type="text/css" href="homeStyle.css">
+        <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
     </head>
     <body>
         <div id="topbar">
@@ -18,12 +19,13 @@
         <div id="main_body">
             <div id="action_labels">
                 <h1>Files</h1>
-                <button id="upload_btn">Upload</button>
-                <button id="newfolder_btn" class="next_btn">New Folder</button>
-                <button id="select_btn" class="next_btn">Select</button>
+                <button id="upload_btn"><iconify-icon icon="material-symbols:upload"></iconify-icon>Upload</button>
+                <button id="newfolder_btn" class="next_btn"><iconify-icon icon="material-symbols:create-new-folder-outline"></iconify-icon>New Folder</button>
+                <button id="select_btn" class="next_btn"><iconify-icon icon="material-symbols:select-check-box"></iconify-icon>Select</button>
             </div>
             <div id="breadcrumb">
-                <p id="breadcrumb_dir">...\FolderTest\FolderTest1\FolderTest1\FolderTest1</p><!--change the FILE LOCATION-->
+                <button id="back"><img src="back icon.png"></button><!--Change display to NONE when not in folder-->
+                <p id="breadcrumb_dir">FolderTest\FolderTest1\FolderTest2\FolderTest2\FolderTest2</p><!--change the FILE LOCATION-->
             </div>
             <div id="title_bar">
                 <p id="name">Name</p>
