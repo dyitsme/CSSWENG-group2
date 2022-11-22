@@ -108,10 +108,10 @@ body {
 
     background-color: white;
 }
-#popup {
+.formpopup {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 100; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -120,25 +120,38 @@ body {
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
-#popup-content{
+.popup-content{
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   border-radius:10px;
-  width: 50%; /* Could be more or less, depending on screen size */
+  width: 85%; /* Could be more or less, depending on screen size */
 }
-#popup-content input{
+.popup-content input{
     width:400px;
     font: 30px "Roboto";
     padding:5px;
     border-radius:15px;
 }
-#popup-content label{
+.popup-content label{
     font:20px "Roboto";
     margin: 0 5px 0 0;
 }
-#popup button{
+.popup-content select{
+    width: 565.82px;
+    height: 49px;
+    margin-left: 10px;
+    padding-left: 15px;
+    border: none;
+    border-radius: 10px;
+
+    background-color: #ECECEC;
+
+    font: 400 24px "Roboto";
+    color: black;
+}
+.formpopup button{
     padding: 5px;
     border: none;
     border-radius: 5px;
@@ -198,6 +211,8 @@ body {
 }
 
 .action img {
+    height: 50px;
+    width: 50px;
     padding: 10px 0 10px 20px;
     border: none;
     border-radius: 20px 0 0 20px;
@@ -208,7 +223,7 @@ body {
 }
 
 .action button,
-label {
+.action label {
     padding: 10px 25px;
     border: none;
     border-radius: 0 20px 20px 0;
@@ -221,7 +236,7 @@ label {
     transition: 500ms;
 }
 
-.action input[type=file] {
+.action input[type=file], .file-modal input[type=file] {
     display: none;
 }
 
@@ -291,6 +306,6 @@ label {
     text-align: center;
     border-radius: 6px;
     padding: 8px 0;
-    z-index: 1;
+    z-index: 2;
     margin-left: -80px;
 }

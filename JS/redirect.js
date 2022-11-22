@@ -1,31 +1,56 @@
-$(document).ready(function(){
+let selected = undefined;
+$(document).ready(function () {
     var elements = document.getElementsByClassName('folder');
-    for (var i = 0; i < elements.length; i++){
+    for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener('click', folderClick);
     }
 })
 
-function redirectRegister(){
-    location.href= "http://localhost:3000/register";
+function redirectRegister() {
+    location.href = "http://localhost:3000/register";
 }
-function logoutUser(){
-    location.href="http://localhost:3000/"
+
+function logoutUser() {
+    location.href = "http://localhost:3000/"
 }
-function changePassword(){
-    location.href="/changepassword"
+
+function changePassword() {
+    location.href = "/changepassword"
 }
-function openForm(){
+
+function openForm() {
     document.getElementById("popup").style.display = "block";
 }
-function closeForm(){
+
+function closeForm() {
     document.getElementById("popup").style.display = "none";
 }
 
-function folderClick(){
+function fileForm(identifier) {
+    selected = identifier;
+    $.get('/select', { selected: selected }, (result) => { })
+    document.getElementById("filepop").style.display = "block";
+}
+
+function folderForm(identifier) {
+    selected = identifier;
+    $.get('/select', { selected: selected }, (result) => { })
+    document.getElementById("folderpop").style.display = "block";
+}
+
+function fileClose() {
+    document.getElementById("filepop").style.display = "none";
+}
+
+function folderClose() {
+    document.getElementById("folderpop").style.display = "none";
+}
+
+function folderClick() {
     var folderName = this.getAttribute("id");
     console.log(folderName);
-    $.get('/folder', {folder: folderName}, function(result){
-        if(result){
+    $.get('/folder', { folder: folderName }, function (result) {
+        if (result) {
             location.href = "/loadfolder";
         }
     });
@@ -45,4 +70,45 @@ function deleteFolder(identifier) {
 
 function deleteFile(identifier) {
     location.href = "/delete-file?name=" + identifier;
+}
+
+function renameFolder() {
+    newfolder = document.getElementById("newname1").value;
+    $.get('/rename-folder', { newname: newfolder, current: selected }, function (result) { })
+}
+
+function renameFile() {
+    newfile = document.getElementById("newname2").value;
+    $.get('/rename-folder', { newname: newfile, current: selected }, function (result) { })
+}
+
+function openFileModal() {
+    document.getElementById('fileModal').style.visibility = 'visible';
+    document.getElementById('fileModal').style.opacity = 1;
+}
+
+function closeFileModal() {
+    document.getElementById('fileModal').style.opacity = 0;
+    document.getElementById('fileModal').style.visibility = 'hidden';
+}
+
+function closeNotificationModal(type) {
+    if (type == 'success') {
+        document.getElementById('successModal').style.opacity = 0;
+        document.getElementById('successModal').style.visibility = 'hidden';
+    } else if (type == 'error') {
+        document.getElementById('errorModal').style.opacity = 0;
+        document.getElementById('errorModal').style.visibility = 'hidden';
+    } else {
+        document.getElementById('uploadingModal').style.opacity = 0;
+        document.getElementById('uploadingModal').style.visibility = 'hidden';
+    }
+}
+
+function getFileNames(){
+    file = document.getElementById('uploadFile');
+
+    for (var i = 0; i < file.files.length; i++){
+        document.getElementById('itemset').innerHTML += '<div> <p>' + file.files[i].name + '</p> <img src="pictures/remove.png" alt=""> </div>';
+    }
 }
