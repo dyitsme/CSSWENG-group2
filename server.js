@@ -539,6 +539,14 @@ app.get('/select', (req, res)=>{
     })
     console.log(selected);
 })
+app.get('/selectfile', (req, res)=>{
+    Files.findOne({name: req.query.selected}, (err, ans)=>{
+        if(ans){
+            selected = ans._id;
+            nameselected = ans.name;
+        }
+    })
+})
 app.post('/rename-folder', (req, res)=>{
    
     Account.findOne({ username: req.session.name }, (err, user) => {
@@ -584,7 +592,9 @@ app.post('/rename-folder', (req, res)=>{
 app.post('/rename-file', (req, res)=>{
     Account.findOne({ username: req.session.name }, (err, user) => {
         if(directory == ""){
+          
             Files.findOne({_id:selected}, (err, file1)=>{
+                
                 if(file1){
                     Files.findOne({name:req.body.newname2}, (err, file2)=>{
                         if(!file2){

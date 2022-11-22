@@ -28,7 +28,7 @@ function closeForm() {
 
 function fileForm(identifier) {
     selected = identifier;
-    $.get('/select', { selected: selected }, (result) => { })
+    $.get('/selectfile', { selected: selected }, (result) => { })
     document.getElementById("filepop").style.display = "block";
 }
 
