@@ -211,6 +211,8 @@ body {
 }
 
 .action img {
+    height: 50px;
+    width: 50px;
     padding: 10px 0 10px 20px;
     border: none;
     border-radius: 20px 0 0 20px;
@@ -221,7 +223,7 @@ body {
 }
 
 .action button,
-label {
+.action label {
     padding: 10px 25px;
     border: none;
     border-radius: 0 20px 20px 0;
@@ -234,7 +236,7 @@ label {
     transition: 500ms;
 }
 
-.action input[type=file] {
+.action input[type=file], .file-modal input[type=file] {
     display: none;
 }
 

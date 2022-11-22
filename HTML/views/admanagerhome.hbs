@@ -4,6 +4,7 @@
         <script src="../../JS/querylib.js"></script>
         <script src="../../JS/redirect.js"></script>
         <link rel="stylesheet" href="../../CSS/homeStyle.css">
+        <link rel="stylesheet" href="../../CSS/modal.css">
     </head>
     <body>
         <div id="topbar">
@@ -28,12 +29,10 @@
             <h1 id="title">Files</h1>
             <h2 id="errorcode">{{error}}</h3>
             <div class="action">
-                <img src="/pictures/Upload.png" width="30px" height="30px" alt="">
-                <label for="uploadFile">Upload</label>
-
-                <form action="/uploadfile" method="post" enctype="multipart/form-data">
-                    <input type="file" id="uploadFile" onchange="this.form.submit()" name="file" multiple="multiple">
-                </form>
+                <div>
+                    <img src="/pictures/Upload.png" width="45px" height="30px" alt="">
+                    <button onclick="openFileModal()">Upload File</button>
+                </div>
                 <div>
                     <img src="/pictures/New Folder.png" width="45px" height="30px" alt="">
                     <button onclick="openForm()">New Folder</button>
@@ -95,7 +94,51 @@
                 <p onclick="deleteFile('{{this.name}}')">Delete</p>
             </div>
         {{/each}}
-       
+        </div>
+    
+        <form class="file-modal" id="fileModal" action="/uploadfile" method="POST" enctype="multipart/form-data">
+            <img class="exit" src="pictures/cross.png" alt="cross" onclick="closeFileModal()">
+
+            <input type="file" id="uploadFile" name="uploadFile" multiple="multiple" onchange="getFileNames()">
+
+            <label class="choose" for="uploadFile">
+                <p>Choose Files</p>
+                <img src="pictures/choose file.png" alt="">
+            </label>
+        
+            <div class="itemset" id="itemset">
+                <h1>File Name</h1>
+            </div>
+        
+            <div class="linear">
+                <input id="exclusiveAccess" type="checkbox" name="exclusiveAccess">
+                <label for="exclusiveAccess">Only Managers can access</label>
+                <input type="submit" value="Upload">
+            </div>
+        </form>
+
+        <div class="notification-modal success" id="successModal" style="visibility: {{vSuccess}}; opacity: {{oSuccess}};">
+            <img class="exit" src="pictures/cross.png" alt="cross" onclick="closeNotificationModal('{{type}}')">
+        
+            <div class="linear">
+                <img src="pictures/success.png" alt="">
+                <div>
+                    <h1>Success!</h1>
+                    <p>Your files are ready</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="notification-modal error" id="errorModal" style="visibility: {{vError}}; opacity: {{oError}};">
+            <img class="exit" src="pictures/cross.png" alt="cross" onclick="closeNotificationModal('{{type}}')">
+        
+            <div class="linear">
+                <img src="pictures/error.png" alt="">
+                <div>
+                    <h1>Error!</h1>
+                    <p>Files failed to upload</p>
+                </div>
+            </div>
         </div>
     </body>
 </html>

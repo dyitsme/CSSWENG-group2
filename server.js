@@ -143,7 +143,7 @@ app.get('/userhome', async(req, res)=>{
     fol="";
     directory="";
     folID = "";
-    const files  = await Files.find({parent:""});
+    const files  = await Files.find({access:"Unrestricted",parent:""});
     const folders = await Folders.find({access:"Unrestricted", parent:""});
     res.render('userhome.hbs', {folders,files});
 })
@@ -406,82 +406,82 @@ app.post('/createfolder', async(req, res) =>{
     
 });
 
-app.post('/uploadfile',  async(req, res)=> {
-    const files = req.files.file
+app.post('/uploadfile', async (req, res) => {
+    selectedAccess = null
+
+    if(req.body.exclusiveAccess){
+        selectedAccess = "Restricted"
+    } else {
+        selectedAccess = "Unrestricted"
+    }
+
+    const files = req.files.uploadFile
     arrDirect = directory.split("/");
-        if (Array.isArray(files)) {
-            Account.findOne({ username: req.session.name }, async(err, user) => {
-                files.forEach(file => {
-                   
-                        file.mv(path.resolve(__dirname, 'file', file.name), async(error) => {
-                           
-                            if(directory == ""){
-                                Files.create({ name: file.name, access: user.role, parent:"" }, (error, post) => { })
-                            }
-                            else{
-                                Files.create({ name: file.name, access: user.role, parent:folID }, (error, post) => { })
-                            }
-                        })
+    if (Array.isArray(files)) {
+        Account.findOne({ username: req.session.name }, async (err, user) => {
+            files.forEach(file => {
+                file.mv(path.resolve(__dirname, 'file', file.name), async (error) => {
+                    if (directory == "") {
+                        Files.create({ name: file.name, access: selectedAccess, parent: "" }, (error, post) => { })
+                    }
+                    else {
+                        Files.create({ name: file.name, access: selectedAccess, parent: folID }, (error, post) => { })
+                    }
                 })
             })
-        }
-        else {
-            Account.findOne({ username: req.session.name }, async(err, user) => {
-                
-                    files.mv(path.resolve(__dirname, 'file', files.name), async(error) => {
-                        if(directory ==""){
-                            Files.create({ name: files.name, access: user.role, parent:"" }, (error, post) => { })
-                        }
-                        else{
-                            Files.create({ name: files.name, access: user.role, parent:folID }, (error, post) => { })
-                        }
-                    });
-            })
-        }
-        await new Promise(resolve => setTimeout(resolve, 1000)); // for some reason it takes time for the file to be displayed
-    if(directory ==""){
-        
-        Account.findOne({username:req.session.name}, (err, user)=>{
-            
-            if(user.role == "Administrator" || user.role == "Manager"){
-                res.redirect('/admanagerhome');
-            }
-            else{
-                res.redirect('/userhome');
+        })
+    }
+    else {
+        Account.findOne({ username: req.session.name }, async (err, user) => {
+            files.mv(path.resolve(__dirname, 'file', files.name), async (error) => {
+                if (directory == "") {
+                    Files.create({ name: files.name, access: selectedAccess, parent: "" }, (error, post) => { })
+                }
+                else {
+                    Files.create({ name: files.name, access: selectedAccess, parent: folID }, (error, post) => { })
+                }
+            });
+        })
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 1000)); // for some reason it takes time for the file to be displayed
+    
+    if (directory == "") {
+        const files = await Files.find({ parent: "" });
+        const folders = await Folders.find({ parent: "" });
+        Account.findOne({ username: req.session.name }, (err, user) => {
+            if (err){
+                res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "registeruser", act: "redirectRegister()", Content: "Register a User", vError: 'visible' , oError: '1', type: 'error'});
             }
 
+            if (user.role == "Administrator") {
+                res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "registeruser", act: "redirectRegister()", Content: "Register a User", vSuccess: 'visible' , oSuccess: '1', type: 'success'});
+            }
         })
-    
     }
-    else{
-        
+    else {
         console.log("DIRECTORY NOT EMPTY");
         arrDirect = directory.split('/');
         Account.findOne({ username: req.session.name }, (err, user) => {
-                Folders.findOne({name:fol}, async(err, ans)=>{
-                    const resultingfolder = await Folders.find({parent: folID})
-                    const resultingfiles = await Files.find({parent: folID})
-                    console.log(resultingfolder);
-                    if(resultingfolder){
-                        if(user.role == 'Administrator'){
-                           console.log("ADMIN");
-                            res.render('admanagerhome.hbs', {folders: resultingfolder,files: resultingfiles, path:directory, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User" });
-                        }
-                        else if(user.role == "Manager"){
-                            res.render('admanagerhome.hbs', {folders: resultingfolder,files: resultingfiles, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;"});
-                        }
-                        else{
-                            res.render('userhome.hbs', {folders: resultingfolder,files: resultingfiles, path:directory});
-                        }
+            Folders.findOne({ name: fol }, async (err, ans) => {
+                const resultingfolder = await Folders.find({ parent: folID })
+                const resultingfiles = await Files.find({ parent: folID })
+                console.log(resultingfolder);
+                if (resultingfolder) {
+                    if (user.role == 'Administrator') {
+                        console.log("ADMIN");
+                        res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", ID: "registeruser", act: "redirectRegister()", Content: "Register a User" });
                     }
-                })
-               
-            
-            
+                    else if (user.role == "Manager") {
+                        res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", design: "background:transparent; border: none !important;cursor: context-menu;" });
+                    }
+                    else {
+                        res.render('userhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory });
+                    }
+                }
+            })
         });
     }
-    
-  
 });
 
 app.get('/delete-folder', (req, res) => {
@@ -539,6 +539,14 @@ app.get('/select', (req, res)=>{
     })
     console.log(selected);
 })
+app.get('/selectfile', (req, res)=>{
+    Files.findOne({name: req.query.selected}, (err, ans)=>{
+        if(ans){
+            selected = ans._id;
+            nameselected = ans.name;
+        }
+    })
+})
 app.post('/rename-folder', (req, res)=>{
    
     Account.findOne({ username: req.session.name }, (err, user) => {
@@ -584,7 +592,9 @@ app.post('/rename-folder', (req, res)=>{
 app.post('/rename-file', (req, res)=>{
     Account.findOne({ username: req.session.name }, (err, user) => {
         if(directory == ""){
+          
             Files.findOne({_id:selected}, (err, file1)=>{
+                
                 if(file1){
                     Files.findOne({name:req.body.newname2}, (err, file2)=>{
                         if(!file2){
