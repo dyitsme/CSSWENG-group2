@@ -215,6 +215,8 @@ body{
 #files_container{
     display: flex;
     flex-direction: column;
+    overflow-y:auto;
+    max-height:450px;
 }
 
 
@@ -225,6 +227,7 @@ body{
     height: 39px;
     align-items: center;
     border-bottom: 1px solid #000000;
+    padding: 8px 0 8px 0;
 }
 
 .file_icon{
@@ -248,6 +251,8 @@ body{
     display: flex;
     align-items: center;
     width: 1185px;
+    flex:5.2;
+   
 }
 
 .file_name{
@@ -259,19 +264,22 @@ body{
 
 .file_uploaded_by{
     margin-left: 8px;
-}
-
-.file_uploaded_by{
+    flex:1.6;
     width: 329px;
+  
 }
 
 .file_upload_date{
     margin-left: 8px;
     width: 157px;
+    flex:0.8;
+  
 }
 
 .file_size{
     margin-left: 8px;
+    flex:0.8;
+   
 }
 
 
@@ -282,6 +290,7 @@ body{
     height: 39px;
     align-items: center;
     border-bottom: 1px solid #000000;
+    padding:8px 0 8px 0;
 }
 
 .folder_icon{
@@ -301,6 +310,8 @@ body{
     display: flex;
     align-items: center;
     width: 1185px;
+    flex:5.2;
+  
 }
 
 .folder_name{
@@ -311,16 +322,17 @@ body{
 }
 
 .folder_uploaded_by{
-    margin-left: 8px;
-}
-
-.folder_uploaded_by{
     width: 329px;
+    margin-left: 8px;
+    flex:1.6;
+
 }
 
 .folder_upload_date{
     margin-left: 8px;
     width: 157px;
+    flex:0.8
+  
 }
 
 .formpopup {
@@ -512,7 +524,7 @@ body{
     text-overflow: ellipsis;
 }
 
-.context-menu {
+/* .context-menu {
     position: relative;
     visibility: hidden;
     width: 160px;
@@ -523,4 +535,4 @@ body{
     padding: 8px 0;
     z-index: 2;
     margin-left: -80px;
-}
+} */

@@ -1,6 +1,6 @@
 let selected = undefined;
 $(document).ready(function () {
-    var elements = document.getElementsByClassName('folder_div');
+    var elements = document.getElementsByClassName('folder_name_div');
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener('click', folderClick);
     }
@@ -25,30 +25,30 @@ function openForm() {
 function closeForm() {
     document.getElementById("popup").style.display = "none";
 }
-function fileForm(identifier){
+function fileForm(identifier) {
     selected = identifier;
-    $.get('/select',{selected:selected}, (result)=>{
-     
+    $.get('/select', { selected: selected }, (result) => {
+
     })
     document.getElementById("filepop").style.display = "block";
 }
-function folderForm(identifier){
+function folderForm(identifier) {
     selected = identifier;
-    $.get('/select',{selected:selected}, (result)=>{
-       
+    $.get('/select', { selected: selected }, (result) => {
+
     })
     document.getElementById("folderpop").style.display = "block";
 }
-function fileClose(){
+function fileClose() {
     document.getElementById("filepop").style.display = "none";
 }
-function folderClose(){
+function folderClose() {
     document.getElementById("folderpop").style.display = "none";
 }
 
 function fileForm(identifier) {
     selected = identifier;
-    $.get('/select', { selected: selected }, (result) => { })
+    $.get('/selectfile', { selected: selected }, (result) => { })
     document.getElementById("filepop").style.display = "block";
 }
 
@@ -150,6 +150,25 @@ function removeSelectedFileName(filename) {
     document.getElementById(filename).remove()
 }
 
+function openSelectable() {
+    document.getElementById('sa_div').style.display = 'flex';
+
+    checkboxes = document.getElementsByClassName('files_checkbox')
+    for (i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].style.display = "flex"
+    }
+}
+
+function getSelected(){
+    checkboxes = document.getElementsByClassName('files_checkbox')
+
+    selected = []
+    for(i = 0; i < checkboxes.length; i++){
+        selected.push(checkboxes[i].item.name)
+    }
+
+    console.log(selected);
+}
 function backFolder(){
-    location.href = "/back";
+    location.href ="/back";
 }

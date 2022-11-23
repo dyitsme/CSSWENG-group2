@@ -5,6 +5,7 @@
         <script src="../../JS/redirect.js"></script>
         <link rel="stylesheet" href="../../CSS/homeStyle.css">
         <link rel="stylesheet" href="../../CSS/modal.css">
+        <link rel="stylesheet" href="../../CSS/contextMenu.css">
          <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
     </head>
     <body>
@@ -25,7 +26,7 @@
             <div id="action_labels">
                 <h1>Files</h1>
                 <h2 id="errorcode">{{error}}</h3>
-                    <button id="upload_btn"><iconify-icon icon="material-symbols:upload" onclick="openFileModal()"></iconify-icon>Upload</button>
+                    <button id="upload_btn" onclick="openFileModal()"><iconify-icon icon="material-symbols:upload"></iconify-icon>Upload</button>
                     <button id="newfolder_btn" onclick="openForm()" class="next_btn"><iconify-icon icon="material-symbols:create-new-folder-outline"></iconify-icon>New Folder</button>
                     <button id="select_btn"  class="next_btn"><iconify-icon icon="material-symbols:select-check-box"></iconify-icon>Select</button>
                     
@@ -78,17 +79,18 @@
        
             <div id="files_container">
                 {{#each folders}}
-                    <div class="folder_div" id="{{this.name}}" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
-                        <div class="folder_name_div">
+                    <div class="folder_div" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
+                        <div class="folder_name_div" id="{{this.name}}">
                             <input type="checkbox" class="files_checkbox" name="{{this.name}}"><!--change the NAME of the checkbox for each folder name-->
                             <img class="folder_icon" src="../../UI/Folder Icon.png">
                             <label for="{{this.name}}" class="folder_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
                         </div>
                         <label for="{{this.name}}" class="folder_uploaded_by">SerChiefManager1</label><!--change the USERNAME and LABEL of the checkbox for each folder name-->
                         <label for="{{this.name}}" class="folder_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each folder name-->
-                    
+                        <label for="{{this.name}}" class="file_size"></label>
                         <div class="context-menu" id="{{this.name}} cm">
-                            <p onclick="folderForm('{{this.name}}')">Rename</p>
+                            <p onclick="">Move to Folder</p>
+                             <p onclick="folderForm('{{this.name}}')">Rename</p>
                             <p onclick="deleteFolder('{{this.name}}')">Delete</p>
                         </div>
                     </div>
@@ -105,12 +107,15 @@
                         <label for="{{this.name}}" class="file_uploaded_by">SerChiefManager1</label><!--change the USERNAME and LABEL of the checkbox for each filename-->
                         <label for="{{this.name}}" class="file_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each filename-->
                         <label for="{{this.name}}" class="file_size">135MB</label><!--change the SIZE and LABEL of the checkbox for each filename-->
-                    
-                        <div class="context-menu" id="{{this.name}} cm">
-                            <p onclick="fileForm('{{this.name}}')">Rename</p>
+                    <div class="context-menu" id="{{this.name}} cm">
+                            <p onclick="">Move to Folder</p>
+                             <p onclick="fileForm('{{this.name}}')">Rename</p>
+                            <p onclick="getSelected()">Download</p>
                             <p onclick="deleteFile('{{this.name}}')">Delete</p>
-                        </div>
                     </div>
+                        
+                    </div>
+                   
                 {{/each}}
                 
             

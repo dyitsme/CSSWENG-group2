@@ -676,7 +676,42 @@ app.post('/rename-file', (req, res)=>{
         
     })
 })
+app.get('/search-user', (req, res) => {
+    Account.findOne({ username: req.query.text_search }, (error, target_user) => {
+        if (target_user) {
+            res.render('edit-user.hbs', { username: req.query.text_search })
+        } else {
+            console.log("wala");
+        }
+    })
+});
 
+app.post('/change-selected-password', async (req, res) => {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    Account.updateOne({ username: req.query.text_search }, { pass: hashedPassword }, (error, success) => {
+        if (success) {
+            res.redirect('/search-user?text_search=' + req.query.text_search)
+        }
+    })
+});
+
+app.post('/edit-role', (req, res) => {
+    Account.updateOne({ username: req.query.text_search }, { role: req.body.role }, (error, success) => {
+        if (success) {
+            res.redirect('/search-user?text_search=' + req.query.text_search)
+        }
+    })
+});
+
+app.get('/delete-user', (req, res) => {
+    Account.deleteOne({ username: req.query.text_search }, (error, success) => {
+        if (success) {
+            res.redirect('/admanagerhome')
+        } else {
+            console.log("wala");
+        }
+    })
+});
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
 });

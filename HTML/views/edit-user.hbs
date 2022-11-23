@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>{{username}}</p>
+    
+    <button onclick="">Edit Password</button>
+
+    <form method="post" action="/change-selected-password?text_search={{username}}">
+        <input type="password" name="password" id="">
+        <input type="submit" value="Submit">
+    </form>
+
+    <button onclick="">Edit Role</button>
+    
+    <form method="post" action="/edit-role?text_search={{username}}">
+        <input type="text" name="role" id="">
+        <input type="submit" value="Submit">
+    </form>
+    
+    <button onclick="window.location.href='/delete-user?text_search={{username}}'">Delete Account</button>
+</body>
+</html>
