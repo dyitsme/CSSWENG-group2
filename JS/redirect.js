@@ -149,3 +149,7 @@ function removeSelectedFileName(filename) {
 
     document.getElementById(filename).remove()
 }
+
+function backFolder(){
+    location.href = "/back";
+}

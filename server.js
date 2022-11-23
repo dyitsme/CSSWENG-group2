@@ -9,6 +9,7 @@ const Account = require('./database/models/Account');
 const session = require('express-session');
 const Files = require('./database/models/Files');
 const Folders = require('./database/models/Folders');
+const { type } = require('os');
 fol = "";
 folID = "",
 directory = "";
@@ -58,6 +59,50 @@ app.get('/', async(req, res)=>{
     res.render('login.hbs');
 
 })
+app.get('/back', (req, res)=>{
+    arrDirect = directory.split('/');
+    arrDirect.pop();
+    directory = arrDirect.join('/');
+   console.log(directory);
+    Account.findOne({username:req.session.name}, (err, user)=>{
+        Folders.findOne({_id: folID }, (err, result)=>{
+            if(result){
+                console.log(result)
+                folID = result.parent;
+                if(result.parent != "" && result.parent != undefined){
+                    parentFol = result.parent
+                    Folders.findOne({_id:parentFol}, async(err, backfolder)=>{
+                        if(backfolder){
+                            fol = backfolder.name;
+                            const folders = await Folders.find({parent:backfolder._id});
+                            const files = await Files.find({parent:backfolder._id});
+                            if(user.role == "Administrator"){
+                                res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User", func:"backFolder()", contents:"<" });
+                            }
+                            else if(user.role == "Manager"){
+                                res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;", func:"backFolder()", contents:"<"  })
+                            }
+                            else{
+                                res.render('userhome.hbs', {folders: folders,files: files, path:directory, func:"backFolder()", contents:"<"  });
+                            }
+                        }
+                    })
+                }
+                else{
+                    console.log("userole:"+user.role)
+                    if(user.role == "Administrator" || user.role == "Manager"){
+                        res.redirect('/admanagerhome');
+                    }
+                    else{
+                        res.redirect('/userhome');
+                    }
+                }
+            }
+        })
+    })
+        
+   
+})
 app.get('/profile', (req,res)=>{
     Account.findOne({username: req.session.name}, (err, user)=>{
         if(user.role == "Administrator"){
@@ -82,11 +127,11 @@ app.get('/admanagerhome', async(req, res)=>{
     const folders = await Folders.find({parent:""});
     Account.findOne({username: req.session.name}, (err, user)=>{
         if(user.role == "Administrator"){
-            res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User" });
+            res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User",styling:"background:transparent; border: none !important;" });
         }
         else if(user.role == "Manager"){
             
-            res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;", folders, files })
+            res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;", folders, files,styling:"background:transparent; border: none !important;" })
         }
     })
    
@@ -122,18 +167,18 @@ app.get('/loadfolder', async(req, res)=>{
                 const folders = await Folders.find({parent: folID});
                 const files = await Files.find({parent: folID})
                 console.log("ADMIN");
-                res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User" });
+                res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User", func:"backFolder()", contents:"<"  });
             }
             else if(user.role == "Manager"){
                 const folders = await Folders.find({parent: folID});
                 const files = await Files.find({parent: folID})
                 console.log("Manager");
-                res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;" });
+                res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;", func:"backFolder()", contents:"<"  });
             }
             else{
                 const folders = await Folders.find({parent: folID, access:"Unrestricted"});
                 const files = await Files.find({parent: folID, access:"Unrestricted"})
-                res.render('userhome.hbs', {folders: folders,files: files, path:directory })
+                res.render('userhome.hbs', {folders: folders,files: files, path:directory, func:"backFolder()", contents:"<"  })
             }
             
         })
@@ -145,7 +190,7 @@ app.get('/userhome', async(req, res)=>{
     folID = "";
     const files  = await Files.find({access:"Unrestricted",parent:""});
     const folders = await Folders.find({access:"Unrestricted", parent:""});
-    res.render('userhome.hbs', {folders,files});
+    res.render('userhome.hbs', {folders,files,styling:"background:transparent; border: none !important;"});
 })
 app.get('/register', (req, res)=>{
     res.render('register.hbs');
@@ -342,10 +387,10 @@ app.post('/createfolder', async(req, res) =>{
                     if(user.role == 'Administrator'){
                         
                     
-                        res.render('admanagerhome.hbs',{error:"Folder name already exists", folders: folders,files: files, path:directory, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User" });
+                        res.render('admanagerhome.hbs',{error:"Folder name already exists", folders: folders,files: files, path:directory, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User",styling:"background:transparent; border: none !important;" });
                     }
                     else if(user.role == 'Manager'){
-                        res.render('admanagerhome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;"})
+                        res.render('admanagerhome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;",styling:"background:transparent; border: none !important;"})
                     }
                    
                 });
@@ -370,10 +415,10 @@ app.post('/createfolder', async(req, res) =>{
                     const folders  = await Folders.find({parent: folID});
                     const files = await Files.find({parent: folID});
                     if(user.role == 'Administrator'){
-                        res.render('admanagerhome.hbs',{folders: folders,files: files, path:directory, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User" });
+                        res.render('admanagerhome.hbs',{folders: folders,files: files, path:directory, link: "/admanagerhome", ID: "registeruser", act:"redirectRegister()", Content:"Register a User", func:"backFolder()", contents:"<"  });
                     }
                     else{
-                        res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;" });
+                        res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;", func:"backFolder()", contents:"<"  });
                     }
                     
                     
@@ -387,10 +432,10 @@ app.post('/createfolder', async(req, res) =>{
                 const folders  = await Folders.find({parent: folID});
                 const files = await Files.find({parent: folID});
                 if(user.role == 'Administrator'){
-                    res.render('admanagerhome.hbs',{error:"Folder name already exists", folders: folders, files: files});
+                    res.render('admanagerhome.hbs',{error:"Folder name already exists", folders: folders, files: files, func:"backFolder()", contents:"<" });
                 }
                 else{
-                    res.render('admanagerhome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;" });
+                    res.render('admanagerhome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"background:transparent; border: none !important;cursor: context-menu;", func:"backFolder()", contents:"<---"  });
                 }
                 
             });
