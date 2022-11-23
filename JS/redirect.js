@@ -1,6 +1,6 @@
 let selected = undefined;
 $(document).ready(function () {
-    var elements = document.getElementsByClassName('folder');
+    var elements = document.getElementsByClassName('folder_div');
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener('click', folderClick);
     }
