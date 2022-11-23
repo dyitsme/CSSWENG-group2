@@ -21,7 +21,7 @@
         </div>
     
 
-        <div class="main_body">
+        <div id="main_body">
             <div id="action_labels">
                 <h1>Files</h1>
                 <h2 id="errorcode">{{error}}</h3>
@@ -76,7 +76,7 @@
                 <label id="sa_label" for="select_all">Select All</label>
             </div>        
        
-            <div class="files_container">
+            <div id="files_container">
                 {{#each folders}}
                     <div class="folder_div" id="{{this.name}}" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
                         <div class="folder_name_div">
@@ -84,12 +84,13 @@
                             <img class="folder_icon" src="../../UI/Folder Icon.png">
                             <label for="{{this.name}}" class="folder_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
                         </div>
-                    <label for="{{this.name}}" class="folder_uploaded_by">SerChiefManager1</label><!--change the USERNAME and LABEL of the checkbox for each folder name-->
-                    <label for="{{this.name}}" class="folder_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each folder name-->
+                        <label for="{{this.name}}" class="folder_uploaded_by">SerChiefManager1</label><!--change the USERNAME and LABEL of the checkbox for each folder name-->
+                        <label for="{{this.name}}" class="folder_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each folder name-->
                     
-                    <div class="context-menu" id="{{this.name}} cm">
-                        <p onclick="folderForm('{{this.name}}')">Rename</p>
-                        <p onclick="deleteFolder('{{this.name}}')">Delete</p>
+                        <div class="context-menu" id="{{this.name}} cm">
+                            <p onclick="folderForm('{{this.name}}')">Rename</p>
+                            <p onclick="deleteFolder('{{this.name}}')">Delete</p>
+                        </div>
                     </div>
                 {{/each}}
 
@@ -104,12 +105,12 @@
                         <label for="{{this.name}}" class="file_uploaded_by">SerChiefManager1</label><!--change the USERNAME and LABEL of the checkbox for each filename-->
                         <label for="{{this.name}}" class="file_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each filename-->
                         <label for="{{this.name}}" class="file_size">135MB</label><!--change the SIZE and LABEL of the checkbox for each filename-->
-                    </div>
-                    <div class="context-menu" id="{{this.name}} cm">
-                        <p onclick="fileForm('{{this.name}}')">Rename</p>
-                        <p onclick="deleteFile('{{this.name}}')">Delete</p>
-                    </div>
                     
+                        <div class="context-menu" id="{{this.name}} cm">
+                            <p onclick="fileForm('{{this.name}}')">Rename</p>
+                            <p onclick="deleteFile('{{this.name}}')">Delete</p>
+                        </div>
+                    </div>
                 {{/each}}
                 
             
