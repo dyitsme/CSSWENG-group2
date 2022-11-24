@@ -539,15 +539,21 @@ body{
     text-overflow: ellipsis;
 }
 
-/* .context-menu {
-    position: relative;
+#multContext {
+    position: fixed; /* Stay in place */
+    left:40%;
+    top:10%;
+    display: flex;
+    flex-flow: column;
     visibility: hidden;
-    width: 160px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    z-index: 2;
-    margin-left: -80px;
-} */
+    width: 250px;
+    padding: 25px;
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.5);
+    background-color: rgb(203, 203, 203);
+}
+
+#multContext p {
+    border-bottom: 1px solid black;
+}

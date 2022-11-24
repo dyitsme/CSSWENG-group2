@@ -28,7 +28,7 @@
                 <h2 id="errorcode">{{error}}</h3>
                     <button id="upload_btn" onclick="openFileModal()"><iconify-icon icon="material-symbols:upload"></iconify-icon>Upload</button>
                     <button id="newfolder_btn" onclick="openForm()" class="next_btn"><iconify-icon icon="material-symbols:create-new-folder-outline"></iconify-icon>New Folder</button>
-                    <button id="select_btn"  class="next_btn"><iconify-icon icon="material-symbols:select-check-box"></iconify-icon>Select</button>
+                    <button id="select_btn"  class="next_btn" onclick="toggleSelect()"><iconify-icon icon="material-symbols:select-check-box"></iconify-icon>Select</button>
                     
                         <form class="formpopup" id="popup" method="POST" action="/createfolder">
                             <div class="popup-content">
@@ -73,15 +73,18 @@
                 <div class="upload_size_div"><p class="bordered" id="upload_size">File Size</p></div>
             </div>
             <div id="sa_div">
-                <input type="checkbox" class="checkbox" id="selectall_checkbox" name="select_all">
+                <input type="checkbox" class="checkbox" id="selectall_checkbox" name="select_all" onchange="toggleSelectAll()">
                 <label id="sa_label" for="select_all">Select All</label>
+            </div>
+            <div id="multContext">
+                <p onclick="deleteMany()">Delete Selected</p>
             </div>        
        
             <div id="files_container">
                 {{#each folders}}
                     <div class="folder_div" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
+                         <input type="checkbox" class="files_checkbox" onchange="checkSelectAll()" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
                         <div class="folder_name_div" id="{{this.name}}">
-                            <input type="checkbox" class="files_checkbox" name="{{this.name}}"><!--change the NAME of the checkbox for each folder name-->
                             <img class="folder_icon" src="../../UI/Folder Icon.png">
                             <label for="{{this.name}}" class="folder_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
                         </div>
@@ -99,8 +102,8 @@
 
                 {{#each files}}
                     <div class="file_div" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
+                        <input type="checkbox" class="files_checkbox" onchange="checkSelectAll()" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
                         <div class="file_name_div">
-                            <input type="checkbox" class="files_checkbox" name="{{this.name}}"><!--change the NAME of the checkbox for each filename-->
                             <img class="file_icon" src="../../UI/File Icon.png">
                             <label for="{{this.name}}" class="file_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each filename-->
                         </div>

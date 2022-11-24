@@ -13,7 +13,6 @@ const { type } = require('os');
 fol = "";
 folID = "",
 directory = "";
-iter={};
 selected="";
 nameselected="",
 app.use(session({
@@ -712,6 +711,42 @@ app.get('/delete-user', (req, res) => {
         }
     })
 });
+app.get('/deleteManyResult', async(req,res)=>{
+    if(directory == ""){
+        res.redirect('/admanagerhome');
+    }
+    else{
+        const folders = await Folders.find({parent:folID});
+        const files = await Files.find({parent:folID});
+        Account.findOne({username:req.session.name}, (err, user)=>{
+            if(user){
+                if(user.role == 'Administrator'){
+                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User", func:"backFolder()", contents:"<"})
+                }
+                else{
+                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()", contents:"<"})
+                }
+            }
+        })
+    }
+})
+app.get('/deleteMany', async(req, res)=>{
+    arrSelected = req.query.arrDelete;
+    for(let i = 0; i < arrSelected.length; i++){
+        console.log(arrSelected[i]);
+        Files.deleteOne({_id: arrSelected[i]}, (err, ans1)=>{
+            if(ans1){
+                console.log(ans1);
+            }
+        })
+        Folders.deleteOne({_id: arrSelected[i]}, (err, ans2)=>{
+            if(ans2){
+                console.log(ans2);
+            }
+        })   
+    }
+   
+})
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
 });

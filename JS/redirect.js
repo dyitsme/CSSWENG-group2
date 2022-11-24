@@ -1,4 +1,6 @@
 let selected = undefined;
+var btnCount = 0;
+var allBtn = 0;
 $(document).ready(function () {
     var elements = document.getElementsByClassName('folder_name_div');
     $('#trap').remove();
@@ -172,4 +174,55 @@ function getSelected(){
 }
 function backFolder(){
     location.href ="/back";
+}
+function toggleSelect(){
+    
+    if(btnCount % 2 != 0){
+        $(".files_checkbox").css('display', 'none');
+        $("#sa_div").css('display', 'none');
+        document.getElementById("multContext").style.visibility = "hidden";
+        btnCount += 1;
+    }
+    else{
+        $(".files_checkbox").css('display', 'inline-block');
+        $("#sa_div").css('display', 'flex');
+        document.getElementById("multContext").style.visibility = "visible";
+        btnCount += 1;
+    }
+   
+}
+function toggleSelectAll(){
+    if(allBtn % 2 != 0){
+        $(".files_checkbox").prop('checked', false);
+        allBtn += 1;
+    }
+    else{
+        $(".files_checkbox").prop('checked', true);
+        allBtn += 1;
+    }
+}
+// function checkSelectAll(){
+//     arrSelected=[];
+//     var filesCount = $(".files_checkbox").length;
+//     const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
+//     checkboxes.forEach((checkbox)=>{
+//         arrSelected.push(checkbox.value);
+//     });
+//     if(filesCount != arrSelected.length){
+//         $("#selectall_checkbox").prop('checked', false);
+//     }
+// }
+
+function deleteMany(){
+    let arrSelected = [];
+    const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
+    checkboxes.forEach((checkbox)=>{
+        arrSelected.push(checkbox.value);
+    });
+    if(arrSelected && arrSelected.length){
+        $.get("/deleteMany", {arrDelete : arrSelected}, (result)=>{
+        });
+        location.href="/deleteManyResult";
+    }
+    
 }
