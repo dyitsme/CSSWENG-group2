@@ -1,6 +1,7 @@
 let selected = undefined;
 $(document).ready(function () {
     var elements = document.getElementsByClassName('folder_name_div');
+    $('#trap').remove();
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener('click', folderClick);
     }
