@@ -32,10 +32,10 @@
             </div>
         
             <div id="title_bar">
-                <p id="name">Name</p>
-                <p class="bordered" id="uploader">Uploaded By</p>
-                <p class="bordered" id="upload_date">Upload Date</p>
-                <p class="bordered" id="upload_size">File Size</p>
+                <div class="name_div"><p id="name">Name</p></div>
+                <div class="uploader_div"><p class="bordered" id="uploader">Uploaded By</p></div>
+                <div class="upload_date_div"><p class="bordered" id="upload_date">Upload Date</p></div>
+                <div class="upload_size_div"><p class="bordered" id="upload_size">File Size</p></div>
             </div>
                     
        
@@ -49,6 +49,7 @@
                         </div>
                         <label for="{{this.name}}" class="folder_uploaded_by">SerChiefManager1</label><!--change the USERNAME and LABEL of the checkbox for each folder name-->
                         <label for="{{this.name}}" class="folder_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each folder name-->
+                        <label for="{{this.name}}" class="file_size"></label><!--change the SIZE and LABEL of the checkbox for each filename-->
             
                     </div>
                 {{/each}}
