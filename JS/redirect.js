@@ -224,5 +224,8 @@ function deleteMany(){
         });
         location.href="/deleteManyResult";
     }
-    
+}
+
+function file_folder_search() {
+    setTimeout(file_folder_searched(), 100000);
 }

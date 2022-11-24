@@ -685,6 +685,26 @@ app.get('/search-user', (req, res) => {
     })
 });
 
+app.get('/search', async (req, res) => {
+    const files = await Files.find({ name: { $regex: req.query.text_search } });
+    const folders = await Folders.find({ name: { $regex: req.query.text_search } });
+
+    Account.findOne({ username: req.query.text_search }, (error, target_user) => {
+        if (target_user) {
+            return res.render('edit-user.hbs', { username: req.query.text_search })
+        } else {
+            Account.findOne({ username: req.session.name }, (err, user) => {
+                if (user.role == "Administrator") {
+                    return res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content: "Register a User", styling: "background:transparent; border: none !important;" });
+                }
+                else if (user.role == "Manager") {
+                    return res.render('admanagerhome.hbs', { link: "/admanagerhome", design: "trap", folders, files, styling: "background:transparent; border: none !important;" })
+                }
+            });
+        }
+    });
+});
+
 app.post('/change-selected-password', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
     Account.updateOne({ username: req.query.text_search }, { pass: hashedPassword }, (error, success) => {
