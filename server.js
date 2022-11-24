@@ -431,10 +431,10 @@ app.post('/createfolder', async(req, res) =>{
                 const folders  = await Folders.find({parent: folID});
                 const files = await Files.find({parent: folID});
                 if(user.role == 'Administrator'){
-                    res.render('admanagerhome.hbs',{error:"Folder name already exists", folders: folders, files: files, func:"backFolder()", contents:"<" });
+                    res.render('admanagerhome.hbs',{error:"Folder name already exists", folders: folders, files: files, func:"backFolder()", contents:"<", ID: "/register", Content:"Register a User" });
                 }
                 else{
-                    res.render('admanagerhome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()", contents:"<---"  });
+                    res.render('admanagerhome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()", contents:"<"  });
                 }
                 
             });
@@ -510,19 +510,17 @@ app.post('/uploadfile', async (req, res) => {
             Folders.findOne({ name: fol }, async (err, ans) => {
                 const resultingfolder = await Folders.find({ parent: folID })
                 const resultingfiles = await Files.find({ parent: folID })
-                console.log(resultingfolder);
-                if (resultingfolder) {
                     if (user.role == 'Administrator') {
                         console.log("ADMIN");
-                        res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", ID: "/register", Content:"Register a User" });
+                        res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",func:"backFolder()", contents:"<" });
                     }
                     else if (user.role == "Manager") {
-                        res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", design:"trap" });
+                        res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", design:"trap",func:"backFolder()", contents:"<" });
                     }
                     else {
-                        res.render('userhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory });
+                        res.render('userhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory,func:"backFolder()", contents:"<" });
                     }
-                }
+                
             })
         });
     }
