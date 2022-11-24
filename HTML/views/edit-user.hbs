@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../CSS/edit-admin.css">
+    <title>G. Ilagan Designs and Construction</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <img class="logo" src="pictures/logo.png" alt="logo">
+        <a class="link" href="">Files</a>
+        <a class="link" href="">Profile Name</a>
+        <a class="link" href="">Logout</a>
+    </div>
+
+    <div class="screen">
+        <p class="title">{{username}}</p>
+
+        <div class="container">
+            <p class="title">Edit Password</p>
+
+            <form class="edit" method="post" action="/change-selected-password?text_search={{username}}">
+                <input type="password" name="password" id="">
+                <input type="submit" value="Submit">
+            </form>
+
+            <p class="title">Edit Role</p>
+
+            <form class="edit" method="post" action="/edit-role?text_search={{username}}">
+                <input type="text" name="role" id="">
+                <input type="submit" value="Submit">
+            </form>
+
+            <button class="delete" onclick="window.location.href='/delete-user?text_search={{username}}'">Delete Account</button>
+        </div>
+    </div>
+</body>
+
+</html>
