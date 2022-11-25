@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>G. Ilagan Designs and Construction</title>
+        <script src="../../JS/querylib.js"></script>
+        <script src="../../JS/redirect.js"></script>
+        <link rel="stylesheet" href="../../CSS/profileStyle.css">
+    </head>
+    <body>
+        <div id="topbar">
+            <div id="redbox">
+                <nav id="navbar">
+                    <button id="logout" onclick="logoutUser()">Logout</button>
+                </nav>
+            </div>
+    
+            <a href="{{link}}">Files</a>
+            <a href="/profile">Profile</a>
+
+            <form class="search" action="">
+                <input type="image" src="/pictures/Search.png">
+                <input type="text" placeholder="Search">
+            </form>
+        </div>
+        <div id="profpage">
+            <h1 id="profname">{{profilename}}</h1>
+            <h1 id="role">{{role}}</h2>
+            <button id="passbutton" onclick="changePassword()">Edit Password</button>
+            <br>
+            <button id="{{C}}" style="{{design}}" onclick="{{act}}">{{content}}</button>
+           
+        </div>
+
+       
+
+        
+    </body>
+</html>

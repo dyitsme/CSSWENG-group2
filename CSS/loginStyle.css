@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+html,
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #ECECEC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loginform{
+    width: 580;
+    height: 670;
+    background-color: white;
+    border: 1px solid #b1b1b1;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#loginform img{
+    width: 400px;
+    height: 115px;
+    -webkit-user-drag: none;
+}
+
+#loginpost {
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px;
+}
+
+#username,#password,#loginButton{
+    height: 50px;
+    width: 360px;
+    margin-bottom: 34px;
+    border: 0;
+    border-radius: 10px;
+}
+
+#username,#password{
+    background-color: #ececec;
+    font: 24px 'Roboto';
+    padding-left: 10px;
+}
+
+#username:focus,#password:focus{
+    outline: none;
+}
+
+#loginButton{
+    background: #1E3F5A;
+    color: white;
+    font: 700 24px 'Roboto';
+    text-align: center;
+}
+
+#loginButton:hover{
+    transform: scale(1.05);
+}
+
+#error {
+    font: 400 24px "Roboto";
+    color: #BF0707;
+    text-align: center;
+}
