@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G. Ilagan Designs and Construction</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <img class="logo" src="images/logo.png" alt="logo">
+        <a class="link" href="">Files</a>
+        <a class="link" href="">Profile Name</a>
+        <a class="link" href="">Logout</a>
+    </div>
+
+    <div class="screen">
+        <h1 class="title">User Creation</h1>
+        <div class="container">
+            <img class="logo" src="images/logo with text.png" alt="">
+            <form class="register" action="#">
+                <input type="text" name="username-register" placeholder="Username">
+                <p class="error">Username already exists, please use another username</p>
+                <input type="password" name="password-register" placeholder="Password">
+                <p class="error">Please input a password</p>
+                <select id="roles" name="roles" required="true">
+                    <option value="" selected disabled hidden>Role</option>
+                    <option value="Employee">Employee</option>
+                    <option value="Manager">Manager</option>
+                </select>
+                <input type="submit" value="Create User">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

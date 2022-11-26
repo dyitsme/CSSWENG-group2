@@ -9,12 +9,13 @@
         <div id="topbar">
             <div id="redbox">
                 <nav id="navbar">
+                    <button id="registeruser" onclick="redirectRegister()">Register an Account</button>
                     <button id="changePassword" onclick="changePassword()">Change Password</button>
                     <button id="logout" onclick="logoutUser()">Logout</button>
                 </nav>
             </div>
     
-            <a href="/userhome">Files</a>
+            <a href="/adminhome">Files</a>
             <a href="/profile">Profile</a>
 
             <form class="search" action="">
@@ -26,7 +27,26 @@
         <div class="title-action">
             <h1 id="title">Files</h1>
             <h2 id="errorcode">{{error}}</h3>
-            
+            <div class="action">
+                <img src="/pictures/Upload.png" width="30px" height="30px" alt="">
+                <label for="uploadFile">Upload</label>
+
+                <form action="/uploadfile" method="post" enctype="multipart/form-data">
+                    <input type="file" id="uploadFile" onchange="this.form.submit()" name="file" multiple="multiple">
+                </form>
+                <div>
+                    <img src="/pictures/New Folder.png" width="45px" height="30px" alt="">
+                    <button onclick="openForm()">New Folder</button>
+                    <form class="formpopup" id="popup" method="POST" action="/createfolder">
+                        <div id="popup-content">
+                            <label for="foldername"><b>Folder Name:</b></label>
+                            <input type="text" placeholder="Name" name="foldername" required>
+                            <button type="submit" id="createbutton">Create Folder</button>
+                            <button type="button" id="cancelbutton" onclick="closeForm()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         <h2>{{path}}</h2>
         <div class="folder-file">
@@ -44,7 +64,7 @@
                 <p>{{name}}</p>
             </div>
         {{/each}}
+       
         </div>
-        
     </body>
 </html>

@@ -1,16 +1,12 @@
 .context-menu {
-    position: fixed; /* Stay in place */
-    left:40%;
-    top:10%;
     display: flex;
     flex-flow: column;
-    visibility: hidden;
+
     width: 250px;
     padding: 25px;
     border: 1px solid black;
     border-radius: 15px;
     box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.5);
-    background-color: rgb(203, 203, 203);
 }
 
 .context-menu p {
