@@ -328,6 +328,13 @@ body{
     flex:5.2;
   
 }
+.folder_move_div{
+    display: flex;
+    align-items: center;
+    width: 1185px;
+    flex:5.2;
+  
+}
 
 .folder_name{
     margin-left: 8px;
@@ -557,3 +564,4 @@ body{
 #multContext p {
     border-bottom: 1px solid black;
 }
+

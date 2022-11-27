@@ -7,6 +7,10 @@ $(document).ready(function () {
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener('click', folderClick);
     }
+    var elements1 = document.getElementsByClassName('folder_move_div');
+    for (var i = 0; i < elements1.length; i++) {
+        elements1[i].addEventListener('click', folderClickMove);
+    }
 })
 
 function redirectRegister() {
@@ -228,4 +232,36 @@ function deleteMany(){
 
 function file_folder_search() {
     setTimeout(file_folder_searched(), 100000);
+}
+
+function moveSingle(identifier){
+    
+    document.getElementById("blocker").style.display = "block";
+    document.getElementById("move_modal").style.visibility = "visible";
+    $.get("/getMove", {arrFilter: identifier}, (result)=>{
+
+    });
+    location.href="/filterSelected";
+}
+function cancelMov(){
+    document.getElementById("blocker").style.display = "none";
+    document.getElementById("move_modal").style.visibility = "hidden";
+}
+function folderClickMove(){
+    var folderName = this.getAttribute("id");
+    var length = folderName.length;
+    folderName = folderName.slice(0, folderName.length - 4);
+    console.log(folderName);
+ 
+        $.get('/movfolder', { folder: folderName }, function (result) {
+            if (result) {
+                location.href = "/movloadfolder";
+            }
+        });
+   
+    
+}
+function moveHere(){
+    location.href="/moveAction";
+    
 }

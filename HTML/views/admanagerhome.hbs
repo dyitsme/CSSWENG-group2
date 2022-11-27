@@ -78,7 +78,8 @@
             </div>
             <div id="multContext">
                 <p onclick="deleteMany()">Delete Selected</p>
-            </div>        
+            </div>
+                  
        
             <div id="files_container">
                 {{#each folders}}
@@ -92,7 +93,7 @@
                         <label for="{{this.name}}" class="folder_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each folder name-->
                         <label for="{{this.name}}" class="file_size"></label>
                         <div class="context-menu" id="{{this.name}} cm">
-                            <p onclick="">Move to Folder</p>
+                            <p onclick="moveSingle('{{this._id}}')">Move to Folder</p>
                              <p onclick="folderForm('{{this.name}}')">Rename</p>
                             <p onclick="deleteFolder('{{this.name}}')">Delete</p>
                         </div>
@@ -111,7 +112,7 @@
                         <label for="{{this.name}}" class="file_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each filename-->
                         <label for="{{this.name}}" class="file_size">135MB</label><!--change the SIZE and LABEL of the checkbox for each filename-->
                     <div class="context-menu" id="{{this.name}} cm">
-                            <p onclick="">Move to Folder</p>
+                            <p onclick="moveSingle('{{this._id}}')">Move to Folder</p>
                              <p onclick="fileForm('{{this.name}}')">Rename</p>
                             <p onclick="getSelected()">Download</p>
                             <p onclick="deleteFile('{{this.name}}')">Delete</p>
@@ -120,7 +121,20 @@
                     </div>
                    
                 {{/each}}
-                
+                <div id="blocker" style="{{blockermodal}}">
+                    <div id="move_modal" style="{{movemodal}}">
+                        <button onclick="cancelMov()">Cancel</button>
+                        <button onclick="moveHere()">Move here</button>
+                        {{#each movFolder}}
+                        <div class="folder_div" oncontextmenu="moveMenu('{{this.name}} cm'); return false">
+                            <div class="folder_move_div" id="{{this.name}} mov">
+                                <img class="folder_icon" src="../../UI/Folder Icon.png">
+                                <label for="{{this.name}} mov" class="folder_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
             
                 <form class="file-modal" id="fileModal" action="/uploadfile" method="POST" enctype="multipart/form-data">
                     <img class="exit" src="../../pictures/cross.png" alt="cross" onclick="closeFileModal()">

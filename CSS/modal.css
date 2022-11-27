@@ -334,3 +334,37 @@
 .error .linear h1 {
     color: var(--dark-red);
 }
+#move_modal{
+    visibility:hidden;
+    right:50%;
+    top:25%;
+    position:fixed;
+    border-radius: 10px;
+    box-shadow: 0 0 8px var(--transparent-black);
+    width:800px;
+    height:600px;
+   z-index: 100;
+   overflow: auto; /* Enable scroll if needed */
+   background-color:#ffffff;
+}
+#move_modal button{
+    padding: 5px;
+    margin:5px 0 5px 2px;
+    font: 20px "Roboto";
+    width:150px;
+    height:55px;
+    border-radius:10px;
+   cursor:pointer;
+}
+#blocker {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
