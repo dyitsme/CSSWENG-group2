@@ -1,6 +1,9 @@
 let selected = undefined;
+var btnCount = 0;
+var allBtn = 0;
 $(document).ready(function () {
-    var elements = document.getElementsByClassName('folder');
+    var elements = document.getElementsByClassName('folder_name_div');
+    $('#trap').remove();
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener('click', folderClick);
     }
@@ -168,4 +171,61 @@ function getSelected(){
     }
 
     console.log(selected);
+}
+function backFolder(){
+    location.href ="/back";
+}
+function toggleSelect(){
+    
+    if(btnCount % 2 != 0){
+        $(".files_checkbox").css('display', 'none');
+        $("#sa_div").css('display', 'none');
+        document.getElementById("multContext").style.visibility = "hidden";
+        btnCount += 1;
+    }
+    else{
+        $(".files_checkbox").css('display', 'inline-block');
+        $("#sa_div").css('display', 'flex');
+        document.getElementById("multContext").style.visibility = "visible";
+        btnCount += 1;
+    }
+   
+}
+function toggleSelectAll(){
+    if(allBtn % 2 != 0){
+        $(".files_checkbox").prop('checked', false);
+        allBtn += 1;
+    }
+    else{
+        $(".files_checkbox").prop('checked', true);
+        allBtn += 1;
+    }
+}
+// function checkSelectAll(){
+//     arrSelected=[];
+//     var filesCount = $(".files_checkbox").length;
+//     const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
+//     checkboxes.forEach((checkbox)=>{
+//         arrSelected.push(checkbox.value);
+//     });
+//     if(filesCount != arrSelected.length){
+//         $("#selectall_checkbox").prop('checked', false);
+//     }
+// }
+
+function deleteMany(){
+    let arrSelected = [];
+    const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
+    checkboxes.forEach((checkbox)=>{
+        arrSelected.push(checkbox.value);
+    });
+    if(arrSelected && arrSelected.length){
+        $.get("/deleteMany", {arrDelete : arrSelected}, (result)=>{
+        });
+        location.href="/deleteManyResult";
+    }
+}
+
+function file_folder_search() {
+    setTimeout(file_folder_searched(), 100000);
 }

@@ -187,6 +187,7 @@
     border-radius: 5px;
 
     font: 400 16px 'Inter';
+    overflow-y: scroll;
 }
 
 .file-modal .itemset h1 {

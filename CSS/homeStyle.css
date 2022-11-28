@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Inter');
+html,
 body{
     margin: 0;
     padding: 0;
 }
-
-/* TOP BAR TOP BAR TOP BAR TOP BAR TOP BAR TOP BAR TOP BAR TOP BAR */
 
 #topbar{
     display: flex;
@@ -14,6 +13,8 @@ body{
     background-color: #f0f0f0;
     margin-bottom: 0;
 }
+
+
 
 #topbar a{
     align-self: center;
@@ -34,10 +35,6 @@ body{
     margin-left: 10px; 
 }
 
-#topbar a :hover{
-    font: 20px "Roboto";
-    margin: 21px 0 0 24px;
-}
 
 #top_search{
     display: flex;
@@ -53,6 +50,7 @@ body{
 
 #top_search button{
     border: 0;
+    padding: 5px;
     outline: none;
     background: transparent;
     cursor: pointer;
@@ -72,8 +70,6 @@ body{
     margin: 0;
     padding: 0 50px;
 }
-
-/* LABEL AND BUTTONS LABEL AND BUTTONS LABEL AND BUTTONS LABEL AND BUTTONS LABEL AND BUTTONS */
 
 #action_labels{
     display: flex;
@@ -118,8 +114,6 @@ body{
     background-color: #1E3F5A;
 }
 
-/* BREADCRUMB BREADCRUMB BREADCRUMB BREADCRUMB BREADCRUMB BREADCRUMB BREADCRUMB */
-
 #breadcrumb{
     display: flex;
     height: 33px;
@@ -127,7 +121,6 @@ body{
     padding: 0;
     
 }
-
 #breadcrumb button{
     width: 35px;
     height: 33px; 
@@ -180,22 +173,37 @@ body{
     border-left: 1px solid #000000;
 }
 
-#name{
-    margin-left: 5px;
+.name_div {
+    flex: 5.0;
+}
+
+.uploader_div {
+    flex: 1.6;
+}
+
+.upload_date_div {
+    flex: 0.8;
+}
+
+.upload_size_div {
+    flex: 0.8;
+}
+
+/* #name{
+    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
 }
 
 #upload_date{
-    margin-right: 8px;
+    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
 }
 
 #upload_size{
-    margin-right: 26px;
+    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
 }
 
 #uploader{
-    margin-left: auto;
-    margin-right: 175px;
-}
+    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
+} */
 
 /* SELECT ALL SELECT ALL SELECT ALL SELECT ALL SELECT ALL SELECT ALL SELECT ALL */
 
@@ -222,6 +230,8 @@ body{
 #files_container{
     display: flex;
     flex-direction: column;
+    overflow-y:auto;
+    max-height:60vh;
 }
 
 
@@ -232,6 +242,7 @@ body{
     height: 39px;
     align-items: center;
     border-bottom: 1px solid #000000;
+    padding: 8px 0 8px 0;
 }
 
 .file_icon{
@@ -255,6 +266,8 @@ body{
     display: flex;
     align-items: center;
     width: 1185px;
+    flex:5.2;
+   
 }
 
 .file_name{
@@ -266,19 +279,22 @@ body{
 
 .file_uploaded_by{
     margin-left: 8px;
-}
-
-.file_uploaded_by{
+    flex:1.6;
     width: 329px;
+  
 }
 
 .file_upload_date{
     margin-left: 8px;
     width: 157px;
+    flex:0.8;
+  
 }
 
 .file_size{
     margin-left: 8px;
+    flex:0.8;
+   
 }
 
 
@@ -289,6 +305,7 @@ body{
     height: 39px;
     align-items: center;
     border-bottom: 1px solid #000000;
+    padding:8px 0 8px 0;
 }
 
 .folder_icon{
@@ -308,6 +325,8 @@ body{
     display: flex;
     align-items: center;
     width: 1185px;
+    flex:5.2;
+  
 }
 
 .folder_name{
@@ -318,76 +337,230 @@ body{
 }
 
 .folder_uploaded_by{
-    margin-left: 8px;
-}
-
-.folder_uploaded_by{
     width: 329px;
+    margin-left: 8px;
+    flex:1.6;
+
 }
 
 .folder_upload_date{
     margin-left: 8px;
     width: 157px;
+    flex:0.8
+  
 }
 
-/* Supplementary Code */
 .formpopup {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 100; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-  .popup-content{
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 100; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+.popup-content{
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
     background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     border-radius:10px;
-    width: 85%; /* Could be more or less, depending on screen size */
-  }
-  .popup-content input{
-      width:400px;
-      font: 30px "Roboto";
-      padding:5px;
-      border-radius:15px;
-  }
-  .popup-content label{
-      font:20px "Roboto";
-      margin: 0 5px 0 0;
-  }
-  .popup-content select{
-      width: 565.82px;
-      height: 49px;
-      margin-left: 10px;
-      padding-left: 15px;
-      border: none;
-      border-radius: 10px;
-  
-      background-color: #ECECEC;
-  
-      font: 400 24px "Roboto";
-      color: black;
-  }
-  .formpopup button{
-      padding: 5px;
-      border: none;
-      border-radius: 5px;
-      width:250px;
-      margin: 0 0 0 15px;
-      background-color: #BF0707;
-      height:auto;
-      font: 25px "Roboto";
-      color: white;
-  
-      transition: 500ms;
-  }
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+.popup-content input{
+    width: 35%;
+    font: 30px "Roboto";
+    padding:5px;
+    border-radius:10px;
+    border: none;
+    background-color: #ECECEC;
+}
+.popup-content label{
+    font: 700 25px "Roboto";
+    margin: 0 5px 0 0;
+}
+.popup-content select{
+    width: 400px;
+    height: 49px;
+    margin-left: 10px;
+    padding-left: 10px;
+    border: none;
+    border-radius: 10px;
 
-  input[type=file]{
+    background-color: #ECECEC;
+
+    font: 400 24px "Roboto";
+    color: black;
+}
+.formpopup button{
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    width:170px;
+    margin: 0 0 0 15px;
+    background-color: #1E3F5A;
+    height:auto;
+    font: 25px "Roboto";
+    color: white;
+    justify-content: center;
+
+    transition: 500ms;
+}
+#errorcode {
+    font: 200 24px "Roboto";
+    color: #BF0707;
+    text-align: center;
+    font-weight:600;
+}
+.title-action {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: -60px;
+}
+
+#title {
+    margin-left: 35px;
+
+    font: 700 70px "Roboto";
+    color: #BF0707;
+    line-height: 75px;
+}
+
+.action {
+    display: flex;
+    flex-flow: row nowrap;
+
+    margin-right: 35px;
+}
+
+.action div {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    margin-left: 10px;
+}
+
+.action div:hover img,
+.action div:hover button,
+.action div:hover label{
+    background-color: #00AEAE;
+
+    cursor: pointer;
+}
+
+.action img {
+    height: 50px;
+    width: 50px;
+    padding: 10px 0 10px 20px;
+    border: none;
+    border-radius: 20px 0 0 20px;
+
+    background-color: #BF0707;
+
+    transition: 500ms;
+}
+
+.action button,
+.action label {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 0 20px 20px 0;
+
+    background-color: #BF0707;
+
+    font: 400 25px "Roboto";
+    color: white;
+
+    transition: 500ms;
+}
+
+.action input[type=file], .file-modal input[type=file] {
     display: none;
-  }
+}
+
+.folder-file {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+.folder,
+.file {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+
+    width: 240px;
+    height: 240px;
+    margin: 25px 35px 30px 35px;
+    padding: 3px;
+    border-radius: 10px;
+
+    background-color: #F0F0F0;
+}
+
+.folder:hover,
+.file:hover {
+    cursor: pointer;
+}
+
+.folder img {
+    width: 80.92px;
+    height: 65.21px;
+    padding: 65px 79.50px;
+    border-radius: 10px 10px 0 0;
+
+    background-color: white;
+}
+
+.file img {
+    width: 59px;
+    height: 69px;
+    padding: 65px 90.5px;
+    border-radius: 10px 10px 0 0;
+
+    background-color: white;
+}
+
+.folder p,
+.file p {
+    margin: 0 15px 0;
+    padding: 10px;
+    font: 800 20px "Roboto";
+    color: #BF0707;
+    text-align: center;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#multContext {
+    position: fixed; /* Stay in place */
+    left:40%;
+    top:10%;
+    display: flex;
+    flex-flow: column;
+    visibility: hidden;
+    width: 250px;
+    padding: 25px;
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.5);
+    background-color: rgb(203, 203, 203);
+}
+
+#multContext p {
+    border-bottom: 1px solid black;
+}
