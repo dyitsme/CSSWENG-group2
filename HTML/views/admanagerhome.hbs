@@ -1,0 +1,186 @@
+<html>
+    <head>
+        <title>G. Ilagan Designs and Construction</title>
+        <script src="../../JS/querylib.js"></script>
+        <script src="../../JS/redirect.js"></script>
+        <link rel="stylesheet" href="../../CSS/homeStyle.css">
+        <link rel="stylesheet" href="../../CSS/modal.css">
+        <link rel="stylesheet" href="../../CSS/contextMenu.css">
+         <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+    </head>
+    <body>
+        <div id="topbar">
+            <img id="top_logo" src="../../UI/gilagan_log_no_text.png">
+            <a href="/admanagerhome">Files</a>
+            <a id="{{design}}" href="{{ID}}">{{Content}}</a>
+            <a href="/profile">Profile</a>
+            <a href="/" >Logout</a>
+            <form id="top_search" method="get" action="/search-file">
+                    <button><img id="s_icon" src="../../UI/search icon.png"></button>
+                    <input type="text" id="text_search" name="text_search" placeholder="Search">
+            </form>
+        </div>
+    
+
+        <div id="main_body">
+            <div id="action_labels">
+                <h1>Files</h1>
+                <h2 id="errorcode">{{error}}</h3>
+                    <button id="upload_btn" onclick="openFileModal()"><iconify-icon icon="material-symbols:upload"></iconify-icon>Upload</button>
+                    <button id="newfolder_btn" onclick="openForm()" class="next_btn"><iconify-icon icon="material-symbols:create-new-folder-outline"></iconify-icon>New Folder</button>
+                    <button id="select_btn"  class="next_btn" onclick="toggleSelect()"><iconify-icon icon="material-symbols:select-check-box"></iconify-icon>Select</button>
+                    
+                        <form class="formpopup" id="popup" method="POST" action="/createfolder">
+                            <div class="popup-content">
+                                <label for="foldername"><b>Folder Name:</b></label>
+                                <input type="text" placeholder="Name" name="foldername" required>
+                                <select id="accesslevel" name="accesslevel" required="true">
+                                    <option value="" selected disabled hidden>Role</option>
+                                    <option value="Admin/Manager">Admin/Manager Level</option>
+                                    <option value="Unrestricted">Unrestricted</option>
+                                </select>
+                                <button type="submit" id="createbutton">Create Folder</button>
+                                <button type="button" id="cancelbutton" onclick="closeForm()">Cancel</button>
+                            </div>
+                        </form>
+                        <form class="formpopup" id="folderpop" method="POST" action="/rename-folder">
+                            <div class="popup-content">
+                                <label for="newname1"><b>Folder Name:</b></label>
+                                <input type="text" placeholder="Name" name="newname1" id="newname1" required>
+                                <button type="submit" id="createbutton"  onclick="renameFolder()" >Rename Folder</button>
+                                <button type="button" id="cancelbutton" onclick="folderClose()">Cancel</button>
+                            </div>
+                        </form>
+                        <form class="formpopup" id="filepop" method="POST" action="/rename-file">
+                            <div class="popup-content">
+                                <label for="newname2"><b>File Name:</b></label>
+                                <input type="text" placeholder="Name" name="newname2" id="newname2" required>
+                                <button type="submit" id="createbutton" onclick="renameFile()">Rename File</button>
+                                <button type="button" id="cancelbutton" onclick="fileClose()">Cancel</button>
+                            </div>
+                        </form>
+                  
+            </div>
+            <div id="breadcrumb">
+                <button style="{{styling}}" onclick="{{func}}">{{contents}}</button><!--Change display to NONE when not in folder-->
+                <p id="breadcrumb_dir">{{path}}</p><!--change the FILE LOCATION-->
+            </div>
+        
+            <div id="title_bar">
+                <div class="name_div"><p id="name">Name</p></div>
+                <div class="uploader_div"><p class="bordered" id="uploader">Uploaded By</p></div>
+                <div class="upload_date_div"><p class="bordered" id="upload_date">Upload Date</p></div>
+                <div class="upload_size_div"><p class="bordered" id="upload_size">File Size</p></div>
+            </div>
+            <div id="sa_div">
+                <input type="checkbox" class="checkbox" id="selectall_checkbox" name="select_all" onchange="toggleSelectAll()">
+                <label id="sa_label" for="select_all">Select All</label>
+            </div>
+            <div id="multContext">
+                <p onclick="deleteMany()">Delete Selected</p>
+            </div>
+                  
+       
+            <div id="files_container">
+                {{#each folders}}
+                    <div class="folder_div" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
+                         <input type="checkbox" class="files_checkbox" onchange="checkSelectAll()" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
+                        <div class="folder_name_div" id="{{this.name}}">
+                            <img class="folder_icon" src="../../UI/Folder Icon.png">
+                            <label for="{{this.name}}" class="folder_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
+                        </div>
+                        <label for="{{this.name}}" class="folder_uploaded_by">SerChiefManager1</label><!--change the USERNAME and LABEL of the checkbox for each folder name-->
+                        <label for="{{this.name}}" class="folder_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each folder name-->
+                        <label for="{{this.name}}" class="file_size"></label>
+                        <div class="context-menu" id="{{this.name}} cm">
+                            <p onclick="moveSingle('{{this._id}}')">Move to Folder</p>
+                             <p onclick="folderForm('{{this.name}}')">Rename</p>
+                            <p onclick="deleteFolder('{{this.name}}')">Delete</p>
+                        </div>
+                    </div>
+                {{/each}}
+
+
+                {{#each files}}
+                    <div class="file_div" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
+                        <input type="checkbox" class="files_checkbox" onchange="checkSelectAll()" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
+                        <div class="file_name_div">
+                            <img class="file_icon" src="../../UI/File Icon.png">
+                            <label for="{{this.name}}" class="file_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each filename-->
+                        </div>
+                        <label for="{{this.name}}" class="file_uploaded_by">SerChiefManager1</label><!--change the USERNAME and LABEL of the checkbox for each filename-->
+                        <label for="{{this.name}}" class="file_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each filename-->
+                        <label for="{{this.name}}" class="file_size">135MB</label><!--change the SIZE and LABEL of the checkbox for each filename-->
+                    <div class="context-menu" id="{{this.name}} cm">
+                            <p onclick="moveSingle('{{this._id}}')">Move to Folder</p>
+                             <p onclick="fileForm('{{this.name}}')">Rename</p>
+                            <p onclick="getSelected()">Download</p>
+                            <p onclick="deleteFile('{{this.name}}')">Delete</p>
+                    </div>
+                        
+                    </div>
+                   
+                {{/each}}
+                <div id="blocker" style="{{blockermodal}}">
+                    <div id="move_modal" style="{{movemodal}}">
+                        <button onclick="cancelMov()">Cancel</button>
+                        <button onclick="moveHere()">Move here</button>
+                        {{#each movFolder}}
+                        <div class="folder_div" oncontextmenu="moveMenu('{{this.name}} cm'); return false">
+                            <div class="folder_move_div" id="{{this.name}} mov">
+                                <img class="folder_icon" src="../../UI/Folder Icon.png">
+                                <label for="{{this.name}} mov" class="folder_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            
+                <form class="file-modal" id="fileModal" action="/uploadfile" method="POST" enctype="multipart/form-data">
+                    <img class="exit" src="../../pictures/cross.png" alt="cross" onclick="closeFileModal()">
+
+                    <input type="file" id="uploadFile" name="uploadFile" multiple="multiple" onchange="getFileNames()">
+
+                    <label class="choose" for="uploadFile">
+                        <p>Choose Files</p>
+                        <img src="pictures/choose file.png" alt="">
+                    </label>
+                
+                    <div class="itemset" id="itemset">
+                        <h1>File Name</h1>
+                    </div>
+                
+                    <div class="linear">
+                        <input id="exclusiveAccess" type="checkbox" name="exclusiveAccess">
+                        <label for="exclusiveAccess">Only Managers can access</label>
+                        <input type="submit" value="Upload">
+                    </div>
+                </form>
+
+                <div class="notification-modal success" id="successModal" style="visibility: {{vSuccess}}; opacity: {{oSuccess}};">
+                    <img class="exit" src="pictures/cross.png" alt="cross" onclick="closeNotificationModal('{{type}}')">
+                
+                    <div class="linear">
+                        <img src="pictures/success.png" alt="">
+                        <div>
+                            <h1>Success!</h1>
+                            <p>{{mSuccess}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notification-modal error" id="errorModal" style="visibility: {{vError}}; opacity: {{oError}};">
+                    <img class="exit" src="pictures/cross.png" alt="cross" onclick="closeNotificationModal('{{type}}')">
+                
+                    <div class="linear">
+                        <img src="pictures/error.png" alt="">
+                        <div>
+                            <h1>Error!</h1>
+                            <p>{{mError}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

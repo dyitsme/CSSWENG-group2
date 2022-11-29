@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>G. Ilagan Designs and Construction</title>
+        <script src="../../JS/querylib.js"></script>
+        <link rel="stylesheet" href="../../CSS/loginStyle.css">
+    </head>
+    <body>
+        <center>
+        <div id="loginform">
+            <div id="redbox"></div>
+            <h1 id="header">G. Ilagan Designs and Construction</h1>
+            <form id="loginpost" action="/login-post" method="POST">
+                <p id="error">{{errormsg}}</p>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button id="loginButton" type="submit">Login</button>
+            </form>
+        </div>
+        </center>
+    </body>
+</html>
