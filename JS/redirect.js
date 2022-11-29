@@ -229,6 +229,36 @@ function deleteMany(){
         location.href="/deleteManyResult";
     }
 }
+function moveMany(){
+    let arrSelected = [];
+    let arrNotselect = [];
+    const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
+    checkboxes.forEach((checkbox)=>{
+        arrSelected.push(checkbox.value);
+    });
+    const allboxes = document.querySelectorAll('input[class="files_checkbox"]');
+    allboxes.forEach((allbox)=>{
+        arrNotselect.push(allbox.value);
+    });
+    
+    for(var j = 0; j < arrSelected.length; j++){
+        for (var i = arrNotselect.length - 1; i >= 0; i--) {
+            if (arrNotselect[i] === arrSelected[j]) {
+                arrNotselect.splice(i, 1);
+            }
+        }
+    }
+    if(arrSelected.length>0){
+        $.get("/getMultMove", {arrFilter: arrSelected, arrNotFilter: arrNotselect}, (result)=>{
+
+        });
+        location.href="/filterMany";
+    }
+        
+    
+   
+   
+}
 
 function file_folder_search() {
     setTimeout(file_folder_searched(), 100000);
