@@ -813,7 +813,7 @@ app.post('/change-selected-password', async (req, res) => {
 });
 
 app.post('/edit-role', (req, res) => {
-    Account.updateOne({ username: req.query.text_search }, { role: req.body.role }, (error, success) => {
+    Account.updateOne({ username: req.query.text_search }, { role: req.body.roles }, (error, success) => {
         if (success) {
             res.redirect('/search-user?text_search=' + req.query.text_search)
         }
