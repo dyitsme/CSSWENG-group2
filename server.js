@@ -598,6 +598,9 @@ app.post('/uploadfile', async (req, res) => {
             if (user.role == "Administrator") {
                 res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vSuccess: 'visible' , oSuccess: '1', type: 'success'});
             }
+            if (user.role == "Manager") {
+                res.render('admanagerhome.hbs', { folders: folders, files: files , link: "/admanagerhome", design:"trap",styling: "background:transparent; border: none !important;" });
+            }
         })
     }
     else {
