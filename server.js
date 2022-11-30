@@ -529,7 +529,7 @@ app.post('/uploadfile', async (req, res) => {
     if (Array.isArray(files)) {
         Account.findOne({ username: req.session.name }, async (err, user) => {
             files.forEach(file => {
-                file.mv(path.resolve(__dirname, 'file', file.name), async (error) => {
+                file.mv(path.resolve(__dirname, 'uploaded', file.name), (error) => {
                     if (directory == "") {
                         Files.create({ name: file.name, access: selectedAccess, parent: "" }, (error, post) => { })
                     }
@@ -542,7 +542,7 @@ app.post('/uploadfile', async (req, res) => {
     }
     else {
         Account.findOne({ username: req.session.name }, async (err, user) => {
-            files.mv(path.resolve(__dirname, 'file', files.name), async (error) => {
+            files.mv(path.resolve(__dirname, 'uploaded', files.name), (error) => {
                 if (directory == "") {
                     Files.create({ name: files.name, access: selectedAccess, parent: "" }, (error, post) => { })
                 }
@@ -980,6 +980,13 @@ app.get('/moveAction', (req, res)=>{
        
     })
 })
+
+app.get('/downloadFile', (req, res) => {
+    Files.findOne({ name: req.query.filename }, (error, result) => {
+        res.download(path.join(__dirname, 'uploaded', result.name));
+    })
+});
+
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
 });

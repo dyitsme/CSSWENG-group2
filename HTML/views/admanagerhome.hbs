@@ -84,7 +84,7 @@
             <div id="files_container">
                 {{#each folders}}
                     <div class="folder_div" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
-                         <input type="checkbox" class="files_checkbox" onchange="checkSelectAll()" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
+                         <input type="checkbox" class="files_checkbox" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
                         <div class="folder_name_div" id="{{this.name}}">
                             <img class="folder_icon" src="../../UI/Folder Icon.png">
                             <label for="{{this.name}}" class="folder_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
@@ -103,7 +103,7 @@
 
                 {{#each files}}
                     <div class="file_div" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
-                        <input type="checkbox" class="files_checkbox" onchange="checkSelectAll()" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
+                        <input type="checkbox" class="files_checkbox" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
                         <div class="file_name_div">
                             <img class="file_icon" src="../../UI/File Icon.png">
                             <label for="{{this.name}}" class="file_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each filename-->
@@ -114,7 +114,7 @@
                     <div class="context-menu" id="{{this.name}} cm">
                             <p onclick="moveSingle('{{this._id}}')">Move to Folder</p>
                              <p onclick="fileForm('{{this.name}}')">Rename</p>
-                            <p onclick="getSelected()">Download</p>
+                            <p onclick="downloadFile('{{this.name}}')">Download</p>
                             <p onclick="deleteFile('{{this.name}}')">Delete</p>
                     </div>
                         

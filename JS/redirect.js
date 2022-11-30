@@ -166,16 +166,10 @@ function openSelectable() {
     }
 }
 
-function getSelected(){
-    checkboxes = document.getElementsByClassName('files_checkbox')
-
-    selected = []
-    for(i = 0; i < checkboxes.length; i++){
-        selected.push(checkboxes[i].item.name)
-    }
-
-    console.log(selected);
+function downloadFile(filename) {
+    location.href = "/downloadFile?filename=" + filename;
 }
+
 function backFolder(){
     location.href ="/back";
 }
