@@ -1,4 +1,5 @@
 const express = require('express');
+const zip = require('express-zip')
 const app = express();
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
@@ -981,9 +982,23 @@ app.get('/moveAction', (req, res)=>{
     })
 })
 
-app.get('/downloadFile', (req, res) => {
-    Files.findOne({ name: req.query.filename }, (error, result) => {
+app.get('/downloadSingleFile', (req, res) => {
+    Files.findOne({ _id: req.query.filename }, (error, result) => {
         res.download(path.join(__dirname, 'uploaded', result.name));
+    })
+});
+
+app.get('/downloadMultipleFile', (req, res) => {
+    const filenames = req.query.filenames.split(",")
+    var container = []
+
+    Files.find({ _id: filenames }, (error, result) => {
+        result.forEach(file => {
+            console.log(file.name);
+            container.push({ path: path.join(__dirname, 'uploaded', file.name), name: file.name })
+        })
+
+        res.zip(container);
     })
 });
 
