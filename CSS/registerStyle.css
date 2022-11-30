@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Inter');
 
 html,
 body {
@@ -6,29 +7,51 @@ body {
     padding: 0;
 }
 
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
 #topbar{
     display: flex;
     height: 67px;
     width: 100%;
     background-color: #f0f0f0;
     margin-bottom: 0;
+    align-items: center;
 }
+
+
 
 #topbar a{
-    align-self: center;
-    font: 20px "Roboto";
-    padding: 12px;
-    margin-left: 12px;
+    margin-left: 24px;
+
+    font: 400 20px 'Inter';
+    color: black;
+    text-decoration: none;
 }
 
-#topbar a:hover{
-    background-color: #b5b5b5;
-    border-radius: 10px;
+#topbar a::after{
+    display: block;
+
+    width: 0;
+    margin: auto;
+    border-bottom: 2px solid black;
+
+    content: '';
+
+    transition: 500ms;
 }
 
-#logo_wrap{
-    display:flex;
+
+#topbar a:hover::after {
+    width: 100%;
 }
+
 
 #top_logo{
     height: 47px;

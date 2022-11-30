@@ -114,7 +114,6 @@
     font: 400 24px 'Roboto';
     color: black;
 
-    transition: 500ms;
 }
 
 .edit input[type]:hover,
@@ -136,7 +135,7 @@
 }
 
 .edit input[type=submit]:hover {
-    box-shadow: 0 0 10px var(--button-color);
+    transform: scale(1.05);
 
     cursor: pointer;
 }
@@ -149,10 +148,14 @@
 
     background-color: var(--error-color);
 
-    font: 700 24px 'Roboto';
+    font: 700 28px 'Roboto';
     color: white;
 
     cursor: pointer;
+}
+
+.delete:hover {
+    transform: scale(1.05);
 }
 
 .error {

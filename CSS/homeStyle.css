@@ -6,27 +6,51 @@ body{
     padding: 0;
 }
 
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
 #topbar{
     display: flex;
     height: 67px;
     width: 100%;
     background-color: #f0f0f0;
     margin-bottom: 0;
+    align-items: center;
 }
 
 
 
 #topbar a{
-    align-self: center;
-    font: 20px "Roboto";
-    padding: 12px;
-    margin-left: 12px;
+    margin-left: 24px;
+
+    font: 400 20px 'Inter';
+    color: black;
+    text-decoration: none;
 }
 
-#topbar a:hover{
-    background-color: #b5b5b5;
-    border-radius: 10px;
+#topbar a::after{
+    display: block;
+
+    width: 0;
+    margin: auto;
+    border-bottom: 2px solid black;
+
+    content: '';
+
+    transition: 500ms;
 }
+
+
+#topbar a:hover::after {
+    width: 100%;
+}
+
 
 #top_logo{
     height: 47px;
@@ -40,7 +64,6 @@ body{
     display: flex;
     margin-left: auto;
     margin-right: 10px;
-    margin-top: 16px;
     width: 580px;
     height: 35px;
     border-radius: 10px;
