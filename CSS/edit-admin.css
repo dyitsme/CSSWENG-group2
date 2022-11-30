@@ -40,7 +40,7 @@
 .link {
     margin-right: 30px;
 
-    font: 400 24px 'Inter';
+    font: 400 20px 'Inter';
     color: black;
     text-decoration: none;
 }
@@ -73,14 +73,20 @@
     font: 700 30px 'Inter';
 }
 
+.side-by-side {
+    display: flex;
+    flex-flow: row;
+}
+
 .container {
     display: flex;
     flex-flow: column;
     align-items: center;
     justify-content: center;
 
-    width: 905px;
-    height: 670px;
+    width: 700px;
+    height: 450px;
+    margin: 0 125px;
     border: 1px solid var(--border-color);
     border-radius: 25px;
 }
@@ -145,6 +151,8 @@
 
     font: 700 24px 'Roboto';
     color: white;
+
+    cursor: pointer;
 }
 
 .error {
