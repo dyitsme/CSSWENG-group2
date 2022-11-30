@@ -166,16 +166,22 @@ function openSelectable() {
     }
 }
 
-function getSelected(){
-    checkboxes = document.getElementsByClassName('files_checkbox')
+function downloadFile() {
+    let selected = [];
+    const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
+    adapted_url = ""
 
-    selected = []
-    for(i = 0; i < checkboxes.length; i++){
-        selected.push(checkboxes[i].item.name)
+    checkboxes.forEach(checkbox => {
+        selected.push(checkbox.value);
+    });
+
+    if (selected.length == 1) {
+        location.href = "/downloadSingleFile?filename=" + selected[0];
+    } else if (selected.length > 1) {
+        location.href =  '/downloadMultipleFile?filenames=' + selected.join(',')
     }
-
-    console.log(selected);
 }
+
 function backFolder(){
     location.href ="/back";
 }

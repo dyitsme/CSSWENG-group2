@@ -15,7 +15,7 @@
             <a id="{{design}}" href="{{ID}}">{{Content}}</a>
             <a href="/profile">Profile</a>
             <a href="/" >Logout</a>
-            <form id="top_search" method="get" action="/search">
+            <form id="top_search" method="get" action="/search-file">
                     <button><img id="s_icon" src="../../UI/search icon.png"></button>
                     <input type="text" id="text_search" name="text_search" placeholder="Search">
             </form>
@@ -115,7 +115,7 @@
                     <div class="context-menu" id="{{this.name}} cm">
                             <p onclick="moveSingle('{{this._id}}')">Move to Folder</p>
                              <p onclick="fileForm('{{this.name}}')">Rename</p>
-                            <p onclick="getSelected()">Download</p>
+                            <p onclick="downloadFile()">Download</p>
                             <p onclick="deleteFile('{{this.name}}')">Delete</p>
                     </div>
                         
@@ -165,7 +165,7 @@
                         <img src="pictures/success.png" alt="">
                         <div>
                             <h1>Success!</h1>
-                            <p>Your files are ready</p>
+                            <p>{{mSuccess}}</p>
                         </div>
                     </div>
                 </div>
@@ -177,7 +177,7 @@
                         <img src="pictures/error.png" alt="">
                         <div>
                             <h1>Error!</h1>
-                            <p>Files failed to upload</p>
+                            <p>{{mError}}</p>
                         </div>
                     </div>
                 </div>

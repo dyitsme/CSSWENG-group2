@@ -3,6 +3,7 @@
         <title>G. Ilagan Designs and Construction</title>
         <script src="../../JS/querylib.js"></script>
         <script src="../../JS/redirect.js"></script>
+        <link rel="stylesheet" href="../../CSS/modal.css">
         <link rel="stylesheet" href="../../CSS/profileStyle.css">
     </head>
     <body>
@@ -12,7 +13,7 @@
             <a href="/profile">Profile</a>
             <a href="/" >Logout</a>
 
-            <form id="top_search" method="get" action="/search">
+            <form id="top_search" method="get" action="/search-user">
                     <button><img id="s_icon" src="../../UI/search icon.png"></button>
                     <input type="text" id="text_search" name="text_search" placeholder="Search">
             </form>
@@ -25,6 +26,29 @@
                 <button id="passbutton" onclick="changePassword()">Edit Password</button>
                 <br>
                 <button id="{{C}}" style="{{design}}" onclick="{{act}}">{{content}}</button>
+           
+
+        <div class="notification-modal success" id="successModal" style="visibility: {{vSuccess}}; opacity: {{oSuccess}};">
+            <img class="exit" src="pictures/cross.png" alt="cross" onclick="closeNotificationModal('{{type}}')">
+        
+            <div class="linear">
+                <img src="pictures/success.png" alt="">
+                <div>
+                    <h1>Success!</h1>
+                    <p>{{mSuccess}}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="notification-modal error" id="errorModal" style="visibility: {{vError}}; opacity: {{oError}};">
+            <img class="exit" src="pictures/cross.png" alt="cross" onclick="closeNotificationModal('{{type}}')">
+        
+            <div class="linear">
+                <img src="pictures/error.png" alt="">
+                <div>
+                    <h1>Error!</h1>
+                    <p>{{mError}}</p>
+                </div>
             </div>
         </div>
         
