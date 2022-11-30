@@ -37,20 +37,14 @@
     right: 50px;
     display: flex;
     flex-flow: column;
-    visibility: hidden;
 
     width: 480px;
     height: 100px;
     padding: 10px 7.5px 0;
     border: none;
     border-radius: 10px;
-    
-    background-color: white;
+
     box-shadow: 0 0 8px var(--transparent-black);
-
-    transition: 500ms;
-
-    opacity: 0;
 }
 
 .folder-modal .exit {
@@ -129,7 +123,6 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    visibility: hidden;
 
     width: 620px;
     height: 380px;
@@ -137,12 +130,7 @@
     border: none;
     border-radius: 10px;
 
-    background-color: white;
     box-shadow: 0 0 8px var(--transparent-black);
-    
-    transition: 500ms;
-
-    opacity: 0;
 }
 
 .file-modal .exit {
@@ -187,7 +175,6 @@
     border-radius: 5px;
 
     font: 400 16px 'Inter';
-    overflow-y: scroll;
 }
 
 .file-modal .itemset h1 {
@@ -258,19 +245,12 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    visibility: hidden;
 
     width: 350px;
     height: 80px;
     padding: 5px 5px 0;
     border: 5px solid var(--dark-blue);
     border-radius: 10px;
-
-    background-color: white;
-
-    transition: 500ms;
-
-    opacity: 0;
 }
 
 .notification-modal .exit {
@@ -335,37 +315,3 @@
 .error .linear h1 {
     color: var(--dark-red);
 }
-#move_modal{
-    visibility:hidden;
-    right:50%;
-    top:25%;
-    position:fixed;
-    border-radius: 10px;
-    box-shadow: 0 0 8px var(--transparent-black);
-    width:800px;
-    height:600px;
-   z-index: 100;
-   overflow: auto; /* Enable scroll if needed */
-   background-color:#ffffff;
-}
-#move_modal button{
-    padding: 5px;
-    margin:5px 0 5px 2px;
-    font: 20px "Roboto";
-    width:150px;
-    height:55px;
-    border-radius:10px;
-   cursor:pointer;
-}
-#blocker {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 100; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }

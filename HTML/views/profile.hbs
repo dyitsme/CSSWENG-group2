@@ -7,31 +7,26 @@
     </head>
     <body>
         <div id="topbar">
-            <div id="redbox">
-                <nav id="navbar">
-                    <button id="logout" onclick="logoutUser()">Logout</button>
-                </nav>
-            </div>
-    
+            <img id="top_logo" src="../../UI/gilagan_log_no_text.png">
             <a href="{{link}}">Files</a>
             <a href="/profile">Profile</a>
+            <a href="/" >Logout</a>
 
-            <form class="search" action="">
-                <input type="image" src="/pictures/Search.png">
-                <input type="text" placeholder="Search">
+            <form id="top_search" method="get" action="/search">
+                    <button><img id="s_icon" src="../../UI/search icon.png"></button>
+                    <input type="text" id="text_search" name="text_search" placeholder="Search">
             </form>
         </div>
-        <div id="profpage">
-            <h1 id="profname">{{profilename}}</h1>
-            <h1 id="role">{{role}}</h2>
-            <button id="passbutton" onclick="changePassword()">Edit Password</button>
-            <br>
-            <button id="{{C}}" style="{{design}}" onclick="{{act}}">{{content}}</button>
-           
+
+        <div id="main_body">
+            <div id="profpage">
+                <h1 id="profname">{{profilename}}</h1>
+                <h1 id="role">{{role}}</h2>
+                <button id="passbutton" onclick="changePassword()">Edit Password</button>
+                <br>
+                <button id="{{C}}" style="{{design}}" onclick="{{act}}">{{content}}</button>
+            </div>
         </div>
-
-       
-
         
     </body>
 </html>

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Inter');
 
 html,
 body {
@@ -6,62 +7,115 @@ body {
     padding: 0;
 }
 
-#topbar {
-    display: block;
-    
-    width: 100%;
-    height: 84px;
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    background-color: #F0F0F0;
+
+#topbar{
+    display: flex;
+    height: 67px;
+    width: 100%;
+    background-color: #f0f0f0;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+
+
+#topbar a{
+    margin-left: 24px;
+
+    font: 400 20px 'Inter';
+    color: black;
+    text-decoration: none;
+}
+
+#topbar a::after{
+    display: block;
+
+    width: 0;
+    margin: auto;
+    border-bottom: 2px solid black;
+
+    content: '';
+
+    transition: 500ms;
+}
+
+
+#topbar a:hover::after {
+    width: 100%;
+}
+
+
+#top_logo{
+    height: 47px;
+    width: 206px;
+    align-self: center;
+    margin-left: 10px; 
+}
+
+#main_body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 #title {
-    display: inline;
-    margin-left: calc(50% - 465px);
-
+    align-self: center;
     font: 700 30px "Roboto";
-    color: #BF0707;
+    color: black;
     text-align: center;
-    line-height: 75px;
+    margin-top: 10px;
+}
+
+#registerform img{
+    width: 400px;
+    height: 115px;
 }
 
 #registerform {
     display: flex;
-    flex-flow: column nowrap;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 
-    width: 905px;
+    width: 800px;
     height: 670px;
-
-    margin: 70px 0 0 0;
-    border: solid #BF0707; 
-    border-radius: 15px;
+    border: 1px solid black; 
+    border-radius: 10px;
 }
+
+
 
 #registerform input,
 select {
-    width: 565.82px;
-    height: 49px;
-    margin-top: 45px;
-    padding-left: 15px;
+    width: 565px;
+    height: 50px;
     border: none;
     border-radius: 10px;
-
+    margin-top: 25px;
+    padding-left: 10px;
     background-color: #ECECEC;
 
     font: 400 24px "Roboto";
     color: black;
 }
 
+
 #registerbutton {
-    width: 565.82px;
-    height: 49px;
-    margin-top: 150px;
+    width: 565px;
+    height: 50px;
     border: none;
-    border-radius: 45px;
+    border-radius: 10px;
 
-    background-color: #AE0000;
-
+    background-color: #1E3F5A;
     font: 400 24px "Roboto";
     color: white;
 
@@ -69,34 +123,13 @@ select {
 }
 
 #registerbutton:hover {
-    background-color: #00AEAE;
+    transform: scale(1.02);
 
     cursor: pointer;
 }
 
-#redbox {
-    float: left;
-    display: inline;
 
-    width: 100px;
-    height: 50px;
-    margin: 20px 0 0 35px;
-    border-color: #BF0707;
 
-    background-color: #BF0707;
-}
-
-#topbar a {
-    width: 100px;
-    height: 100px;
-    margin: 5px 5px 5px 50px;
-
-    font: 400 25px "Roboto";
-    color: black;
-    text-decoration: none;
-    text-align: center;
-    line-height: 75px;
-}
 #error {
     font: 400 24px "Roboto";
     color: #BF0707;
@@ -120,7 +153,7 @@ select {
     transition: 100ms;
 }
 
-#redbox:hover #navbar {
+#logo_wrap:hover #navbar {
     visibility: visible;
 
     opacity: 1;

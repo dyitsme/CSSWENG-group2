@@ -6,26 +6,52 @@ body{
     padding: 0;
 }
 
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
 #topbar{
     display: flex;
     height: 67px;
     width: 100%;
     background-color: #f0f0f0;
     margin-bottom: 0;
+    align-items: center;
 }
 
 
 
 #topbar a{
-    align-self: center;
-    font: 20px "Roboto";
-    padding: 12px;
-    margin-left: 12px;
+    margin-left: 24px;
+
+    font: 400 20px 'Inter';
+    color: black;
+    text-decoration: none;
 }
-#topbar a:hover{
-    background-color: #b5b5b5;
-    border-radius: 10px;
+
+#topbar a::after{
+    display: block;
+
+    width: 0;
+    margin: auto;
+    border-bottom: 2px solid black;
+
+    content: '';
+
+    transition: 500ms;
 }
+
+
+#topbar a:hover::after {
+    width: 100%;
+}
+
+
 #top_logo{
     height: 47px;
     width: 206px;
@@ -33,15 +59,10 @@ body{
     margin-left: 10px; 
 }
 
-#topbar a :hover{
-    font: 20px "Roboto";
-    margin: 21px 0 0 24px;
-}
 #top_search{
     display: flex;
     margin-left: auto;
     margin-right: 10px;
-    margin-top: 16px;
     width: 580px;
     height: 35px;
     border-radius: 10px;
@@ -51,6 +72,7 @@ body{
 
 #top_search button{
     border: 0;
+    padding: 5px;
     outline: none;
     background: transparent;
     cursor: pointer;
@@ -231,7 +253,7 @@ body{
     display: flex;
     flex-direction: column;
     overflow-y:auto;
-    max-height:450px;
+    max-height:60vh;
 }
 
 
@@ -328,13 +350,6 @@ body{
     flex:5.2;
   
 }
-.folder_move_div{
-    display: flex;
-    align-items: center;
-    width: 1185px;
-    flex:5.2;
-  
-}
 
 .folder_name{
     margin-left: 8px;
@@ -370,28 +385,34 @@ body{
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
 .popup-content{
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  border-radius:10px;
-  width: 85%; /* Could be more or less, depending on screen size */
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius:10px;
+    width: 80%; /* Could be more or less, depending on screen size */
 }
 .popup-content input{
-    width:400px;
+    width: 35%;
     font: 30px "Roboto";
     padding:5px;
-    border-radius:15px;
+    border-radius:10px;
+    border: none;
+    background-color: #ECECEC;
 }
 .popup-content label{
-    font:20px "Roboto";
+    font: 700 25px "Roboto";
     margin: 0 5px 0 0;
 }
 .popup-content select{
-    width: 565.82px;
+    width: 400px;
     height: 49px;
     margin-left: 10px;
-    padding-left: 15px;
+    padding-left: 10px;
     border: none;
     border-radius: 10px;
 
@@ -404,12 +425,13 @@ body{
     padding: 5px;
     border: none;
     border-radius: 5px;
-    width:250px;
+    width:170px;
     margin: 0 0 0 15px;
-    background-color: #BF0707;
+    background-color: #1E3F5A;
     height:auto;
     font: 25px "Roboto";
     color: white;
+    justify-content: center;
 
     transition: 500ms;
 }
@@ -564,4 +586,3 @@ body{
 #multContext p {
     border-bottom: 1px solid black;
 }
-
