@@ -112,6 +112,7 @@ select {
 #registerbutton {
     width: 565px;
     height: 50px;
+    margin-top: 25px;
     border: none;
     border-radius: 10px;
 
