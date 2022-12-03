@@ -58,6 +58,7 @@ body{
     color: white;
     font: 700 24px 'Roboto';
     text-align: center;
+    cursor: pointer;
 }
 
 #loginButton:hover{
