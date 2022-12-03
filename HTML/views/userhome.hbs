@@ -42,6 +42,9 @@
                 <input type="checkbox" class="checkbox" id="selectall_checkbox" name="select_all" onchange="toggleSelectAll()">
                 <label id="sa_label" for="select_all">Select All</label>
             </div>  
+            <div id="multContext">
+                <p onclick="downloadMany()">Download Selected</p>
+            </div>
             <div id="files_container">
                 {{#each folders}}
                     <div class="folder_div" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
@@ -69,7 +72,7 @@
                         <label for="{{this.name}}" class="file_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each filename-->
                         <label for="{{this.name}}" class="file_size">135MB</label><!--change the SIZE and LABEL of the checkbox for each filename-->
                         <div class="context-menu" id="{{this.name}} cm">
-                            <p onclick="downloadMany()">Download</p>
+                             <p onclick="downloadSingle('{{this._id}}')">Download</p>
                     </div>
                         
                     </div>
