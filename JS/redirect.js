@@ -166,20 +166,18 @@ function openSelectable() {
     }
 }
 
-function downloadFile() {
+function downloadSingle(id) {
+    location.href = "/downloadSingleFile?filename=" + id;
+}
+
+function downloadMany() {
     let selected = [];
     const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
-    adapted_url = ""
 
-    checkboxes.forEach(checkbox => {
-        selected.push(checkbox.value);
-    });
+    checkboxes.forEach(checkbox => { selected.push(checkbox.value); });
 
-    if (selected.length == 1) {
-        location.href = "/downloadSingleFile?filename=" + selected[0];
-    } else if (selected.length > 1) {
-        location.href =  '/downloadMultipleFile?filenames=' + selected.join(',')
-    }
+    if (selected.length == 1) { location.href = "/downloadSingleFile?filename=" + selected[0]; }
+    else if (selected.length > 1) { location.href = '/downloadMultipleFile?filenames=' + selected.join(',') }
 }
 
 function backFolder(){

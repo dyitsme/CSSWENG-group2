@@ -78,6 +78,7 @@
             </div>
             <div id="multContext">
                 <p onclick="deleteMany()">Delete Selected</p>
+                <p onclick="downloadMany()">Download Selected</p>
                 <p onclick="moveMany()">Move Selected</p>
             </div>
                   
@@ -115,7 +116,7 @@
                     <div class="context-menu" id="{{this.name}} cm">
                             <p onclick="moveSingle('{{this._id}}')">Move to Folder</p>
                              <p onclick="fileForm('{{this.name}}')">Rename</p>
-                            <p onclick="downloadFile()">Download</p>
+                            <p onclick="downloadSingle('{{this._id}}')">Download</p>
                             <p onclick="deleteFile('{{this.name}}')">Delete</p>
                     </div>
                         
