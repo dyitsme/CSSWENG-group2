@@ -36,7 +36,8 @@ app.use(fileUpload());
 mongoose.connect('mongodb://0.0.0.0/IlaganDB',{useNewURLParser: true, useUnifiedTopology: true});
 
 app.get('/', async(req, res)=>{
-    
+    req.session.user = null;
+    req.session.name = null;
     //set the credentials of the admin
     adminuser = "admin1";
     adminpass = "abc1234";
@@ -110,16 +111,21 @@ app.get('/back', (req, res)=>{
 })
 app.get('/profile', (req,res)=>{
     Account.findOne({username: req.session.name}, (err, user)=>{
-        if(user.role == "Administrator"){
-            res.render('profile.hbs',{link:"/admanagerhome",profilename: req.session.name, role:user.role, C:"regisbutton",act:"redirectRegister()", content:"Register an Account"});
-        }
-        else if(user.role == "Manager"){
-           
-                res.render('profile.hbs',{link: "/admanagerhome",profilename: req.session.name, role:user.role, design:"trap" })
+        if(user){
+            if(user.role == "Administrator"){
+                res.render('profile.hbs',{link:"/admanagerhome",profilename: req.session.name, role:user.role, C:"regisbutton",act:"redirectRegister()", content:"Register an Account"});
             }
-        
+            else if(user.role == "Manager"){
+               
+                    res.render('profile.hbs',{link: "/admanagerhome",profilename: req.session.name, role:user.role, design:"trap" })
+                }
+            
+            else{
+                res.render('profile.hbs',{link:"/userhome",profilename: req.session.name, role:user.role, design:"trap"});
+            }
+        }
         else{
-            res.render('profile.hbs',{link:"/userhome",profilename: req.session.name, role:user.role, design:"trap"});
+            res.redirect('/')
         }
         
     })
@@ -128,16 +134,23 @@ app.get('/profile', (req,res)=>{
 app.get('/admanagerhome', async(req, res)=>{
     fol="";
     directory="";
-    const files  = await Files.find({parent:""});
-    const folders = await Folders.find({parent:""});
-    Account.findOne({username: req.session.name}, (err, user)=>{
-        if(user.role == "Administrator"){
-            res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "/register", Content:"Register a User",styling:"background:transparent; border: none !important;" });
+    
+    Account.findOne({username: req.session.name}, async(err, user)=>{
+        const files  = await Files.find({parent:""});
+        const folders = await Folders.find({parent:""});
+        if(user){
+            if(user.role == "Administrator"){
+                res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "/register", Content:"Register a User",styling:"background:transparent; border: none !important;" });
+            }
+            else if(user.role == "Manager"){
+                
+                res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"trap", folders, files,styling:"background:transparent; border: none !important;" })
+            }
         }
-        else if(user.role == "Manager"){
-            
-            res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"trap", folders, files,styling:"background:transparent; border: none !important;" })
+        else{
+            res.redirect("/");
         }
+      
     })
    
 
@@ -285,12 +298,28 @@ app.get('/userhome', async(req, res)=>{
     fol="";
     directory="";
     folID = "";
-    const files  = await Files.find({access:"Unrestricted",parent:""});
-    const folders = await Folders.find({access:"Unrestricted", parent:""});
-    res.render('userhome.hbs', {folders,files,styling:"background:transparent; border: none !important;"});
+    Account.findOne({username:req.session.name}, async(err, user)=>{
+        if(user){
+            const files  = await Files.find({access:"Unrestricted",parent:""});
+            const folders = await Folders.find({access:"Unrestricted", parent:""});
+            res.render('userhome.hbs', {folders,files,styling:"background:transparent; border: none !important;"});
+        }
+        else{
+            res.redirect('/')
+        }
+    })
+    
 })
 app.get('/register', (req, res)=>{
-    res.render('register.hbs');
+    Account.findOne({username:req.session.name}, (err, user)=>{
+        if(user){
+            res.render('register.hbs');
+        }
+        else{
+            res.redirect("/");
+        }
+    })
+    
 })
 app.get('/changepassword', (req, res) => {
    
@@ -307,6 +336,9 @@ app.get('/changepassword', (req, res) => {
             else{
                 res.render('changepassword.hbs',{link: "/userhome", design:"trap"})
             }
+        }
+        else{
+            res.redirect('/');
         }
     })
 })
@@ -556,75 +588,78 @@ app.post('/uploadfile', async (req, res) => {
     } else {
         selectedAccess = "Unrestricted"
     }
+    
 
-    const files = req.files.uploadFile
-    arrDirect = directory.split("/");
-    if (Array.isArray(files)) {
-        Account.findOne({ username: req.session.name }, async (err, user) => {
-            files.forEach(file => {
-                file.mv(path.resolve(__dirname, 'uploaded', file.name), async (error) => {
-                    if (directory == "") {
-                        Files.create({ name: file.name, access: selectedAccess, parent: "" }, (error, post) => { })
-                    }
-                    else {
-                        Files.create({ name: file.name, access: selectedAccess, parent: folID }, (error, post) => { })
-                    }
+    
+        const files = req.files.uploadFile
+        arrDirect = directory.split("/");
+        if (Array.isArray(files)) {
+            Account.findOne({ username: req.session.name }, async (err, user) => {
+                files.forEach(file => {
+                    file.mv(path.resolve(__dirname, 'uploaded', file.name), async (error) => {
+                        if (directory == "") {
+                            Files.create({ name: file.name, access: selectedAccess, parent: "" }, (error, post) => { })
+                        }
+                        else {
+                            Files.create({ name: file.name, access: selectedAccess, parent: folID }, (error, post) => { })
+                        }
+                    })
                 })
             })
-        })
-    }
-    else {
-        Account.findOne({ username: req.session.name }, async (err, user) => {
-            files.mv(path.resolve(__dirname, 'uploaded', files.name), async (error) => {
-                if (directory == "") {
-                    Files.create({ name: files.name, access: selectedAccess, parent: "" }, (error, post) => { })
-                }
-                else {
-                    Files.create({ name: files.name, access: selectedAccess, parent: folID }, (error, post) => { })
-                }
-            });
-        })
-    }
-
-    await new Promise(resolve => setTimeout(resolve, 1000)); // for some reason it takes time for the file to be displayed
-    
-    if (directory == "") {
-        const files = await Files.find({ parent: "" });
-        const folders = await Folders.find({ parent: "" });
-        Account.findOne({ username: req.session.name }, (err, user) => {
-            if (err){
-                res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vError: 'visible' , oError: '1', type: 'error'});
-            }
-
-            if (user.role == "Administrator") {
-                res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vSuccess: 'visible' , oSuccess: '1', type: 'success',styling: "background:transparent; border: none !important;"});
-            }
-            if (user.role == "Manager") {
-                res.render('admanagerhome.hbs', { folders: folders, files: files , link: "/admanagerhome", design:"trap",styling: "background:transparent; border: none !important;" });
-            }
-        })
-    }
-    else {
-        console.log("DIRECTORY NOT EMPTY");
-        arrDirect = directory.split('/');
-        Account.findOne({ username: req.session.name }, (err, user) => {
-            Folders.findOne({ name: fol }, async (err, ans) => {
-                const resultingfolder = await Folders.find({ parent: folID })
-                const resultingfiles = await Files.find({ parent: folID })
-                    if (user.role == 'Administrator') {
-                        console.log("ADMIN");
-                        res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",func:"backFolder()", contents:"<" });
-                    }
-                    else if (user.role == "Manager") {
-                        res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", design:"trap",func:"backFolder()", contents:"<" });
+        }
+        else {
+            Account.findOne({ username: req.session.name }, async (err, user) => {
+                files.mv(path.resolve(__dirname, 'uploaded', files.name), async (error) => {
+                    if (directory == "") {
+                        Files.create({ name: files.name, access: selectedAccess, parent: "" }, (error, post) => { })
                     }
                     else {
-                        res.render('userhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory,func:"backFolder()", contents:"<" });
+                        Files.create({ name: files.name, access: selectedAccess, parent: folID }, (error, post) => { })
                     }
-                
+                });
             })
-        });
-    }
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 1000)); // for some reason it takes time for the file to be displayed
+        
+        if (directory == "") {
+            const files = await Files.find({ parent: "" });
+            const folders = await Folders.find({ parent: "" });
+            Account.findOne({ username: req.session.name }, (err, user) => {
+                if (err){
+                    res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vError: 'visible' , oError: '1', type: 'error'});
+                }
+
+                if (user.role == "Administrator") {
+                    res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vSuccess: 'visible' , oSuccess: '1', type: 'success',styling: "background:transparent; border: none !important;"});
+                }
+                if (user.role == "Manager") {
+                    res.render('admanagerhome.hbs', { folders: folders, files: files , link: "/admanagerhome", design:"trap",styling: "background:transparent; border: none !important;" });
+                }
+            })
+        }
+        else {
+            console.log("DIRECTORY NOT EMPTY");
+            arrDirect = directory.split('/');
+            Account.findOne({ username: req.session.name }, (err, user) => {
+                Folders.findOne({ name: fol }, async (err, ans) => {
+                    const resultingfolder = await Folders.find({ parent: folID })
+                    const resultingfiles = await Files.find({ parent: folID })
+                        if (user.role == 'Administrator') {
+                            console.log("ADMIN");
+                            res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",func:"backFolder()", contents:"<" });
+                        }
+                        else if (user.role == "Manager") {
+                            res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", design:"trap",func:"backFolder()", contents:"<" });
+                        }
+                        else {
+                            res.render('userhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory,func:"backFolder()", contents:"<" });
+                        }
+                    
+                })
+            });
+        }
+    
 });
 
 app.get('/delete-folder', (req, res) => {

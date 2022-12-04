@@ -141,8 +141,7 @@
                 <form class="file-modal" id="fileModal" action="/uploadfile" method="POST" enctype="multipart/form-data">
                     <img class="exit" src="../../pictures/cross.png" alt="cross" onclick="closeFileModal()">
 
-                    <input type="file" id="uploadFile" name="uploadFile" multiple="multiple" onchange="getFileNames()">
-
+                    <input type="file" id="uploadFile" name="uploadFile" multiple="multiple" onchange="getFileNames()" required>
                     <label class="choose" for="uploadFile">
                         <p>Choose Files</p>
                         <img src="pictures/choose file.png" alt="">
