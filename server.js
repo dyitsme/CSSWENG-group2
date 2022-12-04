@@ -696,12 +696,22 @@ app.post('/rename-folder', (req, res)=>{
         if (directory == ""){
             Folders.findOne({_id:selected}, (err, folder1)=>{
                 if(folder1){
-                    Folders.findOne({name:req.body.newname1}, (err, folder2)=>{
+                    Folders.findOne({name:req.body.newname1}, async(err, folder2)=>{
                         if(!folder2){
                             folder1.name =req.body.newname1;
                             folder1.save((err, updated)=>{})
                             if (user.role == 'Administrator' || user.role == "Manager") { res.redirect('/admanagerhome'); }
                             else { res.redirect('/userhome'); }
+                        }
+                        else{
+                            const folders = await Folders.find({parent:""});
+                            const files= await Files.find({parent:""});
+                            if(user.role == 'Administrator'){
+                                res.render('admanagerhome.hbs',{error:"Folder name already exists", folders: folders,files: files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",styling:"background:transparent; border: none !important;" });
+                            }
+                            else if(user.role == 'Manager'){
+                                res.render('admanagerhome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap",styling:"background:transparent; border: none !important;"})
+                            }
                         }
                     })
                 }
@@ -718,11 +728,25 @@ app.post('/rename-folder', (req, res)=>{
                             folder1.save((err, updated)=>{})
                             const folders = await Folders.find({parent:folID});
                             const files = await Files.find({parent:folID});
+                            await new Promise(resolve => setTimeout(resolve, 1000));
                             if(user.role == 'Administrator'){
                                 res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User", func:"backFolder()", contents:"<" })
                             }
                             else{
                                 res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()", contents:"<" })
+                            }
+                        }
+                        else{
+                            const folders = await Folders.find({parent:folID});
+                            const files = await Files.find({parent:folID});
+                            await new Promise(resolve => setTimeout(resolve, 1000));
+                            if(user.role == 'Administrator'){
+                        
+                    
+                                res.render('admanagerhome.hbs',{error:"Folder name already exists", folders: folders,files: files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",func:"backFolder()", contents:"<" });
+                            }
+                            else if(user.role == 'Manager'){
+                                res.render('admanagerhome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap",func:"backFolder()", contents:"<"})
                             }
                         }
                     })
