@@ -776,30 +776,35 @@ app.post('/rename-file', (req, res)=>{
 })
 app.get('/search-user', (req, res) => {
     Account.findOne({ username: req.query.text_search }, (error, target_user) => {
-        if (target_user) {
-            res.render('edit-user.hbs', { username: req.query.text_search })
-        } else {
-            console.log("wala");
-        }
-    })
-});
-
-app.get('/search', async (req, res) => {
-    const files = await Files.find({ name: { $regex: req.query.text_search } });
-    const folders = await Folders.find({ name: { $regex: req.query.text_search } });
-
-    Account.findOne({ username: req.query.text_search }, (error, target_user) => {
-        if (target_user) {
+        if (target_user && req.query.success == "password") {
+            return res.render('edit-user.hbs', { username: req.query.text_search, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Password has been changed" })
+        } else if (target_user && req.query.success == "role") {
+            return res.render('edit-user.hbs', { username: req.query.text_search, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Role has been changed" })
+        } else if (target_user) {
             return res.render('edit-user.hbs', { username: req.query.text_search })
         } else {
             Account.findOne({ username: req.session.name }, (err, user) => {
                 if (user.role == "Administrator") {
-                    return res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content: "Register a User", styling: "background:transparent; border: none !important;" });
+                    return res.render('profile.hbs', { link: "/admanagerhome", profilename: req.session.name, role: user.role, C: "regisbutton", act: "redirectRegister()", content: "Register an Account", vError: 'visible', oError: '1', type: 'error', mError: "Failed to find user" });
                 }
                 else if (user.role == "Manager") {
-                    return res.render('admanagerhome.hbs', { link: "/admanagerhome", design: "trap", folders, files, styling: "background:transparent; border: none !important;" })
+                    return res.render('profile.hbs', { link: "/admanagerhome", profilename: req.session.name, role: user.role, design: "trap", vError: 'visible', oError: '1', type: 'error', mError: "Failed to find user" })
                 }
             });
+        }
+    })
+});
+
+app.get('/search-file', async (req, res) => {
+    const files = await Files.find({ name: { $regex: req.query.text_search } });
+    const folders = await Folders.find({ name: { $regex: req.query.text_search } });
+
+    Account.findOne({ username: req.session.name }, (err, user) => {
+        if (user.role == "Administrator") {
+            return res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content: "Register a User" });
+        }
+        else if (user.role == "Manager") {
+            return res.render('admanagerhome.hbs', { link: "/admanagerhome", design: "trap", folders, files })
         }
     });
 });
