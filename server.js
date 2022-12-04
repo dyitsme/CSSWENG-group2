@@ -313,7 +313,13 @@ app.get('/userhome', async(req, res)=>{
 app.get('/register', (req, res)=>{
     Account.findOne({username:req.session.name}, (err, user)=>{
         if(user){
-            res.render('register.hbs');
+            if(user.role == "Administrator")
+                res.render('register.hbs');
+            else if(user.role == "Manager")
+                res.redirect('/admanagerhome');
+            else{
+                res.redirect('/userhome');
+            }
         }
         else{
             res.redirect("/");
