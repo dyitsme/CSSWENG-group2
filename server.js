@@ -620,27 +620,39 @@ app.post('/uploadfile', async (req, res) => {
     if (Array.isArray(files)) {
         Account.findOne({ username: req.session.name }, async (err, user) => {
             files.forEach(file => {
-                file.mv(path.resolve(__dirname, 'uploaded', file.name), async (error) => {
-                    if (directory == "") {
-                        Files.create({ name: file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { })
+                Files.find({ name: { $regex: file.name } }, (error, result) => {
+                    if (result != 0) {
+                        file.name = "(" + result.length + ") " + file.name
                     }
-                    else {
-                        Files.create({ name: file.name, access: selectedAccess, parent: folID, date: now, size: file.size, uploader: req.session.name }, (error, post) => { })
-                    }
+
+                    file.mv(path.resolve(__dirname, 'uploaded', file.name), async (error) => {
+                        if (directory == "") {
+                            Files.create({ name: file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { })
+                        }
+                        else {
+                            Files.create({ name: file.name, access: selectedAccess, parent: folID, date: now, size: file.size, uploader: req.session.name }, (error, post) => { })
+                        }
+                    })
                 })
             })
         })
     }
     else {
         Account.findOne({ username: req.session.name }, async (err, user) => {
-            files.mv(path.resolve(__dirname, 'uploaded', files.name), async (error) => {
-                if (directory == "") {
-                    Files.create({ name: files.name, access: selectedAccess, parent: "", date: now, size: files.size, uploader: req.session.name }, (error, post) => { })
+            Files.find({ name: { $regex: files.name } }, (error, result) => {
+                if (result != 0) {
+                    files.name = "(" + result.length + ") " + files.name
                 }
-                else {
-                    Files.create({ name: files.name, access: selectedAccess, parent: folID, date: now, size: files.size, uploader: req.session.name }, (error, post) => { })
-                }
-            });
+
+                files.mv(path.resolve(__dirname, 'uploaded', files.name), async (error) => {
+                    if (directory == "") {
+                        Files.create({ name: files.name, access: selectedAccess, parent: "", date: now, size: files.size, uploader: req.session.name }, (error, post) => { })
+                    }
+                    else {
+                        Files.create({ name: files.name, access: selectedAccess, parent: folID, date: now, size: files.size, uploader: req.session.name }, (error, post) => { })
+                    }
+                });
+            })
         })
     }
 
