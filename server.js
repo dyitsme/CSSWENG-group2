@@ -303,9 +303,15 @@ app.get('/userhome', async(req, res)=>{
     folID = "";
     Account.findOne({username:req.session.name}, async(err, user)=>{
         if(user){
-            const files  = await Files.find({access:"Unrestricted",parent:""});
-            const folders = await Folders.find({access:"Unrestricted", parent:""});
-            res.render('userhome.hbs', {folders,files,styling:"background:transparent; border: none !important;"});
+            if(user.role == "Employee"){
+                const files  = await Files.find({access:"Unrestricted",parent:""});
+                const folders = await Folders.find({access:"Unrestricted", parent:""});
+                res.render('userhome.hbs', {folders,files,styling:"background:transparent; border: none !important;"});
+            }
+            else{
+                res.redirect('/');
+            }
+            
         }
         else{
             res.redirect('/')
@@ -868,15 +874,23 @@ app.get('/search-user', (req, res) => {
 });
 
 app.get('/search-file', async (req, res) => {
-    const files = await Files.find({ name: { $regex: req.query.text_search } });
-    const folders = await Folders.find({ name: { $regex: req.query.text_search } });
 
-    Account.findOne({ username: req.session.name }, (err, user) => {
+    Account.findOne({ username: req.session.name }, async(err, user) => {
         if (user.role == "Administrator") {
-            return res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content: "Register a User" });
+            const files = await Files.find({ name: { $regex: req.query.text_search } });
+            const folders = await Folders.find({ name: { $regex: req.query.text_search } });
+            return res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content: "Register a User",styling: "background:transparent; border: none !important;" });
         }
         else if (user.role == "Manager") {
-            return res.render('admanagerhome.hbs', { link: "/admanagerhome", design: "trap", folders, files })
+            const files = await Files.find({ name: { $regex: req.query.text_search } });
+            const folders = await Folders.find({ name: { $regex: req.query.text_search } });
+            return res.render('admanagerhome.hbs', { link: "/admanagerhome", design: "trap", folders, files,styling: "background:transparent; border: none !important;" })
+        }
+        else if(user.role == "Employee"){
+            const files = await Files.find({ name: { $regex: req.query.text_search }, access:"Unrestricted" });
+            const folders = await Folders.find({ name: { $regex: req.query.text_search }, access:"Unrestricted" });
+
+            return res.render('userhome.hbs',{link:"/userhome", folders, files, styling: "background:transparent; border: none !important;" });
         }
     });
 });
