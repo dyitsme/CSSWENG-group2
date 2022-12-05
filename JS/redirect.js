@@ -1,6 +1,9 @@
 let selected = undefined;
 var btnCount = 0;
 var allBtn = 0;
+
+let fileContainer = []
+
 $(document).ready(function () {
     var elements = document.getElementsByClassName('folder_name_div');
     $('#trap').remove();
@@ -134,10 +137,19 @@ function closeNotificationModal(type) {
 
 function getFileNames() {
     input = document.getElementById('uploadFile');
+    const { files } = input;
 
     for (var i = 0; i < input.files.length; i++) {
         document.getElementById('itemset').innerHTML += '<div id="' + input.files[i].name + '"> <p>' + input.files[i].name + '</p> <img src="pictures/remove.png" alt="" onclick="removeSelectedFileName(' + "'" + input.files[i].name + "'" + ')"> </div>';
     }
+
+    fileContainer.push(files)
+    dataTransfer = new DataTransfer();
+    for (let i = 0; i < fileContainer.length; i++) {
+        const file = fileContainer[i][0]
+        dataTransfer.items.add(file)
+    }
+    input.files = dataTransfer.files
 }
 
 function removeSelectedFileName(filename) {
