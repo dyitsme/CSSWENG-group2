@@ -598,44 +598,51 @@ app.post('/createfolder', async(req, res) =>{
 app.post('/uploadfile', async (req, res) => {
     selectedAccess = null
 
-    if(req.body.exclusiveAccess){
+    if (req.body.exclusiveAccess) {
         selectedAccess = "Restricted"
     } else {
         selectedAccess = "Unrestricted"
     }
-    
-        if (!req.files){
-            return
-        }
-    
-        const files = req.files.uploadFile
-        arrDirect = directory.split("/");
-        if (Array.isArray(files)) {
-            Account.findOne({ username: req.session.name }, async (err, user) => {
-                files.forEach(file => {
-                    file.mv(path.resolve(__dirname, 'uploaded', file.name), async (error) => {
-                        if (directory == "") {
-                            Files.create({ name: file.name, access: selectedAccess, parent: "" }, (error, post) => { })
-                        }
-                        else {
-                            Files.create({ name: file.name, access: selectedAccess, parent: folID }, (error, post) => { })
-                        }
-                    })
-                })
-            })
-        }
-        else {
-            Account.findOne({ username: req.session.name }, async (err, user) => {
-                files.mv(path.resolve(__dirname, 'uploaded', files.name), async (error) => {
+
+    if (!req.files) {
+        return
+    }
+
+    const files = req.files.uploadFile
+    arrDirect = directory.split("/");
+
+    today = new Date();
+    dd = String(today.getDate()).padStart(2, '0');
+    mm = String(today.getMonth() + 1).padStart(2, '0');
+    yyyy = today.getFullYear();
+    now = mm + '/' + dd + '/' + yyyy;
+
+    if (Array.isArray(files)) {
+        Account.findOne({ username: req.session.name }, async (err, user) => {
+            files.forEach(file => {
+                file.mv(path.resolve(__dirname, 'uploaded', file.name), async (error) => {
                     if (directory == "") {
-                        Files.create({ name: files.name, access: selectedAccess, parent: "" }, (error, post) => { })
+                        Files.create({ name: file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { })
                     }
                     else {
-                        Files.create({ name: files.name, access: selectedAccess, parent: folID }, (error, post) => { })
+                        Files.create({ name: file.name, access: selectedAccess, parent: folID, date: now, size: file.size, uploader: req.session.name }, (error, post) => { })
                     }
-                });
+                })
             })
-        }
+        })
+    }
+    else {
+        Account.findOne({ username: req.session.name }, async (err, user) => {
+            files.mv(path.resolve(__dirname, 'uploaded', files.name), async (error) => {
+                if (directory == "") {
+                    Files.create({ name: files.name, access: selectedAccess, parent: "", date: now, size: files.size, uploader: req.session.name }, (error, post) => { })
+                }
+                else {
+                    Files.create({ name: files.name, access: selectedAccess, parent: folID, date: now, size: files.size, uploader: req.session.name }, (error, post) => { })
+                }
+            });
+        })
+    }
 
         await new Promise(resolve => setTimeout(resolve, 1000)); // for some reason it takes time for the file to be displayed
         

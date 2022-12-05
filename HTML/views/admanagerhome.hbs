@@ -110,9 +110,9 @@
                             <img class="file_icon" src="../../UI/File Icon.png">
                             <label for="{{this.name}}" class="file_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each filename-->
                         </div>
-                        <label for="{{this.name}}" class="file_uploaded_by">SerChiefManager1</label><!--change the USERNAME and LABEL of the checkbox for each filename-->
-                        <label for="{{this.name}}" class="file_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each filename-->
-                        <label for="{{this.name}}" class="file_size">135MB</label><!--change the SIZE and LABEL of the checkbox for each filename-->
+                        <label for="{{this.name}}" class="file_uploaded_by">{{this.uploader}}</label><!--change the USERNAME and LABEL of the checkbox for each filename-->
+                        <label for="{{this.name}}" class="file_upload_date">{{this.date}}</label><!--change the DATE and LABEL of the checkbox for each filename-->
+                        <label for="{{this.name}}" class="file_size">{{this.size}}</label><!--change the SIZE and LABEL of the checkbox for each filename-->
                     <div class="context-menu" id="{{this.name}} cm">
                             <p onclick="moveSingle('{{this._id}}')">Move to Folder</p>
                              <p onclick="fileForm('{{this.name}}')">Rename</p>

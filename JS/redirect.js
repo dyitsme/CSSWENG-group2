@@ -10,9 +10,15 @@ $(document).ready(function () {
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener('click', folderClick);
     }
+
     var elements1 = document.getElementsByClassName('folder_move_div');
     for (var i = 0; i < elements1.length; i++) {
         elements1[i].addEventListener('click', folderClickMove);
+    }
+
+    var elements1 = document.getElementsByClassName('file_size');
+    for (var i = 0; i < elements1.length; i++) {
+        elements1[i].innerHTML = formatSize(elements1[i].innerHTML);
     }
 })
 
@@ -312,4 +318,14 @@ function folderClickMove(){
 function moveHere(){
     location.href="/moveAction";
     
+}
+
+function formatSize(bytes, decimals = 2) {
+    const k = 1024
+    const dm = decimals < 0 ? 0 : decimals
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
 }
