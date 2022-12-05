@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const path = require('path');
 const hbs = require("hbs");
+const fs = require("fs")
 const fileUpload = require('express-fileupload')
 const Account = require('./database/models/Account');
 const session = require('express-session');
@@ -34,6 +35,8 @@ app.use(express.json());
 app.use(express.static(__dirname));
 app.use(fileUpload());
 mongoose.connect('mongodb://0.0.0.0/IlaganDB',{useNewURLParser: true, useUnifiedTopology: true});
+
+hbs.registerHelper('eq', (a, b) => a == b)
 
 app.get('/', async(req, res)=>{
     req.session.user = null;
@@ -595,7 +598,9 @@ app.post('/uploadfile', async (req, res) => {
         selectedAccess = "Unrestricted"
     }
     
-
+        if (!req.files){
+            return
+        }
     
         const files = req.files.uploadFile
         arrDirect = directory.split("/");
@@ -695,6 +700,7 @@ app.get('/delete-file', (req, res) => {
     Account.findOne({ username: req.session.name }, (err, user) => {
         if(directory == ""){
             Files.deleteOne({ name: req.query.name }, (error) => {
+                fs.unlink(path.join(__dirname, 'uploaded', req.query.name), (error, result)=>{});
                 if (user.role == 'Administrator' || user.role == "Manager") { res.redirect('/admanagerhome'); }
                 else { res.redirect('/userhome'); }
             })
@@ -703,6 +709,7 @@ app.get('/delete-file', (req, res) => {
             Files.deleteOne({name: req.query.name, parent:folID}, async(err)=>{
                 const folders = await Folders.find({parent:folID});
                 const files = await Files.find({parent:folID});
+                fs.unlink(path.join(__dirname, 'uploaded', req.query.name.name), (error, result)=>{});
                 if(user.role == 'Administrator'){
                     res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User", func:"backFolder()", contents:"<"})
                 }
@@ -919,23 +926,29 @@ app.get('/deleteManyResult', async(req,res)=>{
         })
     }
 })
-app.get('/deleteMany', async(req, res)=>{
+
+app.get('/deleteMany', async (req, res) => {
     arrSelected = req.query.arrDelete;
-    for(let i = 0; i < arrSelected.length; i++){
+    for (let i = 0; i < arrSelected.length; i++) {
         console.log(arrSelected[i]);
-        Files.deleteOne({_id: arrSelected[i]}, (err, ans1)=>{
-            if(ans1){
-                console.log(ans1);
-            }
+
+        Files.findOne({ _id: arrSelected[i] }, (error, result) => {
+            fs.unlink(path.join(__dirname, 'uploaded', result.name), (error, result) => { });
+            Files.deleteOne({ _id: arrSelected[i] }, (err, ans1) => {
+                if (ans1) {
+                    console.log(ans1);
+                }
+            })
         })
-        Folders.deleteOne({_id: arrSelected[i]}, (err, ans2)=>{
-            if(ans2){
+
+        Folders.deleteOne({ _id: arrSelected[i] }, (err, ans2) => {
+            if (ans2) {
                 console.log(ans2);
             }
-        })   
+        })
     }
-   
 })
+
 app.get('/getMove', (req, res)=>{
     IDselected = req.query.arrFilter;
     allID = [];
