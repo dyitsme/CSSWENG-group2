@@ -145,9 +145,11 @@ function getFileNames() {
 
     fileContainer.push(files)
     dataTransfer = new DataTransfer();
-    for (let i = 0; i < fileContainer.length; i++) {
-        const file = fileContainer[i][0]
-        dataTransfer.items.add(file)
+    for (i = 0; i < fileContainer.length; i++) {
+        for (j = 0; j < fileContainer[i].length; j++) {
+            file = fileContainer[i][j]
+            dataTransfer.items.add(file)
+        }
     }
     input.files = dataTransfer.files
 }
