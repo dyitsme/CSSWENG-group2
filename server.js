@@ -947,12 +947,14 @@ app.get('/deleteMany', async (req, res) => {
         console.log(arrSelected[i]);
 
         Files.findOne({ _id: arrSelected[i] }, (error, result) => {
-            fs.unlink(path.join(__dirname, 'uploaded', result.name), (error, result) => { });
-            Files.deleteOne({ _id: arrSelected[i] }, (err, ans1) => {
-                if (ans1) {
-                    console.log(ans1);
-                }
-            })
+            if (result) {
+                fs.unlink(path.join(__dirname, 'uploaded', result.name), (error, result) => { });
+                Files.deleteOne({ _id: arrSelected[i] }, (err, ans1) => {
+                    if (ans1) {
+                        console.log(ans1);
+                    }
+                })
+            }
         })
 
         Folders.deleteOne({ _id: arrSelected[i] }, (err, ans2) => {
