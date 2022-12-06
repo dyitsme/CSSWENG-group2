@@ -319,6 +319,9 @@ body{
 .file_size{
     flex:0.8;
 }
+.folder_size{
+    flex:0.8;
+}
 
 
 /* FOLDER DIV FOLDER DIV */

@@ -509,11 +509,18 @@ app.post('/createfolder', async(req, res) =>{
         const files = await Files.find({parent:""});
         Folders.findOne({name:req.body.foldername}, (err,result)=>{
             if(!result){
+                today = new Date();
+                dd = String(today.getDate()).padStart(2, '0');
+                mm = String(today.getMonth() + 1).padStart(2, '0');
+                yyyy = today.getFullYear();
+                now = mm + '/' + dd + '/' + yyyy;
                 
                     Folders.create({
                         name: req.body.foldername,
                         access: req.body.accesslevel,
                         parent: "",
+                        date: now,
+                        uploader: req.session.name,
                     });
                     Account.findOne({ username: req.session.name }, (err, user) => {
                         if(user.role == 'Administrator' || user.role == "Manager"){
@@ -548,11 +555,18 @@ app.post('/createfolder', async(req, res) =>{
         console.log("INSIDE");
         Folders.findOne({name: req.body.foldername, parent: folID}, (err, result)=>{
             if(!result){
-                console.log("inner")
+                console.log("inner");
+                today = new Date();
+                dd = String(today.getDate()).padStart(2, '0');
+                mm = String(today.getMonth() + 1).padStart(2, '0');
+                yyyy = today.getFullYear();
+                now = mm + '/' + dd + '/' + yyyy;
                 Folders.create({
                     name: req.body.foldername,
                     access : req.body.accesslevel,
                     parent: folID,
+                    date: now,
+                    uploader: req.session.name,
                     
                 })
                 Account.findOne({ username: req.session.name }, async(err, user) => {

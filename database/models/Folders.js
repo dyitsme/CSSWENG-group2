@@ -6,6 +6,8 @@ const folderSchema = new mongoose.Schema({
     files: [file.fileSchema],
     parent: String,
     level: String,
+    date: String,
+    uploader: String
 });
 const Folders = mongoose.model('Folders', folderSchema);
 module.exports = Folders;

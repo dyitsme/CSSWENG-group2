@@ -53,9 +53,9 @@
                             <img class="folder_icon" src="../../UI/Folder Icon.png">
                             <label for="{{this.name}}" class="folder_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
                         </div>
-                        <label for="{{this.name}}" class="folder_uploaded_by">SerChiefManager1</label><!--change the USERNAME and LABEL of the checkbox for each folder name-->
-                        <label for="{{this.name}}" class="folder_upload_date">19/11/2022</label><!--change the DATE and LABEL of the checkbox for each folder name-->
-                        <label for="{{this.name}}" class="file_size"></label><!--change the SIZE and LABEL of the checkbox for each filename-->
+                        <label for="{{this.name}}" class="folder_uploaded_by">{{this.uploader}}</label><!--change the USERNAME and LABEL of the checkbox for each folder name-->
+                        <label for="{{this.name}}" class="folder_upload_date">{{this.date}}</label><!--change the DATE and LABEL of the checkbox for each folder name-->
+                        <label for="{{this.name}}" class="folder_size"></label><!--change the SIZE and LABEL of the checkbox for each filename-->
             
                     </div>
                 {{/each}}
