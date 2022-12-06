@@ -29,7 +29,8 @@
                     <button id="upload_btn" onclick="openFileModal()"><iconify-icon icon="material-symbols:upload"></iconify-icon>Upload</button>
                     <button id="newfolder_btn" onclick="openForm()" class="next_btn"><iconify-icon icon="material-symbols:create-new-folder-outline"></iconify-icon>New Folder</button>
                     <button id="select_btn"  class="next_btn" onclick="toggleSelect()"><iconify-icon icon="material-symbols:select-check-box"></iconify-icon>Select</button>
-                    
+            </div>
+
                         <form class="formpopup" id="popup" method="POST" action="/createfolder">
                             <div class="popup-content">
                                 <label for="foldername"><b>Folder Name:</b></label>
@@ -59,8 +60,8 @@
                                 <button type="button" id="cancelbutton" onclick="fileClose()">Cancel</button>
                             </div>
                         </form>
-                  
-            </div>
+
+
             <div id="breadcrumb">
                 <button style="{{styling}}" onclick="{{func}}">{{contents}}</button><!--Change display to NONE when not in folder-->
                 <p id="breadcrumb_dir">{{path}}</p><!--change the FILE LOCATION-->
@@ -120,21 +121,27 @@
                             <p onclick="deleteFile('{{this.name}}')">Delete</p>
                     </div>
                         
-                    </div>
-                   
+                    </div> 
                 {{/each}}
+
                 <div id="blocker" style="{{blockermodal}}">
                     <div id="move_modal" style="{{movemodal}}">
-                        <button onclick="cancelMov()">Cancel</button>
-                        <button onclick="moveHere()">Move here</button>
+                        <h1>Folders</h1>
+                        <hr>
+                        <div id="folder_container">
                         {{#each movFolder}}
-                        <div class="folder_div" oncontextmenu="moveMenu('{{this.name}} cm'); return false">
-                            <div class="folder_move_div" id="{{this.name}} mov">
-                                <img class="folder_icon" src="../../UI/Folder Icon.png">
-                                <label for="{{this.name}} mov" class="folder_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
+                            <div class="folder_div" oncontextmenu="moveMenu('{{this.name}} cm'); return false">
+                                <div class="folder_move_div" id="{{this.name}} mov">
+                                    <img class="folder_icon" src="../../UI/Folder Icon.png">
+                                    <label for="{{this.name}} mov" class="folder_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
+                                </div>
                             </div>
-                        </div>
                         {{/each}}
+                        </div>
+                        <div id="move_buttons">
+                            <button id="move_here" onclick="moveHere()">Move here</button>
+                            <button id="cancel_here" onclick="cancelMov()">Cancel</button>
+                        </div>
                     </div>
                 </div>
             
