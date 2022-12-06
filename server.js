@@ -218,10 +218,10 @@ app.get('/movloadfolder', async(req, res)=>{
                 //const folders1 = await Folders.find({parent: folIDmove,_id:{$ne:IDselected}})
                 console.log("ADMIN");
                 if(directory == ""){
-                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", styling:"background:transparent; border: none !important;",movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:block"  });
+                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", styling:"background:transparent; border: none !important;",movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:flex"  });
                 }
                 else{
-                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome",ID: "/register", Content:"Register a User", func:"backFolder()", contents:"<",movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:block"  });
+                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome",ID: "/register", Content:"Register a User", func:"backFolder()", contents:"<",movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:flex"  });
                 }
                 
             }
@@ -246,10 +246,10 @@ app.get('/movloadfolder', async(req, res)=>{
                 }
                 console.log("Manager");
                 if(directory == ""){
-                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", styling:"background:transparent; border: none !important;",movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:block"  });
+                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", styling:"background:transparent; border: none !important;",movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:flex"  });
                 }
                 else{
-                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()", contents:"<",movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:block"  });
+                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()", contents:"<",movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:flex"  });
                 }
                 
             }
@@ -1018,11 +1018,11 @@ app.get('/filterMany', async(req, res)=>{
         const files = await Files.find({parent:""});
         Account.findOne({username: req.session.name}, (err, user)=>{
             if(user.role == "Administrator"){
-                res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "/register", Content:"Register a User",movFolder: folders1,movemodal:"visibility:visible", blockermodal:"display:block",path:directory,styling: "background:transparent; border: none !important;"});
+                res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "/register", Content:"Register a User",movFolder: folders1,movemodal:"visibility:visible", blockermodal:"display:flex",path:directory,styling: "background:transparent; border: none !important;"});
             }
             else if(user.role == "Manager"){
                 
-                res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"trap", folders, files, movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:block",path:directory,styling: "background:transparent; border: none !important;" })
+                res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"trap", folders, files, movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:flex",path:directory,styling: "background:transparent; border: none !important;" })
             }
         })
     }
@@ -1033,11 +1033,11 @@ app.get('/filterMany', async(req, res)=>{
         const files = await Files.find({parent:folID});
         Account.findOne({username: req.session.name}, (err, user)=>{
             if(user.role == "Administrator"){
-                res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "/register", Content:"Register a User",movFolder: folders1, movemodal:"visibility:visible", blockermodal:"display:block",path:directory,func:"backFolder()", contents:"<"});
+                res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "/register", Content:"Register a User",movFolder: folders1, movemodal:"visibility:visible", blockermodal:"display:flex",path:directory,func:"backFolder()", contents:"<"});
             }
             else if(user.role == "Manager"){
                 
-                res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"trap", folders, files, movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:block",path:directory,func:"backFolder()", contents:"<" })
+                res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"trap", folders, files, movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:flex",path:directory,func:"backFolder()", contents:"<" })
             }
         })
     }
@@ -1049,11 +1049,11 @@ app.get('/filterSelected', async(req, res)=>{
             const files = await Files.find({parent:""});
             Account.findOne({username: req.session.name}, (err, user)=>{
                 if(user.role == "Administrator"){
-                    res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "/register", Content:"Register a User",movFolder: folders1,movemodal:"visibility:visible", blockermodal:"display:block",path:directory,styling: "background:transparent; border: none !important;"});
+                    res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "/register", Content:"Register a User",movFolder: folders1,movemodal:"visibility:visible", blockermodal:"display:flex",path:directory,styling: "background:transparent; border: none !important;"});
                 }
                 else if(user.role == "Manager"){
                     
-                    res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"trap", folders, files, movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:block",path:directory,styling: "background:transparent; border: none !important;" })
+                    res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"trap", folders, files, movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:flex",path:directory,styling: "background:transparent; border: none !important;" })
                 }
             })
         }
@@ -1062,11 +1062,11 @@ app.get('/filterSelected', async(req, res)=>{
             const files = await Files.find({parent:folID});
             Account.findOne({username: req.session.name}, (err, user)=>{
                 if(user.role == "Administrator"){
-                    res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "/register", Content:"Register a User",movFolder: folders1, movemodal:"visibility:visible", blockermodal:"display:block",path:directory,func:"backFolder()", contents:"<"});
+                    res.render('admanagerhome.hbs', {folders,files, link: "/admanagerhome", ID: "/register", Content:"Register a User",movFolder: folders1, movemodal:"visibility:visible", blockermodal:"display:flex",path:directory,func:"backFolder()", contents:"<"});
                 }
                 else if(user.role == "Manager"){
                     
-                    res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"trap", folders, files, movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:block",path:directory,func:"backFolder()", contents:"<" })
+                    res.render('admanagerhome.hbs',{link: "/admanagerhome", design:"trap", folders, files, movFolder:folders1,movemodal:"visibility:visible", blockermodal:"display:flex",path:directory,func:"backFolder()", contents:"<" })
                 }
             })
         }
