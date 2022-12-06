@@ -290,7 +290,7 @@ function file_folder_search() {
 
 function moveSingle(identifier){
     
-    document.getElementById("blocker").style.display = "block";
+    document.getElementById("blocker").style.display = "flex";
     document.getElementById("move_modal").style.visibility = "visible";
     $.get("/getMove", {arrFilter: identifier}, (result)=>{
 
