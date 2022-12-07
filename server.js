@@ -748,7 +748,7 @@ app.get('/delete-file', (req, res) => {
             Files.deleteOne({name: req.query.name, parent:folID}, async(err)=>{
                 const folders = await Folders.find({parent:folID});
                 const files = await Files.find({parent:folID});
-                fs.unlink(path.join(__dirname, 'uploaded', req.query.name.name), (error, result)=>{});
+                fs.unlink(path.join(__dirname, 'uploaded', req.query.name), (error, result)=>{});
                 if(user.role == 'Administrator'){
                     res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User", func:"backFolder()", contents:"<"})
                 }
