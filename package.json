@@ -1,0 +1,30 @@
+{
+  "name": "cssweng-group2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dyitsme/CSSWENG-group2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dyitsme/CSSWENG-group2/issues"
+  },
+  "homepage": "https://github.com/dyitsme/CSSWENG-group2#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "express-session": "^1.17.3",
+    "express-zip": "^3.0.0",
+    "fs": "^0.0.1-security",
+    "hbs": "^4.2.0",
+    "mongoose": "^6.6.5",
+    "path": "^0.12.7"
+  }
+}

@@ -1,0 +1,616 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Inter');
+html,
+body{
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+#topbar{
+    display: flex;
+    height: 67px;
+    width: 100%;
+    background-color: #f0f0f0;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+
+
+#topbar a{
+    margin-left: 24px;
+    font: 400 20px 'Inter';
+    color: black;
+    text-decoration: none;
+}
+
+#topbar a::after{
+    display: block;
+
+    width: 0;
+    margin: auto;
+    border-bottom: 2px solid black;
+
+    content: '';
+
+    transition: 500ms;
+}
+
+
+#topbar a:hover::after {
+    width: 100%;
+}
+
+
+#top_logo{
+    height: 47px;
+    width: 206px;
+    align-self: center;
+    margin-left: 10px; 
+}
+
+#top_search{
+    display: flex;
+    margin-left: auto;
+    margin-right: 10px;
+    width: 580px;
+    height: 35px;
+    border-radius: 10px;
+    border: 1px solid #B1B1B1;
+    background-color: white;
+}
+
+#top_search button{
+    border: 0;
+    padding: 5px;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+#text_search{
+    font-size: 16px;
+    flex: 1;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+
+#main_body{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0 50px;
+}
+
+#action_labels{
+    display: flex;
+    align-items: flex-end;
+    height: 100px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#action_labels h1{
+    font: 700 64px "Roboto";
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#action_labels button{
+    display: flex;
+    padding:5px;
+    align-items: center;
+    font: 24px "Roboto";
+    align-items: center;
+    height: 50px;
+    border-radius: 10px;
+    cursor: pointer;
+    border:none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#action_labels button:hover{
+    transform: scale(1.1);
+}
+
+.next_btn{ 
+    margin-left: 18px;
+    background: #F0F0F0;
+}
+
+#upload_btn{
+    margin-left: auto;
+    color: white;
+    background-color: #1E3F5A;
+}
+
+#breadcrumb{
+    display: flex;
+    height: 33px;
+    margin: 0;
+    padding: 0;
+    
+}
+#breadcrumb button{
+    width: 35px;
+    height: 33px; 
+    background-color: #F0F0F0;
+    border-radius: 10px;
+    border: none;
+    align-self: flex-end;
+}
+
+#breadcrumb button:hover{
+    background-color: #AEAEAE;
+}
+
+
+#breadcrumb p{
+    width: 50%;
+    font-family: 'Inter';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 22px;
+    color: #5b5b5b;
+    margin: 0;
+    align-self: flex-end;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    direction: rtl;
+    text-align: left;
+}
+
+/* TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR */
+
+#title_bar{
+    display: flex;
+    height: 44px;
+    width: 100%;
+    border-bottom: 1px solid #000000;
+    align-items: center;
+}
+
+#title_bar p{
+    align-self: center;
+    font-family: 'Inter';
+    font-style: normal;
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 1.2vw;
+}
+
+
+.name_div {
+    flex: 5.2;
+}
+
+.uploader_div {
+    flex: 1.6;
+    padding-left: 8px;
+    border-left: 1px solid #000000;
+}
+
+.upload_date_div {
+    flex: 0.8;
+    padding-left: 8px;
+    border-left: 1px solid #000000;
+}
+
+.upload_size_div {
+    flex: 0.8;
+    padding-left: 8px;
+    border-left: 1px solid #000000;
+}
+
+/* #name{
+    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
+}
+
+#upload_date{
+    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
+}
+
+#upload_size{
+    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
+}
+
+#uploader{
+    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
+} */
+
+/* SELECT ALL SELECT ALL SELECT ALL SELECT ALL SELECT ALL SELECT ALL SELECT ALL */
+
+#sa_div{
+    display: none; /*display flex when toggling select button*/
+    height: 39px;
+}
+
+.checkbox{
+    height: 20px;
+    width: 20px;
+    align-self: center;
+    cursor: pointer;
+}
+
+#sa_label{
+    align-self: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    margin-left: 8px;
+}
+
+#files_container{
+    display: flex;
+    flex-direction: column;
+    overflow-y:auto;
+    max-height:60vh;
+    width: 100%;
+}
+
+
+/* FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV */
+
+.file_div{
+    display: flex;
+    height: 39px;
+    align-items: center;
+    border-bottom: 1px solid #000000;
+    padding: 8px 0 8px 0;
+    width: 100%;
+}
+
+.file_icon{
+    width: 17px;
+    height: 21px;
+    margin-left: 8px;
+}
+
+.files_checkbox{
+    display: none;
+    cursor: pointer;
+}
+
+.file_div label{
+    padding-left: 8px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.file_name_div{
+    display: flex;
+    align-items: center;
+    flex:5.2;
+    width: 50%;
+    cursor: pointer;
+}
+
+.file_name_div:hover{
+    background-color: #e4e4e4;
+}
+
+.file_name{
+    padding-left: 8px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 95%;
+}
+
+.file_uploaded_by{
+    flex:1.6;
+}
+
+.file_upload_date{
+    flex:0.8;
+  
+}
+
+.file_size{
+    flex:0.8;
+}
+.folder_size{
+    flex:0.8;
+}
+
+
+/* FOLDER DIV FOLDER DIV */
+
+.folder_div{
+    display: flex;
+    height: 39px;
+    align-items: center;
+    border-bottom: 1px solid #000000;
+    padding:8px 0 8px 0;
+}
+
+.folder_icon{
+    width: 17px;
+    height: 21px;
+    margin-left: 8px;
+}
+
+.folder_div label{
+    padding-left: 8px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.folder_name_div{
+    display: flex;
+    align-items: center;
+    flex:5.2;
+    width: 50%;
+}
+
+.folder_name_div label{
+    width: 95%;
+    cursor: pointer;
+}
+
+.folder_name_div:hover{
+    background-color: #e4e4e4;
+}
+
+.folder_name{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.folder_uploaded_by{
+    flex:1.6;
+
+}
+
+.folder_upload_date{
+    flex:0.8;
+  
+}
+
+.formpopup {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 100; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+.popup-content{
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius:10px;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+.popup-content input{
+    width: 35%;
+    font: 30px "Roboto";
+    padding:5px;
+    border-radius:10px;
+    border: none;
+    background-color: #ECECEC;
+}
+.popup-content label{
+    font: 700 25px "Roboto";
+    margin: 0 5px 0 0;
+    white-space: nowrap;
+}
+.popup-content select{
+    width: 400px;
+    height: 49px;
+    margin-left: 10px;
+    padding-left: 10px;
+    border: none;
+    border-radius: 10px;
+
+    background-color: #ECECEC;
+
+    font: 400 24px "Roboto";
+    color: black;
+}
+.formpopup button{
+    white-space: nowrap;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    width:180px;
+    margin: 0 0 0 15px;
+    background-color: #1E3F5A;
+    height:auto;
+    font: 25px "Roboto";
+    color: white;
+    justify-content: center;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+.formpopup button:hover{
+    transform: scale(1.05);
+}
+
+
+#errorcode {
+    font: 200 24px "Roboto";
+    color: #BF0707;
+    text-align: center;
+    font-weight:600;
+}
+.title-action {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: -60px;
+}
+
+#title {
+    margin-left: 35px;
+
+    font: 700 70px "Roboto";
+    color: #BF0707;
+    line-height: 75px;
+}
+
+.action {
+    display: flex;
+    flex-flow: row nowrap;
+
+    margin-right: 35px;
+}
+
+.action div {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    margin-left: 10px;
+}
+
+.action div:hover img,
+.action div:hover button,
+.action div:hover label{
+    background-color: #00AEAE;
+
+    cursor: pointer;
+}
+
+.action img {
+    height: 50px;
+    width: 50px;
+    padding: 10px 0 10px 20px;
+    border: none;
+    border-radius: 20px 0 0 20px;
+
+    background-color: #BF0707;
+
+    transition: 500ms;
+}
+
+.action button,
+.action label {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 0 20px 20px 0;
+
+    background-color: #BF0707;
+
+    font: 400 25px "Roboto";
+    color: white;
+
+    transition: 500ms;
+}
+
+.action input[type=file], .file-modal input[type=file] {
+    display: none;
+}
+
+.folder-file {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+.folder,
+.file {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+
+    width: 240px;
+    height: 240px;
+    margin: 25px 35px 30px 35px;
+    padding: 3px;
+    border-radius: 10px;
+
+    background-color: #F0F0F0;
+}
+
+.folder:hover,
+.file:hover {
+    cursor: pointer;
+}
+
+.folder img {
+    width: 80.92px;
+    height: 65.21px;
+    padding: 65px 79.50px;
+    border-radius: 10px 10px 0 0;
+
+    background-color: white;
+}
+
+.file img {
+    width: 59px;
+    height: 69px;
+    padding: 65px 90.5px;
+    border-radius: 10px 10px 0 0;
+
+    background-color: white;
+}
+
+.folder p,
+.file p {
+    margin: 0 15px 0;
+    padding: 10px;
+    font: 800 20px "Roboto";
+    color: #BF0707;
+    text-align: center;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#multContext {
+    position: fixed; /* Stay in place */
+    left:40%;
+    top:10%;
+    display: flex;
+    flex-flow: column;
+    visibility: hidden;
+    width: 250px;
+    padding: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.5);
+    background-color: white;
+}
+
+#multContext p {
+    border-bottom: 1px solid black;
+    font: 400 16px 'Roboto';
+    cursor: pointer;
+    padding: 2px 0;
+}
+
+#multContext p:hover {
+    background-color: #CDCDCD;
+}

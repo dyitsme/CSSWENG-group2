@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Inter');
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+#topbar{
+    display: flex;
+    height: 67px;
+    width: 100%;
+    background-color: #f0f0f0;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+
+
+#topbar a{
+    margin-left: 24px;
+
+    font: 400 20px 'Inter';
+    color: black;
+    text-decoration: none;
+}
+
+#topbar a::after{
+    display: block;
+
+    width: 0;
+    margin: auto;
+    border-bottom: 2px solid black;
+
+    content: '';
+
+    transition: 500ms;
+}
+
+
+#topbar a:hover::after {
+    width: 100%;
+}
+
+
+#top_logo{
+    height: 47px;
+    width: 206px;
+    align-self: center;
+    margin-left: 10px; 
+}
+
+#changePassword {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+
+    width: 45vw;
+    height: 60vh;
+
+    margin: 100px 0 0 0;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+#changePassword input {
+    width: 565px;
+    height: 50px;
+    margin-top: 25px;
+    padding-left: 10px;
+    border: none;
+    border-radius: 10px;
+
+    background-color: #ECECEC;
+
+    font: 400 24px "Roboto";
+    color: black;
+}
+
+#changeButton {
+    width: 565px;
+    height: 50px;
+    margin-top: 50px;
+    border: none;
+    border-radius: 10px;
+
+    background-color: #1E3F5A;
+
+    font: 400 24px "Roboto";
+    color: white;
+
+    transition: 500ms;
+}
+
+#changeButton:hover {
+    transform: scale(1.05);
+
+    cursor: pointer;
+}
+
+#error {
+    font: 400 24px "Roboto";
+    color: #BF0707;
+    text-align: center;
+}

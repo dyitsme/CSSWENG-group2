@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../CSS/modal.css">
+    <link rel="stylesheet" href="../../CSS/edit-admin.css">
+    <title>G. Ilagan Designs and Construction</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <img class="logo" src="pictures/logo.png" alt="logo">
+        <a class="link" href="/admanagerhome">Files</a>
+        <a id="{{design}}" href="{{ID}}">{{Content}}</a>
+        <a class="link" href="">Profile Name</a>
+        <a class="link" href="/">Logout</a>
+    </div>
+
+    <div class="screen">
+        <p class="title">{{username}}</p>
+
+        <div class="side-by-side">
+            <div class="container">
+                <p class="title">Edit Password</p>
+                <form class="edit" method="post" action="/change-selected-password?text_search={{username}}">
+                    <input type="password" name="password" id="" required="true">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        
+            <div class="container">
+                <p class="title">Edit Role</p>
+                <form class="edit" method="post" action="/edit-role?text_search={{username}}">
+                    <select id="roles" name="roles" required="true">
+                        <option value="" selected disabled hidden>Role</option>
+                        <option value="Employee">Employee</option>
+                        <option value="Manager">Manager</option>
+                    </select>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+
+        <button class="delete" onclick="window.location.href='/delete-user?text_search={{username}}'">Delete Account</button>
+    </div>
+
+    <div class="notification-modal success" id="successModal" style="visibility: {{vSuccess}}; opacity: {{oSuccess}};">
+        <img class="exit" src="pictures/cross.png" alt="cross" onclick="closeNotificationModal('{{type}}')">
+        <div class="linear">
+            <img src="pictures/success.png" alt="">
+            <div>
+                <h1>Success!</h1>
+                <p>{{mSuccess}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
