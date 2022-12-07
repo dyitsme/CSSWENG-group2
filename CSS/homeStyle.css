@@ -170,6 +170,7 @@ body{
     white-space: nowrap;
     direction: rtl;
     text-align: left;
+    align-self: center;
 }
 
 /* TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR */
