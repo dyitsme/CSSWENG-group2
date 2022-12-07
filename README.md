@@ -32,10 +32,10 @@ npm install
 Steps on how to use the app, please refer to the *Documentation*.
 
 ## Authors
-- Azarcon, Juan Carlo
-- Caoile, Sean Iverson
-- Castillo, Solomon Nirvon
-- Lim, Aurelius Justin
-- Manalo, Jaime Luis
-- Viceral, Ralph Edrian
-- Yongco, Denzel Bryan
+- [Azarcon, Juan Carlo](https://github.com/Chunkiee05)
+- [Caoile, Sean Iverson](https://github.com/SeanCaoile)
+- [Castillo, Solomon Nirvon](https://github.com/SolomonCas)
+- [Lim, Aurelius Justin](https://github.com/AureliusLim?tab=repositories)
+- [Manalo, Jaime Luis](https://github.com/olanamj)
+- [Viceral, Ralph Edrian](https://github.com/REPVL)
+- [Yongco, Denzel Bryan](https://github.com/dyitsme)
