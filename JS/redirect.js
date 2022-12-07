@@ -92,13 +92,34 @@ function folderClick() {
     });
 }
 
-function contextMenu(identifier) {
-    if ((document.getElementById(identifier).style.visibility === "visible")) {
-        document.getElementById(identifier).style.visibility = "hidden";
-    } else {
+var opened ='';
+
+function contextMenu(event, identifier) {
+    if((opened != identifier) && (opened != "")){
+        document.getElementById(opened).style.visibility = "hidden";
         document.getElementById(identifier).style.visibility = "visible";
+        opened = identifier;
+        document.getElementById(identifier).style.top = event.clientY;
+        document.getElementById(identifier).style.left = event.clientX;
+        console.log(event.clientY)
+        console.log(event.clientX)
+    }
+    else{
+        document.getElementById(identifier).style.visibility = "visible";
+        opened = identifier;
+        document.getElementById(identifier).style.top = event.clientY;
+        document.getElementById(identifier).style.left = event.clientX;
+        console.log(event.clientY)
+        console.log(event.clientX)
     }
 }
+
+window.addEventListener('click', (e) => {
+    if(opened != ""){
+        document.getElementById(opened).style.visibility = "hidden";
+    }
+})
+
 
 function deleteFolder(identifier) {
     location.href = "/delete-folder?name=" + identifier;

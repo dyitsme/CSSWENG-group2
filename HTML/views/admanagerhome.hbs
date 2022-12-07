@@ -86,7 +86,7 @@
        
             <div id="files_container">
                 {{#each folders}}
-                    <div class="folder_div" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
+                    <div class="folder_div" oncontextmenu="contextMenu(event,'{{this.name}} cm'); return false">
                          <input type="checkbox" class="files_checkbox" onchange="checkSelectAll()" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
                         <div class="folder_name_div" id="{{this.name}}">
                             <img class="folder_icon" src="../../UI/Folder Icon.png">
@@ -105,7 +105,7 @@
 
 
                 {{#each files}}
-                    <div class="file_div" oncontextmenu="contextMenu('{{this.name}} cm'); return false">
+                    <div class="file_div" oncontextmenu="contextMenu(event, '{{this.name}} cm'); return false">
                         <input type="checkbox" class="files_checkbox" onchange="checkSelectAll()" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
                         <div class="file_name_div">
                             <img class="file_icon" src="../../UI/File Icon.png">
