@@ -3,7 +3,21 @@ var btnCount = 0;
 var allBtn = 0;
 
 let fileContainer = []
-
+if ( window.history.replaceState ) {
+    $.get('/getrole', {}, (result)=>{
+        if(result){
+            if(result.role == "Administrator" || result.role == "Manager"){
+                window.history.replaceState( null, null, '/admanagerhome');
+            }
+            else{
+                window.history.replaceState( null, null, '/userhome');
+            }
+        }
+       
+            
+    })
+   
+}
 $(document).ready(function () {
     var elements = document.getElementsByClassName('folder_name_div');
     $('#trap').remove();

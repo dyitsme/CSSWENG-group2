@@ -1274,6 +1274,13 @@ app.get('/downloadMultipleFile', (req, res) => {
         res.zip(container);
     })
 });
+app.get('/getrole', (req, res)=>{
+    Account.findOne({username:req.session.name}, (err, ans)=>{
+        if(ans){
+            res.send(ans);
+        }
+    })
+})
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
 });
