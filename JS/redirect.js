@@ -217,9 +217,14 @@ function removeSelectedFileName(filename) {
 function openSelectable() {
     document.getElementById('sa_div').style.display = 'flex';
 
-    checkboxes = document.getElementsByClassName('files_checkbox')
+    let checkboxes = document.getElementsByClassName('files_checkbox');
+   
     for (i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].style.display = "flex"
+        checkboxes[i].style.display = "flex";
+    }
+    checkboxes = document.getElementsByClassName('folders_checkbox');
+    for (i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].style.display = "flex";
     }
 }
 
@@ -229,31 +234,20 @@ function downloadSingle(id) {
 
 async function downloadMany() {
     let selected = [];
-    let hasFolder = false;
+    let selected1 = [];
     const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
-
+    const folderscheck = document.querySelectorAll('input[class="folders_checkbox"]:checked');
     checkboxes.forEach(checkbox => { selected.push(checkbox.value); });
-    
-    for (let i = 0; i < selected.length; i++){
-        $.get('/isfolder', {IDfol: selected[i]}, (result)=>{
-            if(result){
-                hasFolder = true;
-            }
-        })
-        if(hasFolder == true){
-            break;
-        }
+    folderscheck.forEach(folderbox => { selected1.push(folderbox.value); });
+    console.log(selected1);
+    if(selected1.length && selected1){
+        alert("Folders cannot be downloaded");
     }
-    await new Promise(resolve => setTimeout(resolve, 1000));
-  
-    if (selected.length == 1 && hasFolder == false) {
+    else if (selected.length == 1) {
          location.href = "/downloadSingleFile?filename=" + selected[0]; 
     }
-    else if (selected.length > 1 && hasFolder == false) { 
+    else if (selected.length > 1) { 
         location.href = '/downloadMultipleFile?filenames=' + selected.join(',') 
-    }
-    else{
-        alert("Folders cannot be downloaded");
     }
 }
 
@@ -264,12 +258,14 @@ function toggleSelect(){
     
     if(btnCount % 2 != 0){
         $(".files_checkbox").css('display', 'none');
+        $(".folders_checkbox").css('display', 'none');
         $("#sa_div").css('display', 'none');
         document.getElementById("multContext").style.visibility = "hidden";
         btnCount += 1;
     }
     else{
         $(".files_checkbox").css('display', 'inline-block');
+        $(".folders_checkbox").css('display', 'inline-block');
         $("#sa_div").css('display', 'flex');
         document.getElementById("multContext").style.visibility = "visible";
         btnCount += 1;
@@ -279,10 +275,12 @@ function toggleSelect(){
 function toggleSelectAll(){
     if(allBtn % 2 != 0){
         $(".files_checkbox").prop('checked', false);
+         $(".folders_checkbox").prop('checked', false);
         allBtn += 1;
     }
     else{
         $(".files_checkbox").prop('checked', true);
+         $(".folders_checkbox").prop('checked', true);
         allBtn += 1;
     }
 }
@@ -300,10 +298,15 @@ function toggleSelectAll(){
 
 function deleteMany(){
     let arrSelected = [];
-    const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
+    let checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
+   let folderboxes = document.querySelectorAll('input[class="folders_checkbox"]:checked');
     checkboxes.forEach((checkbox)=>{
         arrSelected.push(checkbox.value);
     });
+    folderboxes.forEach((checkbox)=>{
+        arrSelected.push(checkbox.value);
+    });
+    console.log(arrSelected);
     if(arrSelected && arrSelected.length){
         $.get("/deleteMany", {arrDelete : arrSelected}, (result)=>{
         });
@@ -313,15 +316,27 @@ function deleteMany(){
 function moveMany(){
     let arrSelected = [];
     let arrNotselect = [];
-    const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
+    let checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
     checkboxes.forEach((checkbox)=>{
         arrSelected.push(checkbox.value);
     });
-    const allboxes = document.querySelectorAll('input[class="files_checkbox"]');
+
+    checkboxes = document.querySelectorAll('input[class="folders_checkbox"]:checked');
+    checkboxes.forEach((checkbox)=>{
+        arrSelected.push(checkbox.value);
+    });
+
+    let allboxes = document.querySelectorAll('input[class="files_checkbox"]');
+    
     allboxes.forEach((allbox)=>{
         arrNotselect.push(allbox.value);
     });
-    
+
+    allboxes = document.querySelectorAll('input[class="folders_checkbox"]');
+
+    allboxes.forEach((allbox)=>{
+        arrNotselect.push(allbox.value);
+    });
     for(var j = 0; j < arrSelected.length; j++){
         for (var i = arrNotselect.length - 1; i >= 0; i--) {
             if (arrNotselect[i] === arrSelected[j]) {

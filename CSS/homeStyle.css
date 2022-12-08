@@ -288,6 +288,10 @@ body{
     display: none;
     cursor: pointer;
 }
+.folders_checkbox{
+    display: none;
+    cursor: pointer;
+}
 
 .file_div label{
     padding-left: 8px;
