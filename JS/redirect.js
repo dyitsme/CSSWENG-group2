@@ -3,7 +3,23 @@ var btnCount = 0;
 var allBtn = 0;
 
 let fileContainer = []
-
+let data=window.performance.getEntriesByType("navigation")[0].type;
+console.log(data);
+if ( data == "reload" ) {
+    $.get('/getrole', {}, (result)=>{
+        if(result){
+            if(result.role == "Administrator" || result.role == "Manager"){
+                window.history.replaceState( null, null, '/admanagerhome');
+            }
+            else{
+                window.history.replaceState( null, null, '/userhome');
+            }
+        }
+       
+            
+    })
+   
+}
 $(document).ready(function () {
     var elements = document.getElementsByClassName('folder_name_div');
     $('#trap').remove();
@@ -211,14 +227,34 @@ function downloadSingle(id) {
     location.href = "/downloadSingleFile?filename=" + id;
 }
 
-function downloadMany() {
+async function downloadMany() {
     let selected = [];
+    let hasFolder = false;
     const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
 
     checkboxes.forEach(checkbox => { selected.push(checkbox.value); });
-
-    if (selected.length == 1) { location.href = "/downloadSingleFile?filename=" + selected[0]; }
-    else if (selected.length > 1) { location.href = '/downloadMultipleFile?filenames=' + selected.join(',') }
+    
+    for (let i = 0; i < selected.length; i++){
+        $.get('/isfolder', {IDfol: selected[i]}, (result)=>{
+            if(result){
+                hasFolder = true;
+            }
+        })
+        if(hasFolder == true){
+            break;
+        }
+    }
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  
+    if (selected.length == 1 && hasFolder == false) {
+         location.href = "/downloadSingleFile?filename=" + selected[0]; 
+    }
+    else if (selected.length > 1 && hasFolder == false) { 
+        location.href = '/downloadMultipleFile?filenames=' + selected.join(',') 
+    }
+    else{
+        alert("Folders cannot be downloaded");
+    }
 }
 
 function backFolder(){
@@ -349,4 +385,12 @@ function formatSize(bytes, decimals = 2) {
     const i = Math.floor(Math.log(bytes) / Math.log(k))
 
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
+}
+
+function disableSpecialChar(e) {
+      if(!((e.keyCode >= 65) && (e.keyCode <= 90) || (e.keyCode >= 97) && (e.keyCode <= 122) || (e.keyCode >= 48) && (e.keyCode <= 57))){
+         e.returnValue = false;
+         return;
+      }
+      e.returnValue = true;
 }

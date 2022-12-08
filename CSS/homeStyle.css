@@ -145,14 +145,18 @@ body{
 #breadcrumb button{
     width: 35px;
     height: 33px; 
-    background-color: #F0F0F0;
+    background-color: #d3d3d3;
     border-radius: 10px;
     border: none;
     align-self: flex-end;
+    background-image: url("../../pictures/back.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 5px;
 }
 
 #breadcrumb button:hover{
-    background-color: #AEAEAE;
+    transform: scale(1.1);
 }
 
 
@@ -170,6 +174,7 @@ body{
     white-space: nowrap;
     direction: rtl;
     text-align: left;
+    align-self: center;
 }
 
 /* TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR */
