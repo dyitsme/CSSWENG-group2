@@ -553,7 +553,7 @@ app.post('/createfolder', async(req, res) =>{
         arrDirect = directory.split("/");
         console.log(fol);
         console.log("INSIDE");
-        Folders.findOne({name: req.body.foldername, parent: folID}, (err, result)=>{
+        Folders.findOne({name: req.body.foldername}, (err, result)=>{
             if(!result){
                 console.log("inner");
                 today = new Date();
