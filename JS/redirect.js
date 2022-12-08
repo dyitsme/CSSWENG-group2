@@ -3,7 +3,9 @@ var btnCount = 0;
 var allBtn = 0;
 
 let fileContainer = []
-if ( window.history.replaceState ) {
+let data=window.performance.getEntriesByType("navigation")[0].type;
+console.log(data);
+if ( data = "reload" ) {
     $.get('/getrole', {}, (result)=>{
         if(result){
             if(result.role == "Administrator" || result.role == "Manager"){
