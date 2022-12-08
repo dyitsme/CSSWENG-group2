@@ -5,7 +5,7 @@ var allBtn = 0;
 let fileContainer = []
 let data=window.performance.getEntriesByType("navigation")[0].type;
 console.log(data);
-if ( data = "reload" ) {
+if ( data == "reload" ) {
     $.get('/getrole', {}, (result)=>{
         if(result){
             if(result.role == "Administrator" || result.role == "Manager"){
