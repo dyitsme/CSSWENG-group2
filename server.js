@@ -1281,6 +1281,13 @@ app.get('/getrole', (req, res)=>{
         }
     })
 })
+app.get('/isfolder', (req, res)=>{
+    Folders.findOne({_id: req.query.IDfol}, (err, ans)=>{
+        if(ans){
+            res.send(ans);
+        }
+    })
+})
 app.listen(3000, (err)=>{
     console.log("Server listening on Port 3000")
 });
