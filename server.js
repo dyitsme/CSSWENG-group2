@@ -669,47 +669,7 @@ app.post('/uploadfile', async (req, res) => {
             })
         })
     }
-
-        await new Promise(resolve => setTimeout(resolve, 1000)); // for some reason it takes time for the file to be displayed
-        
-        if (directory == "") {
-            const files = await Files.find({ parent: "" });
-            const folders = await Folders.find({ parent: "" });
-            Account.findOne({ username: req.session.name }, (err, user) => {
-                if (err){
-                    res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vError: 'visible' , oError: '1', type: 'error'});
-                }
-
-                if (user.role == "Administrator") {
-                    res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vSuccess: 'visible' , oSuccess: '1', type: 'success',styling: "background:transparent; border: none !important;"});
-                }
-                if (user.role == "Manager") {
-                    res.render('admanagerhome.hbs', { folders: folders, files: files , link: "/admanagerhome", design:"trap",styling: "background:transparent; border: none !important;" });
-                }
-            })
-        }
-        else {
-            console.log("DIRECTORY NOT EMPTY");
-            arrDirect = directory.split('/');
-            Account.findOne({ username: req.session.name }, (err, user) => {
-                Folders.findOne({ name: fol }, async (err, ans) => {
-                    const resultingfolder = await Folders.find({ parent: folID })
-                    const resultingfiles = await Files.find({ parent: folID })
-                        if (user.role == 'Administrator') {
-                            console.log("ADMIN");
-                            res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",func:"backFolder()"  });
-                        }
-                        else if (user.role == "Manager") {
-                            res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", design:"trap",func:"backFolder()"  });
-                        }
-                        else {
-                            res.render('userhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory,func:"backFolder()"  });
-                        }
-                    
-                })
-            });
-        }
-    
+    res.redirect('/uploadresult');
 });
 
 app.get('/delete-folder', (req, res) => {
@@ -1061,6 +1021,39 @@ app.get('/delete-user', (req, res) => {
         }
     })
 });
+app.get('/uploadresult', async(req, res)=>{
+    await new Promise(resolve => setTimeout(resolve, 1000)); // for some reason it takes time for the file to be displayed
+        if (directory == "") {
+            const files = await Files.find({ parent: "" });
+            const folders = await Folders.find({ parent: "" });
+            Account.findOne({ username: req.session.name }, (err, user) => {
+                if (err){
+                    res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vError: 'visible' , oError: '1', type: 'error'});
+                }
+
+                if (user.role == "Administrator") {
+                    res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vSuccess: 'visible' , oSuccess: '1', type: 'success',styling: "background:transparent; border: none !important;"});
+                }
+                if (user.role == "Manager") {
+                    res.render('admanagerhome.hbs', { folders: folders, files: files , link: "/admanagerhome", design:"trap",styling: "background:transparent; border: none !important;" });
+                }
+            })
+        }
+        else {
+            Account.findOne({ username: req.session.name }, async(err, user) => {
+               
+                    const resultingfolder = await Folders.find({ parent: folID })
+                    const resultingfiles = await Files.find({ parent: folID })
+                        if (user.role == 'Administrator') {
+                            console.log("ADMIN");
+                            res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",func:"backFolder()"  });
+                        }
+                        else if (user.role == "Manager") {
+                            res.render('admanagerhome.hbs', { folders: resultingfolder, files: resultingfiles, path: directory, link: "/admanagerhome", design:"trap",func:"backFolder()"  });
+                        }
+            });
+        }
+})
 app.get('/deleteManyResult', async(req,res)=>{
     await new Promise(resolve => setTimeout(resolve, 1500));
     if(directory == ""){

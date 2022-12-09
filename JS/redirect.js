@@ -5,21 +5,21 @@ var allBtn = 0;
 let fileContainer = []
 let data=window.performance.getEntriesByType("navigation")[0].type;
 console.log(data);
-if ( data == "reload" ) {
-    $.get('/getrole', {}, (result)=>{
-        if(result){
-            if(result.role == "Administrator" || result.role == "Manager"){
-                window.history.replaceState( null, null, '/admanagerhome');
-            }
-            else{
-                window.history.replaceState( null, null, '/userhome');
-            }
-        }
+// if ( data == "reload" ) {
+//     $.get('/getrole', {}, (result)=>{
+//         if(result){
+//             if(result.role == "Administrator" || result.role == "Manager"){
+//                 window.history.replaceState( null, null, '/admanagerhome');
+//             }
+//             else{
+//                 window.history.replaceState( null, null, '/userhome');
+//             }
+//         }
        
             
-    })
+//     })
    
-}
+// }
 $(document).ready(function () {
     var elements = document.getElementsByClassName('folder_name_div');
     $('#trap').remove();
@@ -284,17 +284,6 @@ function toggleSelectAll(){
         allBtn += 1;
     }
 }
-// function checkSelectAll(){
-//     arrSelected=[];
-//     var filesCount = $(".files_checkbox").length;
-//     const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
-//     checkboxes.forEach((checkbox)=>{
-//         arrSelected.push(checkbox.value);
-//     });
-//     if(filesCount != arrSelected.length){
-//         $("#selectall_checkbox").prop('checked', false);
-//     }
-// }
 
 function deleteMany(){
     let arrSelected = [];
