@@ -722,8 +722,7 @@ app.get('/delete-folder', (req, res) => {
                 let holder = await Folders.find({parent:mainfol._id});
                 let fHolder = await Files.find({parent:mainfol._id})
                 
-                listofNames.concat(holder);
-                listofNames.concat(fHolder);
+                
                 for(let val = 0; val < holder.length; val++){
                     listofNames.push(holder[val]);
                 }
@@ -1094,8 +1093,7 @@ app.get('/deleteMany', async (req, res) => {
                 let holder = await Folders.find({parent:mainfol._id});
                 let fHolder = await Files.find({parent:mainfol._id})
                 
-                listofNames.concat(holder);
-                listofNames.concat(fHolder);
+                
                 for(let val = 0; val < holder.length; val++){
                     listofNames.push(holder[val]);
                 }
