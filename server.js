@@ -808,7 +808,7 @@ app.post('/rename-folder', (req, res)=>{
             Folders.findOne({_id:selected, parent:folID}, (err, folder1)=>{
                 if(folder1){
                     console.log("INNERLOOP")
-                    Folders.findOne({name:req.body.newname1, parent: folID}, async(err, folder2)=>{
+                    Folders.findOne({name:req.body.newname1}, async(err, folder2)=>{
                         if(!folder2){
                             
                             folder1.name =req.body.newname1;
