@@ -1062,6 +1062,7 @@ app.get('/delete-user', (req, res) => {
     })
 });
 app.get('/deleteManyResult', async(req,res)=>{
+    await new Promise(resolve => setTimeout(resolve, 1500));
     if(directory == ""){
         res.redirect('/admanagerhome');
     }
@@ -1152,7 +1153,7 @@ app.get('/deleteMany', async (req, res) => {
             }
         })
     }
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    
 })
 
 app.get('/getMove', (req, res)=>{
