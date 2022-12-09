@@ -713,24 +713,80 @@ app.post('/uploadfile', async (req, res) => {
 });
 
 app.get('/delete-folder', (req, res) => {
-    Account.findOne({ username: req.session.name }, (err, user) => {
+    let listofNames = [];
+    Account.findOne({ username: req.session.name }, async(err, user) => {
+        Folders.findOne({name: req.query.name}, async(err, mainfol)=>{
+                
+            if(mainfol){
+                
+                let holder = await Folders.find({parent:mainfol._id});
+                let fHolder = await Files.find({parent:mainfol._id})
+                
+                listofNames.concat(holder);
+                listofNames.concat(fHolder);
+                for(let val = 0; val < holder.length; val++){
+                    listofNames.push(holder[val]);
+                }
+                for(let val = 0; val < fHolder.length; val++){
+                    listofNames.push(fHolder[val]);
+                }
+                for (let index = 0; index < holder.length; index++){
+                    let temp = await Folders.find({parent:holder[index]._id});
+                    let temp1 = await Files.find({parent:holder[index]._id});
+                    if (temp.length != 0){
+                        for(let val = 0; val < temp.length; val++){
+                            holder.push(temp[val]);
+                        }
+                        for(let val = 0; val < temp.length; val++){
+                            listofNames.push(temp[val]);
+                        }
+                    }
+                    if(temp1.length != 0){
+                        for(let val = 0; val < temp1.length; val++){
+                            listofNames.push(temp1[val]);
+                        }
+                        
+                    }
+                }
+                listofNames.push(mainfol);
+                console.log(listofNames);
+                for(let d = 0; d < listofNames.length; d++){
+                  
+                    Folders.deleteOne({ _id: listofNames[d]._id }, (error, ans1) => {
+                        if(ans1){
+                            console.log(ans1);
+                        }
+                    })
+                    Files.findOne({ _id: listofNames[d]._id }, (error, result) => {
+                        if (result) {
+                            fs.unlink(path.join(__dirname, 'uploaded', result.name), (error, result) => { });
+                            Files.deleteOne({ _id: listofNames[d]._id }, (err, ans1) => {
+                                if (ans1) {
+                                    console.log(ans1);
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        })
+        
+        await new Promise(resolve => setTimeout(resolve, 1000));
         if(directory == ""){
-            Folders.deleteOne({ name: req.query.name }, (error) => {
-                if (user.role == 'Administrator' || user.role == "Manager") { res.redirect('/admanagerhome'); }
-                else { res.redirect('/userhome'); }
-            })
+            if (user.role == 'Administrator' || user.role == "Manager") { res.redirect('/admanagerhome'); }
+                    else { res.redirect('/userhome'); }
+            
         }
         else{
-            Folders.deleteOne({name: req.query.name, parent:folID}, async(err)=>{
-                const folders = await Folders.find({parent:folID});
-                const files = await Files.find({parent:folID});
-                if(user.role == 'Administrator'){
-                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User", func:"backFolder()" })
-                }
-                else{
-                    res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()" })
-                }
-            })
+            const folders = await Folders.find({parent:folID});
+            const files = await Files.find({parent:folID});
+            if(user.role == 'Administrator'){
+                res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User", func:"backFolder()" })
+            }
+            else{
+                res.render('admanagerhome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()" })
+            }
+            
         }
     });
 });
@@ -1028,8 +1084,64 @@ app.get('/deleteManyResult', async(req,res)=>{
 
 app.get('/deleteMany', async (req, res) => {
     arrSelected = req.query.arrDelete;
+    let listofNames = [];
     for (let i = 0; i < arrSelected.length; i++) {
         console.log(arrSelected[i]);
+        Folders.findOne({_id: arrSelected[i]}, async(err, mainfol)=>{
+                
+            if(mainfol){
+                
+                let holder = await Folders.find({parent:mainfol._id});
+                let fHolder = await Files.find({parent:mainfol._id})
+                
+                listofNames.concat(holder);
+                listofNames.concat(fHolder);
+                for(let val = 0; val < holder.length; val++){
+                    listofNames.push(holder[val]);
+                }
+                for(let val = 0; val < fHolder.length; val++){
+                    listofNames.push(fHolder[val]);
+                }
+                for (let index = 0; index < holder.length; index++){
+                    let temp = await Folders.find({parent:holder[index]._id});
+                    let temp1 = await Files.find({parent:holder[index]._id});
+                    if (temp.length != 0){
+                        for(let val = 0; val < temp.length; val++){
+                            holder.push(temp[val]);
+                        }
+                        for(let val = 0; val < temp.length; val++){
+                            listofNames.push(temp[val]);
+                        }
+                    }
+                    if(temp1.length != 0){
+                        for(let val = 0; val < temp1.length; val++){
+                            listofNames.push(temp1[val]);
+                        }
+                        
+                    }
+                }
+                listofNames.push(mainfol);
+                console.log(listofNames);
+                for(let d = 0; d < listofNames.length; d++){
+                  
+                    Folders.deleteOne({ _id: listofNames[d]._id }, (error, ans1) => {
+                        if(ans1){
+                            console.log(ans1);
+                        }
+                    })
+                    Files.findOne({ _id: listofNames[d]._id }, (error, result) => {
+                        if (result) {
+                            fs.unlink(path.join(__dirname, 'uploaded', result.name), (error, result) => { });
+                            Files.deleteOne({ _id: listofNames[d]._id }, (err, ans1) => {
+                                if (ans1) {
+                                    console.log(ans1);
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        })
 
         Files.findOne({ _id: arrSelected[i] }, (error, result) => {
             if (result) {
@@ -1041,13 +1153,8 @@ app.get('/deleteMany', async (req, res) => {
                 })
             }
         })
-
-        Folders.deleteOne({ _id: arrSelected[i] }, (err, ans2) => {
-            if (ans2) {
-                console.log(ans2);
-            }
-        })
     }
+    await new Promise(resolve => setTimeout(resolve, 2000));
 })
 
 app.get('/getMove', (req, res)=>{
