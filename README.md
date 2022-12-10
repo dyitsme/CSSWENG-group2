@@ -29,7 +29,7 @@ npm install
 ```
 3. Open the app in `localhost:3000`
 
-Steps on how to use the app, please refer to the *Documentation*.
+Steps on how to use the app, please refer to the ***User Guide***.
 
 ## Authors
 - [Azarcon, Juan Carlo](https://github.com/Chunkiee05)
