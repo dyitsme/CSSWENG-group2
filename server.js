@@ -311,8 +311,50 @@ app.get('/loadfolder', async(req, res)=>{
         directory = "/"+fol;
     }
     else{
-        console.log("ADD")
-        directory = directory + "/" + fol;
+        // console.log("ADD")
+        // directory = directory + "/" + fol;
+        directory = "";
+        let nextparent = [];
+        let parentlist = [];
+        //compute breadcrumb
+        Folders.findOne({name:fol}, async(err, clickedFol)=>{
+            if(clickedFol){
+                
+                
+                if(clickedFol.parent != ""){
+                    nextparent = clickedFol.parent;
+                   console.log(nextparent);
+                    while(nextparent != ""){
+                        await new Promise(resolve => setTimeout(resolve, 50));
+                        Folders.findOne({_id: nextparent}, (err, firstfol)=>{
+                            if(firstfol){
+                                nextparent = firstfol.parent;
+                                console.log(nextparent)
+                                parentlist.push(firstfol.name);
+                            }
+                            else{
+                                nextparent = "";
+                            }
+                        })
+                    }
+                    console.log(parentlist);
+
+        
+                    for(let g = 0; g < parentlist.length; g++){
+                        directory = "/" + parentlist[g] + directory;
+                    }
+                    directory = directory + "/"+fol;
+                    console.log(directory);
+                }
+                else{
+                    directory = "/"+fol;
+                }
+            }
+            
+        })
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        triggerSearch = false;
+      
     }
    
     arrDirect = directory.split('/');

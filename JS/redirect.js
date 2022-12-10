@@ -3,23 +3,7 @@ var btnCount = 0;
 var allBtn = 0;
 
 let fileContainer = []
-let data=window.performance.getEntriesByType("navigation")[0].type;
-console.log(data);
-// if ( data == "reload" ) {
-//     $.get('/getrole', {}, (result)=>{
-//         if(result){
-//             if(result.role == "Administrator" || result.role == "Manager"){
-//                 window.history.replaceState( null, null, '/admanagerhome');
-//             }
-//             else{
-//                 window.history.replaceState( null, null, '/userhome');
-//             }
-//         }
-       
-            
-//     })
-   
-// }
+
 $(document).ready(function () {
     var elements = document.getElementsByClassName('folder_name_div');
     $('#trap').remove();
