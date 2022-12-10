@@ -47,7 +47,7 @@
                         <form class="formpopup" id="folderpop" method="POST" action="/rename-folder">
                             <div class="popup-content">
                                 <label for="newname1"><b>Folder Name:</b></label>
-                                <input type="text" placeholder="Name" name="newname1" id="newname1" onkeypress="return disableSpecialChar(event)" onpaste="return false" required>
+                                <input type="text" placeholder="Name" name="newname1" id="newname1" onkeypress="return disableSpecialChar(event)" onpaste="return false" autocomplete="off" required>
                                 <button type="submit" id="createbutton"  onclick="renameFolder()" >Rename Folder</button>
                                 <button type="button" id="cancelbutton" onclick="folderClose()">Cancel</button>
                             </div>
@@ -55,7 +55,7 @@
                         <form class="formpopup" id="filepop" method="POST" action="/rename-file">
                             <div class="popup-content">
                                 <label for="newname2"><b>File Name:</b></label>
-                                <input type="text" placeholder="Name" name="newname2" id="newname2" onkeypress="return disableSpecialChar(event)" onpaste="return false" required>
+                                <input type="text" placeholder="Name" name="newname2" id="newname2" onkeypress="return disableSpecialChar(event)" onpaste="return false" autocomplete="off" required>
                                 <button type="submit" id="createbutton" onclick="renameFile()">Rename File</button>
                                 <button type="button" id="cancelbutton" onclick="fileClose()">Cancel</button>
                             </div>
