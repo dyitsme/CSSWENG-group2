@@ -186,15 +186,23 @@ function removeSelectedFileName(filename) {
     input = document.getElementById('uploadFile');
     const { files } = input;
 
-    for(let i = 0; i < files.length; i++){
+    for (let i = 0; i < files.length; i++) {
         const file = files[i]
-        if (filename !== file.name){
+        if (filename !== file.name) {
             dataTransfer.items.add(file)
         }
     }
 
+    newArray = []
+    for (i = 0; i < fileContainer.length; i++) {
+        for (j = 0; j < fileContainer[i].length; j++) {
+            if (file !== fileContainer[i][j].name) {
+                newArray.push(fileContainer[i][j].name)
+            }
+        }
+    }
+    fileContainer = newArray
     input.files = dataTransfer.files
-
     document.getElementById(filename).remove()
 }
 

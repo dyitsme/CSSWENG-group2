@@ -719,40 +719,69 @@ app.post('/uploadfile', async (req, res) => {
 
     if (Array.isArray(files)) {
         Account.findOne({ username: req.session.name }, async (err, user) => {
-            files.forEach(file => {
-                Files.find({ name: { $regex: file.name } }, (error, result) => {
-                    if (result != 0) {
-                        file.name = "(" + result.length + ") " + file.name
-                    }
+            for (const file of files) {
+                duplicateContainer = await Files.find({ name: { $regex: file.name } })
+                duplicateCount = 0
 
-                    file.mv(path.resolve(__dirname, 'uploaded', file.name), async (error) => {
-                        if (directory == "") {
-                            Files.create({ name: file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { })
-                        }
-                        else {
-                            Files.create({ name: file.name, access: selectedAccess, parent: folID, date: now, size: file.size, uploader: req.session.name }, (error, post) => { })
-                        }
-                    })
-                })
-            })
-        })
-    }
-    else {
-        Account.findOne({ username: req.session.name }, async (err, user) => {
-            Files.find({ name: { $regex: files.name } }, (error, result) => {
-                if (result != 0) {
-                    files.name = "(" + result.length + ") " + files.name
+                while (duplicateCount < duplicateContainer.length) {
+                    if (duplicateContainer[duplicateCount].name == String("(" + duplicateCount + ") " + file.name) || duplicateContainer[duplicateCount].name == String(file.name)) {
+
+                        duplicateContainer.sort((a, b) => {
+                            if (a.name < b.name) return -1;
+                            if (a.name > b.name) return 1;
+                            return 0;
+                        });
+
+                        last = duplicateContainer.pop();
+                        duplicateContainer.unshift(last)
+
+                        duplicateCount += 1
+                    } else { continue }
                 }
 
+                if (duplicateCount == 0) {
+                    file.mv(path.resolve(__dirname, 'uploaded', file.name), async (error) => { });
+                    if (directory == "") { Files.create({ name: file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) }
+                    else { Files.create({ name: file.name, access: selectedAccess, parent: folID, date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) }
+                } else {
+                    file.mv(path.resolve(__dirname, 'uploaded', "(" + duplicateCount + ") " + file.name), async (error) => { });
+                    if (directory == "") { Files.create({ name: "(" + duplicateCount + ") " + file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) }
+                    else { Files.create({ name: "(" + duplicateCount + ") " + file.name, access: selectedAccess, parent: folID, date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) }
+                }
+            }
+        })
+    } else {
+        Account.findOne({ username: req.session.name }, async (err, user) => {
+            duplicateContainer = await Files.find({ name: { $regex: files.name } })
+            duplicateCount = 0
+
+            while (duplicateCount < duplicateContainer.length) {
+                if (duplicateContainer[duplicateCount].name == String("(" + duplicateCount + ") " + files.name) || duplicateContainer[duplicateCount].name == String(files.name)) {
+
+                    duplicateContainer.sort((a, b) => {
+                        if (a.name < b.name) return -1;
+                        if (a.name > b.name) return 1;
+                        return 0;
+                    });
+
+                    last = duplicateContainer.pop();
+                    duplicateContainer.unshift(last)
+
+                    duplicateCount += 1
+                } else { break }
+            }
+
+            if (duplicateCount == 0) {
                 files.mv(path.resolve(__dirname, 'uploaded', files.name), async (error) => {
-                    if (directory == "") {
-                        Files.create({ name: files.name, access: selectedAccess, parent: "", date: now, size: files.size, uploader: req.session.name }, (error, post) => { })
-                    }
-                    else {
-                        Files.create({ name: files.name, access: selectedAccess, parent: folID, date: now, size: files.size, uploader: req.session.name }, (error, post) => { })
-                    }
+                    if (directory == "") { Files.create({ name: files.name, access: selectedAccess, parent: "", date: now, size: files.size, uploader: req.session.name }, (error, post) => { }) }
+                    else { Files.create({ name: files.name, access: selectedAccess, parent: folID, date: now, size: files.size, uploader: req.session.name }, (error, post) => { }) }
                 });
-            })
+            } else {
+                files.mv(path.resolve(__dirname, 'uploaded', "(" + duplicateCount + ") " + files.name), async (error) => {
+                    if (directory == "") { Files.create({ name: "(" + duplicateCount + ") " + files.name, access: selectedAccess, parent: "", date: now, size: files.size, uploader: req.session.name }, (error, post) => { }) }
+                    else { Files.create({ name: "(" + duplicateCount + ") " + files.name, access: selectedAccess, parent: folID, date: now, size: files.size, uploader: req.session.name }, (error, post) => { }) }
+                });
+            }
         })
     }
     res.redirect('/uploadresult');
