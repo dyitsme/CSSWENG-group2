@@ -22,6 +22,7 @@ IDselected="";
 directory1 = "";
 IDmultMove=[];
 allID=[];
+triggerSearch = false;
 app.use(session({
     secret: 'secretcode',
     resave: false,
@@ -263,7 +264,50 @@ app.get('/movloadfolder', async(req, res)=>{
     
 })
 app.get('/loadfolder', async(req, res)=>{
-    if(directory =="" || directory == null){
+    if(triggerSearch == true){
+        directory = "";
+        let nextparent = [];
+        let parentlist = [];
+        //compute breadcrumb
+        Folders.findOne({name:fol}, async(err, clickedFol)=>{
+            if(clickedFol){
+                
+                
+                if(clickedFol.parent != ""){
+                    nextparent = clickedFol.parent;
+                   console.log(nextparent);
+                    while(nextparent != ""){
+                        await new Promise(resolve => setTimeout(resolve, 50));
+                        Folders.findOne({_id: nextparent}, (err, firstfol)=>{
+                            if(firstfol){
+                                nextparent = firstfol.parent;
+                                console.log(nextparent)
+                                parentlist.push(firstfol.name);
+                            }
+                            else{
+                                nextparent = "";
+                            }
+                        })
+                    }
+                    console.log(parentlist);
+
+        
+                    for(let g = 0; g < parentlist.length; g++){
+                        directory = "/" + parentlist[g] + directory;
+                    }
+                    directory = directory + "/"+fol;
+                    console.log(directory);
+                }
+                else{
+                    directory = "/"+fol;
+                }
+            }
+            
+        })
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        triggerSearch = false;
+    }
+    else if(directory =="" || directory == null){
         directory = "/"+fol;
     }
     else{
@@ -979,17 +1023,19 @@ app.get('/search-file', async (req, res) => {
         if (user.role == "Administrator") {
             const files = await Files.find({ name: { $regex: req.query.text_search } });
             const folders = await Folders.find({ name: { $regex: req.query.text_search } });
+            triggerSearch = true;
             return res.render('admanagerhome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content: "Register a User",styling: "background:transparent; border: none !important;" });
         }
         else if (user.role == "Manager") {
             const files = await Files.find({ name: { $regex: req.query.text_search } });
             const folders = await Folders.find({ name: { $regex: req.query.text_search } });
+            triggerSearch = true;
             return res.render('admanagerhome.hbs', { link: "/admanagerhome", design: "trap", folders, files,styling: "background:transparent; border: none !important;" })
         }
         else if(user.role == "Employee"){
             const files = await Files.find({ name: { $regex: req.query.text_search }, access:"Unrestricted" });
             const folders = await Folders.find({ name: { $regex: req.query.text_search }, access:"Unrestricted" });
-
+            triggerSearch = true;
             return res.render('userhome.hbs',{link:"/userhome", folders, files, styling: "background:transparent; border: none !important;" });
         }
     });
