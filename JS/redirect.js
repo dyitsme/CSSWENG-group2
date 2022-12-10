@@ -163,44 +163,34 @@ function closeNotificationModal(type) {
 }
 
 function getFileNames() {
+    dataTransfer = new DataTransfer();
     input = document.getElementById('uploadFile');
     const { files } = input;
 
-    for (var i = 0; i < input.files.length; i++) {
-        document.getElementById('itemset').innerHTML += '<div id="' + input.files[i].name + '"> <p>' + input.files[i].name + '</p> <img src="pictures/remove.png" alt="" onclick="removeSelectedFileName(' + "'" + input.files[i].name + "'" + ')"> </div>';
+    for (var i = 0; i < files.length; i++) {
+        fileContainer.push(files[i])
+        document.getElementById('itemset').innerHTML += '<div id="' + files[i].name + '"> <p>' + files[i].name + '</p> <img src="pictures/remove.png" alt="" onclick="removeSelectedFileName(' + "'" + files[i].name + "'" + ')"> </div>';
     }
 
-    fileContainer.push(files)
-    dataTransfer = new DataTransfer();
     for (i = 0; i < fileContainer.length; i++) {
-        for (j = 0; j < fileContainer[i].length; j++) {
-            file = fileContainer[i][j]
-            dataTransfer.items.add(file)
-        }
+        dataTransfer.items.add(fileContainer[i])
     }
+
     input.files = dataTransfer.files
 }
 
 function removeSelectedFileName(filename) {
     dataTransfer = new DataTransfer();
     input = document.getElementById('uploadFile');
-    const { files } = input;
 
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i]
-        if (filename !== file.name) {
-            dataTransfer.items.add(file)
-        }
-    }
-
-    newArray = []
+    let newArray = []
     for (i = 0; i < fileContainer.length; i++) {
-        for (j = 0; j < fileContainer[i].length; j++) {
-            if (file !== fileContainer[i][j].name) {
-                newArray.push(fileContainer[i][j].name)
-            }
+        if (fileContainer[i].name != filename) {
+            newArray.push(fileContainer[i])
+            dataTransfer.items.add(fileContainer[i])
         }
     }
+
     fileContainer = newArray
     input.files = dataTransfer.files
     document.getElementById(filename).remove()
