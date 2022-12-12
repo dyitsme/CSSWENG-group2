@@ -1071,17 +1071,25 @@ app.post('/rename-file', (req, res)=>{
 
 app.get('/search-user', (req, res) => {
     Account.findOne({ username: req.query.textSearch }, (error, targetUser) => {
-        if (req.query.textSearch != req.session.name) {
-            if (targetUser && req.query.success == "password") {
-                return res.render('editUser.hbs', { username: req.query.textSearch, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Password has been changed" })
-            } 
-            else if (targetUser && req.query.success == "role") {
-                return res.render('editUser.hbs', { username: req.query.textSearch, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Role has been changed" })
-            } 
-            else if (targetUser) {
-                return res.render('editUser.hbs', { username: req.query.textSearch })
-            } 
-        }   
+        if (req.query.textSearch == req.session.name) {
+            Account.findOne({ username: req.session.name }, (err, user) => {
+                if (user.role == "Administrator") {
+                    return res.render('profile.hbs', { link: "/admanagerhome", profileName: req.session.name, role: user.role, C: "regisButton", act: "redirectRegister()", content: "Register an Account", vError: 'visible', oError: '1', type: 'error', mError: "Failed to find user" });
+                }
+                else if (user.role == "Manager") {
+                    return res.render('profile.hbs', { link: "/admanagerhome", profileName: req.session.name, role: user.role, design: "trap", vError: 'visible', oError: '1', type: 'error', mError: "Failed to find user" })
+                }
+            });
+        }
+        else if (targetUser && req.query.success == "password") {
+            return res.render('editUser.hbs', { username: req.query.textSearch, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Password has been changed" })
+        }
+        else if (targetUser && req.query.success == "role") {
+            return res.render('editUser.hbs', { username: req.query.textSearch, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Role has been changed" })
+        }
+        else if (targetUser) {
+            return res.render('editUser.hbs', { username: req.query.textSearch })
+        }
         else {
             Account.findOne({ username: req.session.name }, (err, user) => {
                 if (user.role == "Administrator") {
