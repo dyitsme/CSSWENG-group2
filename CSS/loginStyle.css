@@ -12,7 +12,7 @@ body{
     justify-content: center;
 }
 
-#loginform{
+#loginForm{
     width: 580;
     height: 670;
     background-color: white;
@@ -24,12 +24,12 @@ body{
     justify-content: center;
 }
 
-#loginform img{
+#loginForm img{
     width: 400px;
     height: 115px;
 }
 
-#loginpost {
+#loginPost {
     display: flex;
     flex-direction: column;
     margin-top: 70px;

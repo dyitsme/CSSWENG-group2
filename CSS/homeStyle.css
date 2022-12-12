@@ -15,7 +15,7 @@ body{
 }
 
 
-#topbar{
+#topBar{
     display: flex;
     height: 67px;
     width: 100%;
@@ -26,14 +26,14 @@ body{
 
 
 
-#topbar a{
+#topBar a{
     margin-left: 24px;
     font: 400 20px 'Inter';
     color: black;
     text-decoration: none;
 }
 
-#topbar a::after{
+#topBar a::after{
     display: block;
 
     width: 0;
@@ -46,19 +46,19 @@ body{
 }
 
 
-#topbar a:hover::after {
+#topBar a:hover::after {
     width: 100%;
 }
 
 
-#top_logo{
+#topLogo{
     height: 47px;
     width: 206px;
     align-self: center;
     margin-left: 10px; 
 }
 
-#top_search{
+#topSearch{
     display: flex;
     margin-left: auto;
     margin-right: 10px;
@@ -69,7 +69,7 @@ body{
     background-color: white;
 }
 
-#top_search button{
+#topSearch button{
     border: 0;
     padding: 5px;
     outline: none;
@@ -77,7 +77,7 @@ body{
     cursor: pointer;
 }
 
-#text_search{
+#textSearch{
     font-size: 16px;
     flex: 1;
     border: 0;
@@ -85,14 +85,14 @@ body{
     background: transparent;
 }
 
-#main_body{
+#mainBody{
     display: flex;
     flex-direction: column;
     margin: 0;
     padding: 0 50px;
 }
 
-#action_labels{
+#actionLabels{
     display: flex;
     align-items: flex-end;
     height: 100px;
@@ -101,13 +101,13 @@ body{
     padding: 0;
 }
 
-#action_labels h1{
+#actionLabels h1{
     font: 700 64px "Roboto";
     margin-top: 0;
     margin-bottom: 0;
 }
 
-#action_labels button{
+#actionLabels button{
     display: flex;
     padding:5px;
     align-items: center;
@@ -120,16 +120,16 @@ body{
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-#action_labels button:hover{
+#actionLabels button:hover{
     transform: scale(1.1);
 }
 
-.next_btn{ 
+.nextBtn{ 
     margin-left: 18px;
     background: #F0F0F0;
 }
 
-#upload_btn{
+#uploadBtn{
     margin-left: auto;
     color: white;
     background-color: #1E3F5A;
@@ -179,7 +179,7 @@ body{
 
 /* TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR TITLE BAR */
 
-#title_bar{
+#titleBar{
     display: flex;
     height: 44px;
     width: 100%;
@@ -187,7 +187,7 @@ body{
     align-items: center;
 }
 
-#title_bar p{
+#titleBar p{
     align-self: center;
     font-family: 'Inter';
     font-style: normal;
@@ -197,47 +197,32 @@ body{
 }
 
 
-.name_div {
+.nameDiv {
     flex: 5.2;
 }
 
-.uploader_div {
+.uploaderDiv {
     flex: 1.6;
     padding-left: 8px;
     border-left: 1px solid #000000;
 }
 
-.upload_date_div {
+.uploadDateDiv {
     flex: 0.8;
     padding-left: 8px;
     border-left: 1px solid #000000;
 }
 
-.upload_size_div {
+.uploadSizeDiv {
     flex: 0.8;
     padding-left: 8px;
     border-left: 1px solid #000000;
 }
 
-/* #name{
-    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
-}
-
-#upload_date{
-    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
-}
-
-#upload_size{
-    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
-}
-
-#uploader{
-    font-size: clamp(0.5rem, -0.875rem + 8.333vw, 3.5rem);
-} */
 
 /* SELECT ALL SELECT ALL SELECT ALL SELECT ALL SELECT ALL SELECT ALL SELECT ALL */
 
-#sa_div{
+#saDiv{
     display: none; /*display flex when toggling select button*/
     height: 39px;
 }
@@ -249,7 +234,7 @@ body{
     cursor: pointer;
 }
 
-#sa_label{
+#saLabel{
     align-self: center;
     font-family: 'Inter';
     font-style: normal;
@@ -258,7 +243,7 @@ body{
     margin-left: 8px;
 }
 
-#files_container{
+#filesContainer{
     display: flex;
     flex-direction: column;
     overflow-y:auto;
@@ -269,7 +254,7 @@ body{
 
 /* FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV FILE DIV */
 
-.file_div{
+.fileDiv{
     display: flex;
     height: 39px;
     align-items: center;
@@ -278,18 +263,22 @@ body{
     width: 100%;
 }
 
-.file_icon{
+.fileIcon{
     width: 17px;
     height: 21px;
     margin-left: 8px;
 }
 
-.files_checkbox{
+.filesCheckbox{
+    display: none;
+    cursor: pointer;
+}
+.foldersCheckbox{
     display: none;
     cursor: pointer;
 }
 
-.file_div label{
+.fileDiv label{
     padding-left: 8px;
     font-family: 'Inter';
     font-style: normal;
@@ -297,7 +286,7 @@ body{
     font-size: 16px;
 }
 
-.file_name_div{
+.fileNameDiv{
     display: flex;
     align-items: center;
     flex:5.2;
@@ -305,11 +294,11 @@ body{
     cursor: pointer;
 }
 
-.file_name_div:hover{
+.fileNameDiv:hover{
     background-color: #e4e4e4;
 }
 
-.file_name{
+.fileName{
     padding-left: 8px;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -317,26 +306,26 @@ body{
     width: 95%;
 }
 
-.file_uploaded_by{
+.fileUploadedBy{
     flex:1.6;
 }
 
-.file_upload_date{
+.fileUploadDate{
     flex:0.8;
   
 }
 
-.file_size{
+.fileSize{
     flex:0.8;
 }
-.folder_size{
+.folderSize{
     flex:0.8;
 }
 
 
 /* FOLDER DIV FOLDER DIV */
 
-.folder_div{
+.folderDiv{
     display: flex;
     height: 39px;
     align-items: center;
@@ -344,13 +333,13 @@ body{
     padding:8px 0 8px 0;
 }
 
-.folder_icon{
+.folderIcon{
     width: 17px;
     height: 21px;
     margin-left: 8px;
 }
 
-.folder_div label{
+.folderDiv label{
     padding-left: 8px;
     font-family: 'Inter';
     font-style: normal;
@@ -358,39 +347,39 @@ body{
     font-size: 16px;
 }
 
-.folder_name_div{
+.folderNameDiv{
     display: flex;
     align-items: center;
     flex:5.2;
     width: 50%;
 }
 
-.folder_name_div label{
+.folderNameDiv label{
     width: 95%;
     cursor: pointer;
 }
 
-.folder_name_div:hover{
+.folderNameDiv:hover{
     background-color: #e4e4e4;
 }
 
-.folder_name{
+.folderName{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
-.folder_uploaded_by{
+.folderUploadedBy{
     flex:1.6;
 
 }
 
-.folder_upload_date{
+.folderUploadDate{
     flex:0.8;
   
 }
 
-.formpopup {
+.formPopUp {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 100; /* Sit on top */
@@ -402,7 +391,7 @@ body{
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
-.popup-content{
+.popUpContent{
     display: flex;
     align-self: center;
     align-items: center;
@@ -414,7 +403,7 @@ body{
     border-radius:10px;
     width: 80%; /* Could be more or less, depending on screen size */
 }
-.popup-content input{
+.popUpContent input{
     width: 35%;
     font: 30px "Roboto";
     padding:5px;
@@ -422,12 +411,12 @@ body{
     border: none;
     background-color: #ECECEC;
 }
-.popup-content label{
+.popUpContent label{
     font: 700 25px "Roboto";
     margin: 0 5px 0 0;
     white-space: nowrap;
 }
-.popup-content select{
+.popUpContent select{
     width: 400px;
     height: 49px;
     margin-left: 10px;
@@ -440,7 +429,7 @@ body{
     font: 400 24px "Roboto";
     color: black;
 }
-.formpopup button{
+.formPopup button{
     white-space: nowrap;
     padding: 5px;
     border: none;
@@ -456,18 +445,18 @@ body{
     cursor: pointer;
 }
 
-.formpopup button:hover{
+.formPopup button:hover{
     transform: scale(1.05);
 }
 
 
-#errorcode {
+#errorCode {
     font: 200 24px "Roboto";
     color: #BF0707;
     text-align: center;
     font-weight:600;
 }
-.title-action {
+.titleAction {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -533,11 +522,11 @@ body{
     transition: 500ms;
 }
 
-.action input[type=file], .file-modal input[type=file] {
+.action input[type=file], .fileModal input[type=file] {
     display: none;
 }
 
-.folder-file {
+.folderFile {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;

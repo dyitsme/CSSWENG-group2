@@ -31,7 +31,7 @@
     box-sizing: border-box;
 }
 
-.folder-modal {
+.folderModal {
     position: fixed;
     bottom: 50px;
     right: 50px;
@@ -53,7 +53,7 @@
     opacity: 0;
 }
 
-.folder-modal .exit {
+.folderModal .exit {
     align-self: flex-end;
 
     width: 10px;
@@ -63,7 +63,7 @@
     cursor: pointer;
 }
 
-.folder-modal .linear {
+.folderModal .linear {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -71,11 +71,11 @@
     margin-bottom: 10px;
 }
 
-.folder-modal .linear label {
+.folderModal .linear label {
     font: 400 16px 'Inter';
 }
 
-.folder-modal .linear input[type=text] {
+.folderModal .linear input[type=text] {
     width: 360px;
     height: 20px;
     padding: 10px 2.5px;
@@ -85,7 +85,7 @@
     font: 400 14px 'Inter';
 }
 
-.folder-modal .linear input[type=checkbox] {
+.folderModal .linear input[type=checkbox] {
     width: 20px;
     height: 20px;
     border-radius: 5px;
@@ -93,7 +93,7 @@
     cursor: pointer;
 }
 
-.folder-modal .linear input[type=submit] {
+.folderModal .linear input[type=submit] {
     width: 110px;
     height: 25px;
     margin-left: 50px;
@@ -108,7 +108,7 @@
     cursor: pointer;
 }
 
-.folder-modal .linear button {
+.folderModal .linear button {
     width: 70px;
     height: 25px;
     border: none;
@@ -122,7 +122,7 @@
     cursor: pointer;
 }
 
-.file-modal {
+.fileModal {
     position: fixed;
     bottom: 50px;
     right: 50px;
@@ -145,7 +145,7 @@
     opacity: 0;
 }
 
-.file-modal .exit {
+.fileModal .exit {
     align-self: flex-end;
 
     width: 10px;
@@ -155,7 +155,7 @@
     cursor: pointer;
 }
 
-.file-modal .choose {
+.fileModal .choose {
     display: flex;
 
     padding: 8px 10px;
@@ -169,13 +169,13 @@
     cursor: pointer;
 }
 
-.file-modal .choose img {
+.fileModal .choose img {
     width: 20px;
     height: 20px;
     margin-left: 5px;
 }
 
-.file-modal .itemset {
+.fileModal .itemset {
     display: flex;
     flex-flow: column;
 
@@ -190,14 +190,14 @@
     overflow-y: scroll;
 }
 
-.file-modal .itemset h1 {
+.fileModal .itemset h1 {
     padding-bottom: 5px;
     border-bottom: 1px solid black;
 
     font: 700 18px 'Inter';
 }
 
-.file-modal .itemset div {
+.fileModal .itemset div {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
@@ -206,7 +206,7 @@
     border-bottom: 1px solid black;
 }
 
-.file-modal .itemset p {
+.fileModal .itemset p {
     max-width: 475px;
 
     text-overflow: ellipsis;
@@ -215,21 +215,21 @@
     overflow: hidden;
 }
 
-.file-modal .itemset img {
+.fileModal .itemset img {
     width: 20px;
     height: 20px;
 
     cursor: pointer;
 }
 
-.file-modal .linear {
+.fileModal .linear {
     display: flex;
     align-items: center;
 
     font: 400 16px 'Inter';
 }
 
-.file-modal .linear input[type=checkbox] {
+.fileModal .linear input[type=checkbox] {
     width: 25px;
     height: 25px;
     margin-right: 2.5px;
@@ -238,7 +238,7 @@
     cursor: pointer;
 }
 
-.file-modal .linear input[type=submit] {
+.fileModal .linear input[type=submit] {
     margin-left: 10px;
     padding: 8px 10px;
     border: none;
@@ -251,7 +251,7 @@
     cursor: pointer;
 }
 
-.notification-modal {
+.notificationModal {
     position: fixed;
     bottom: 50px;
     right: 50px;
@@ -273,7 +273,7 @@
     opacity: 0;
 }
 
-.notification-modal .exit {
+.notificationModal .exit {
     align-self: flex-end;
 
     width: 15px;
@@ -282,7 +282,7 @@
     cursor: pointer;
 }
 
-.notification-modal .linear {
+.notificationModal .linear {
     display: flex;
     flex-flow: row;
     align-items: center;
@@ -290,7 +290,7 @@
     margin-top: -7.5px;
 }
 
-.notification-modal .linear .loader {
+.notificationModal .linear .loader {
     width: 40px;
     height: 40px;
     border: 5px solid var(--transparent-black);
@@ -300,13 +300,13 @@
     animation: loading 2s linear infinite;
 }
 
-.notification-modal .linear div {
+.notificationModal .linear div {
     margin-left: 10px;
 
     font: 400 14px 'Roboto';
 }
 
-.notification-modal .linear h1 {
+.notificationModal .linear h1 {
     font: 400 24px 'Roboto';
 }
 
@@ -336,7 +336,7 @@
     color: var(--dark-red);
 }
 
-#move_modal{
+#moveModal{
     visibility:hidden;
     margin: auto;
     border-radius: 10px;
@@ -349,34 +349,34 @@
     background-color:#ffffff;
 }
 
-#move_modal h1{
+#moveModal h1{
     font: 700 40px "Roboto";
 }
 
-#folder_container{
+#folderContainer{
     height:80%;
     overflow: scroll;
     overflow-x: hidden;
 }
 
-.folder_move_div{
+.folderMoveDiv{
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-.folder_move_div label{
+.folderMoveDiv label{
     width: 90%;
     text-overflow: ellipsis;
 }
 
-#move_buttons{
+#moveButtons{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#move_buttons button{
+#moveButtons button{
     display: flex;
     padding:5px;
     align-items: center;
@@ -389,16 +389,16 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-#move_buttons button:hover{
+#moveButtons button:hover{
     transform: scale(1.05);
 }
 
-#move_here{
+#moveHere{
     color: white;
     background-color: #1E3F5A;
 }
 
-#cancel_here{
+#cancelHere{
     margin-left: 10px;
     color: black;
     background-color: #F0F0F0;

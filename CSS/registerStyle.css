@@ -16,7 +16,7 @@ body {
 }
 
 
-#topbar{
+#topBar{
     display: flex;
     height: 67px;
     width: 100%;
@@ -27,7 +27,7 @@ body {
 
 
 
-#topbar a{
+#topBar a{
     margin-left: 24px;
 
     font: 400 20px 'Inter';
@@ -35,7 +35,7 @@ body {
     text-decoration: none;
 }
 
-#topbar a::after{
+#topBar a::after{
     display: block;
 
     width: 0;
@@ -48,19 +48,19 @@ body {
 }
 
 
-#topbar a:hover::after {
+#topBar a:hover::after {
     width: 100%;
 }
 
 
-#top_logo{
+#topLogo{
     height: 47px;
     width: 206px;
     align-self: center;
     margin-left: 10px; 
 }
 
-#main_body{
+#mainBody{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,12 +75,12 @@ body {
     margin-top: 10px;
 }
 
-#registerform img{
+#registerForm img{
     width: 400px;
     height: 115px;
 }
 
-#registerform {
+#registerForm {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -94,7 +94,7 @@ body {
 
 
 
-#registerform input,
+#registerForm input,
 select {
     width: 565px;
     height: 50px;
@@ -109,7 +109,7 @@ select {
 }
 
 
-#registerbutton {
+#registerButton {
     width: 565px;
     height: 50px;
     margin-top: 25px;
@@ -123,7 +123,7 @@ select {
     transition: 100ms;
 }
 
-#registerbutton:hover {
+#registerButton:hover {
     transform: scale(1.02);
 
     cursor: pointer;
@@ -154,13 +154,13 @@ select {
     transition: 100ms;
 }
 
-#logo_wrap:hover #navbar {
+#logoWrap:hover #navbar {
     visibility: visible;
 
     opacity: 1;
 }
 
-#navbar button {
+#navBar button {
     margin: 5px 0;
     padding: 4px 8px;
     border: none;
@@ -172,7 +172,7 @@ select {
     transition: 100ms;
 }
 
-#navbar button:hover {
+#navBar button:hover {
     background-color: #00AEAE;
     color: white;
 

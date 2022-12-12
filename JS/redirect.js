@@ -3,36 +3,20 @@ var btnCount = 0;
 var allBtn = 0;
 
 let fileContainer = []
-let data=window.performance.getEntriesByType("navigation")[0].type;
-console.log(data);
-if ( data == "reload" ) {
-    $.get('/getrole', {}, (result)=>{
-        if(result){
-            if(result.role == "Administrator" || result.role == "Manager"){
-                window.history.replaceState( null, null, '/admanagerhome');
-            }
-            else{
-                window.history.replaceState( null, null, '/userhome');
-            }
-        }
-       
-            
-    })
-   
-}
+
 $(document).ready(function () {
-    var elements = document.getElementsByClassName('folder_name_div');
+    var elements = document.getElementsByClassName('folderNameDiv');
     $('#trap').remove();
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener('click', folderClick);
     }
 
-    var elements1 = document.getElementsByClassName('folder_move_div');
+    var elements1 = document.getElementsByClassName('folderMoveDiv');
     for (var i = 0; i < elements1.length; i++) {
         elements1[i].addEventListener('click', folderClickMove);
     }
 
-    var elements1 = document.getElementsByClassName('file_size');
+    var elements1 = document.getElementsByClassName('fileSize');
     for (var i = 0; i < elements1.length; i++) {
         elements1[i].innerHTML = formatSize(elements1[i].innerHTML);
     }
@@ -51,51 +35,51 @@ function changePassword() {
 }
 
 function openForm() {
-    document.getElementById("popup").style.display = "block";
+    document.getElementById("popUp").style.display = "block";
 }
 
 function closeForm() {
-    document.getElementById("popup").style.display = "none";
+    document.getElementById("popUp").style.display = "none";
 }
 function fileForm(identifier) {
     selected = identifier;
     $.get('/select', { selected: selected }, (result) => {
 
     })
-    document.getElementById("filepop").style.display = "block";
+    document.getElementById("filePop").style.display = "block";
 }
 function folderForm(identifier) {
     selected = identifier;
     $.get('/select', { selected: selected }, (result) => {
 
     })
-    document.getElementById("folderpop").style.display = "block";
+    document.getElementById("folderPop").style.display = "block";
 }
 function fileClose() {
-    document.getElementById("filepop").style.display = "none";
+    document.getElementById("filePop").style.display = "none";
 }
 function folderClose() {
-    document.getElementById("folderpop").style.display = "none";
+    document.getElementById("folderPop").style.display = "none";
 }
 
 function fileForm(identifier) {
     selected = identifier;
     $.get('/selectfile', { selected: selected }, (result) => { })
-    document.getElementById("filepop").style.display = "block";
+    document.getElementById("filePop").style.display = "block";
 }
 
 function folderForm(identifier) {
     selected = identifier;
     $.get('/select', { selected: selected }, (result) => { })
-    document.getElementById("folderpop").style.display = "block";
+    document.getElementById("folderPop").style.display = "block";
 }
 
 function fileClose() {
-    document.getElementById("filepop").style.display = "none";
+    document.getElementById("filePop").style.display = "none";
 }
 
 function folderClose() {
-    document.getElementById("folderpop").style.display = "none";
+    document.getElementById("folderPop").style.display = "none";
 }
 
 function folderClick() {
@@ -146,13 +130,13 @@ function deleteFile(identifier) {
 }
 
 function renameFolder() {
-    newfolder = document.getElementById("newname1").value;
-    $.get('/rename-folder', { newname: newfolder, current: selected }, function (result) { })
+    newFolder = document.getElementById("newName1").value;
+    $.get('/rename-folder', { newName: newFolder, current: selected }, function (result) { })
 }
 
 function renameFile() {
-    newfile = document.getElementById("newname2").value;
-    $.get('/rename-folder', { newname: newfile, current: selected }, function (result) { })
+    newFile = document.getElementById("newName2").value;
+    $.get('/rename-folder', { newName: newFile, current: selected }, function (result) { })
 }
 
 function openFileModal() {
@@ -178,48 +162,51 @@ function closeNotificationModal(type) {
     }
 }
 
-function getFileNames() {
+function getFilenames() {
+    dataTransfer = new DataTransfer();
     input = document.getElementById('uploadFile');
     const { files } = input;
 
-    for (var i = 0; i < input.files.length; i++) {
-        document.getElementById('itemset').innerHTML += '<div id="' + input.files[i].name + '"> <p>' + input.files[i].name + '</p> <img src="pictures/remove.png" alt="" onclick="removeSelectedFileName(' + "'" + input.files[i].name + "'" + ')"> </div>';
+    for (var i = 0; i < files.length; i++) {
+        fileContainer.push(files[i])
+        document.getElementById('itemSet').innerHTML += '<div id="' + files[i].name + '"> <p>' + files[i].name + '</p> <img src="pictures/remove.png" alt="" onclick="removeSelectedFilename(' + "'" + files[i].name + "'" + ')"> </div>';
     }
 
-    fileContainer.push(files)
-    dataTransfer = new DataTransfer();
     for (i = 0; i < fileContainer.length; i++) {
-        for (j = 0; j < fileContainer[i].length; j++) {
-            file = fileContainer[i][j]
-            dataTransfer.items.add(file)
-        }
+        dataTransfer.items.add(fileContainer[i])
     }
+
     input.files = dataTransfer.files
 }
 
-function removeSelectedFileName(filename) {
+function removeSelectedFilename(filename) {
     dataTransfer = new DataTransfer();
     input = document.getElementById('uploadFile');
-    const { files } = input;
 
-    for(let i = 0; i < files.length; i++){
-        const file = files[i]
-        if (filename !== file.name){
-            dataTransfer.items.add(file)
+    let newArray = []
+    for (i = 0; i < fileContainer.length; i++) {
+        if (fileContainer[i].name != filename) {
+            newArray.push(fileContainer[i])
+            dataTransfer.items.add(fileContainer[i])
         }
     }
 
+    fileContainer = newArray
     input.files = dataTransfer.files
-
     document.getElementById(filename).remove()
 }
 
 function openSelectable() {
-    document.getElementById('sa_div').style.display = 'flex';
+    document.getElementById('saDiv').style.display = 'flex';
 
-    checkboxes = document.getElementsByClassName('files_checkbox')
+    let checkboxes = document.getElementsByClassName('filesCheckbox');
+   
     for (i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].style.display = "flex"
+        checkboxes[i].style.display = "flex";
+    }
+    checkboxes = document.getElementsByClassName('foldersCheckbox');
+    for (i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].style.display = "flex";
     }
 }
 
@@ -229,31 +216,20 @@ function downloadSingle(id) {
 
 async function downloadMany() {
     let selected = [];
-    let hasFolder = false;
-    const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
-
+    let selected1 = [];
+    const checkboxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
+    const foldersCheck = document.querySelectorAll('input[class="foldersCheckbox"]:checked');
     checkboxes.forEach(checkbox => { selected.push(checkbox.value); });
-    
-    for (let i = 0; i < selected.length; i++){
-        $.get('/isfolder', {IDfol: selected[i]}, (result)=>{
-            if(result){
-                hasFolder = true;
-            }
-        })
-        if(hasFolder == true){
-            break;
-        }
-    }
-    await new Promise(resolve => setTimeout(resolve, 1000));
-  
-    if (selected.length == 1 && hasFolder == false) {
-         location.href = "/downloadSingleFile?filename=" + selected[0]; 
-    }
-    else if (selected.length > 1 && hasFolder == false) { 
-        location.href = '/downloadMultipleFile?filenames=' + selected.join(',') 
-    }
-    else{
+    foldersCheck.forEach(folderBox => { selected1.push(folderBox.value); });
+    console.log(selected1);
+    if(selected1.length && selected1){
         alert("Folders cannot be downloaded");
+    }
+    else if (selected.length == 1) {
+        location.href = "/downloadSingleFile?filename=" + selected[0]; 
+    }
+    else if (selected.length > 1) { 
+        location.href = '/downloadMultipleFile?filenames=' + selected.join(',') 
     }
 }
 
@@ -263,14 +239,16 @@ function backFolder(){
 function toggleSelect(){
     
     if(btnCount % 2 != 0){
-        $(".files_checkbox").css('display', 'none');
-        $("#sa_div").css('display', 'none');
+        $(".filesCheckbox").css('display', 'none');
+        $(".foldersCheckbox").css('display', 'none');
+        $("#saDiv").css('display', 'none');
         document.getElementById("multContext").style.visibility = "hidden";
         btnCount += 1;
     }
     else{
-        $(".files_checkbox").css('display', 'inline-block');
-        $("#sa_div").css('display', 'flex');
+        $(".filesCheckbox").css('display', 'inline-block');
+        $(".foldersCheckbox").css('display', 'inline-block');
+        $("#saDiv").css('display', 'flex');
         document.getElementById("multContext").style.visibility = "visible";
         btnCount += 1;
     }
@@ -278,32 +256,28 @@ function toggleSelect(){
 }
 function toggleSelectAll(){
     if(allBtn % 2 != 0){
-        $(".files_checkbox").prop('checked', false);
+        $(".filesCheckbox").prop('checked', false);
+         $(".foldersCheckbox").prop('checked', false);
         allBtn += 1;
     }
     else{
-        $(".files_checkbox").prop('checked', true);
+        $(".filesCheckbox").prop('checked', true);
+         $(".foldersCheckbox").prop('checked', true);
         allBtn += 1;
     }
 }
-// function checkSelectAll(){
-//     arrSelected=[];
-//     var filesCount = $(".files_checkbox").length;
-//     const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
-//     checkboxes.forEach((checkbox)=>{
-//         arrSelected.push(checkbox.value);
-//     });
-//     if(filesCount != arrSelected.length){
-//         $("#selectall_checkbox").prop('checked', false);
-//     }
-// }
 
 function deleteMany(){
     let arrSelected = [];
-    const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
+    let checkboxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
+    let folderBoxes = document.querySelectorAll('input[class="foldersCheckbox"]:checked');
     checkboxes.forEach((checkbox)=>{
         arrSelected.push(checkbox.value);
     });
+    folderBoxes.forEach((checkbox)=>{
+        arrSelected.push(checkbox.value);
+    });
+    console.log(arrSelected);
     if(arrSelected && arrSelected.length){
         $.get("/deleteMany", {arrDelete : arrSelected}, (result)=>{
         });
@@ -313,15 +287,27 @@ function deleteMany(){
 function moveMany(){
     let arrSelected = [];
     let arrNotselect = [];
-    const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
+    let checkboxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
     checkboxes.forEach((checkbox)=>{
         arrSelected.push(checkbox.value);
     });
-    const allboxes = document.querySelectorAll('input[class="files_checkbox"]');
-    allboxes.forEach((allbox)=>{
-        arrNotselect.push(allbox.value);
+
+    checkboxes = document.querySelectorAll('input[class="foldersCheckbox"]:checked');
+    checkboxes.forEach((checkbox)=>{
+        arrSelected.push(checkbox.value);
     });
+
+    let allBoxes = document.querySelectorAll('input[class="filesCheckbox"]');
     
+    allBoxes.forEach((allBox)=>{
+        arrNotselect.push(allBox.value);
+    });
+
+    allBoxes = document.querySelectorAll('input[class="foldersCheckbox"]');
+
+    allBoxes.forEach((allBox)=>{
+        arrNotselect.push(allBox.value);
+    });
     for(var j = 0; j < arrSelected.length; j++){
         for (var i = arrNotselect.length - 1; i >= 0; i--) {
             if (arrNotselect[i] === arrSelected[j]) {
@@ -341,14 +327,14 @@ function moveMany(){
    
 }
 
-function file_folder_search() {
+function fileFolderSearch() {
     setTimeout(file_folder_searched(), 100000);
 }
 
 function moveSingle(identifier){
     
     document.getElementById("blocker").style.display = "flex";
-    document.getElementById("move_modal").style.visibility = "visible";
+    document.getElementById("moveModal").style.visibility = "visible";
     $.get("/getMove", {arrFilter: identifier}, (result)=>{
 
     });
@@ -356,7 +342,7 @@ function moveSingle(identifier){
 }
 function cancelMov(){
     document.getElementById("blocker").style.display = "none";
-    document.getElementById("move_modal").style.visibility = "hidden";
+    document.getElementById("moveModal").style.visibility = "hidden";
 }
 function folderClickMove(){
     var folderName = this.getAttribute("id");
