@@ -516,7 +516,9 @@ app.post('/register-post', async(req, res)=>{
   
 });
 app.post('/change-password-post', async (req, res) => {
-    if (req.body.confirmPassword != req.body.newPassword) { return res.render('changePassword.hbs', { error: "Password Change Error!" }) }
+    if (req.body.confirmPassword != req.body.newPassword) { 
+        return res.render('changePassword.hbs', { error: "Password Change Error!" }) 
+    }
     
     try {
         const hashedPassword = await bcrypt.hash(req.body.newPassword, 10)
@@ -743,8 +745,12 @@ app.post('/uploadfile', async (req, res) => {
                     }
                 } else {
                     file.mv(path.resolve(__dirname, 'uploaded', "(" + duplicateCount + ") " + file.name), async (error) => { });
-                    if (directory == "") { Files.create({ name: "(" + duplicateCount + ") " + file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) }
-                    else { Files.create({ name: "(" + duplicateCount + ") " + file.name, access: selectedAccess, parent: folID, date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) }
+                    if (directory == "") {
+                         Files.create({ name: "(" + duplicateCount + ") " + file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) 
+                    }
+                    else { 
+                        Files.create({ name: "(" + duplicateCount + ") " + file.name, access: selectedAccess, parent: folID, date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) 
+                    }
                 }
             }
         })
@@ -757,8 +763,11 @@ app.post('/uploadfile', async (req, res) => {
                 if (duplicateContainer[duplicateCount].name == String("(" + duplicateCount + ") " + files.name) || duplicateContainer[duplicateCount].name == String(files.name)) {
 
                     duplicateContainer.sort((a, b) => {
-                        if (a.name < b.name) return -1;
-                        if (a.name > b.name) return 1;
+                        if (a.name < b.name)
+                            return -1;
+                        if (a.name > b.name) 
+                            return 1;
+
                         return 0;
                     });
 
@@ -857,7 +866,9 @@ app.get('/delete-folder', (req, res) => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         if(directory == ""){
             if (user.role == 'Administrator' || user.role == "Manager") { res.redirect('/admanagerhome'); }
-                    else { res.redirect('/userhome'); }
+                    else { 
+                        res.redirect('/userhome'); 
+                    }
             
         }
         else{
@@ -1002,52 +1013,6 @@ app.post('/rename-file', (req, res)=>{
                     let fsNew;
                     fsOld = file1.name;
                     arrName= fsOld.split('.');
-                    fsNew = req.body.newName2 + '.' + arrName[1];
-                    Files.findOne({name:fsNew}, async(err, file2)=>{
-                        if(!file2){
-                            file1.name = fsNew;
-                            file1.save((err, updated)=>{})
-                            fs.rename(path.join(__dirname, 'uploaded', fsOld), path.join(__dirname, 'uploaded', fsNew), function (err){
-                                if(err){
-                                    console.log(err);
-                                }
-                            });
-                            
-                            if (user.role == 'Administrator' || user.role == "Manager") { res.redirect('/admanagerhome'); }
-                            else { res.redirect('/userhome'); }
-                        }
-                        else{
-                            const folders = await Folders.find({parent:folID});
-                            const files = await Files.find({parent:folID});
-                            await new Promise(resolve => setTimeout(resolve, 1000));
-                            if(user.role == 'Administrator'){
-                        
-                    
-                                res.render('admanagerhome.hbs',{error:"Folder name already exists", folders: folders,files: files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",func:"backFolder()"  });
-                            }
-                            else if(user.role == 'Manager'){
-                                res.render('admanagerhome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap",func:"backFolder()" })
-                            }
-                        }
-                    })
-                }
-            })
-        }
-       
-    })
-})
-app.post('/rename-file', (req, res)=>{
-    Account.findOne({ username: req.session.name }, (err, user) => {
-        if(directory == ""){
-          
-            Files.findOne({_id:selected}, (err, file1)=>{
-                
-                if(file1){
-                    let fsOld;
-                    let arrName;
-                    let fsNew;
-                    fsOld = file1.name;
-                    arrName= fsOld.split('.');
                     fsNew = req.body.newname2 + '.' + arrName[1];
                     Files.findOne({name:fsNew}, async(err, file2)=>{
                         if(!file2){
@@ -1059,8 +1024,12 @@ app.post('/rename-file', (req, res)=>{
                                 }
                             });
                             
-                            if (user.role == 'Administrator' || user.role == "Manager") { res.redirect('/admanagerhome'); }
-                            else { res.redirect('/userhome'); }
+                            if (user.role == 'Administrator' || user.role == "Manager") { 
+                                res.redirect('/admanagerhome'); 
+                            }
+                            else { 
+                                res.redirect('/userhome'); 
+                            }
                         }
                         else{
                             const folders = await Folders.find({parent:folID});
@@ -1115,8 +1084,6 @@ app.post('/rename-file', (req, res)=>{
                                 const files = await Files.find({parent:folID});
                                 await new Promise(resolve => setTimeout(resolve, 1000));
                                 if(user.role == 'Administrator'){
-                            
-                        
                                     res.render('adManagerHome.hbs',{error:"File name already exists", folders: folders,files: files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",func:"backFolder()"  });
                                 }
                                 else if(user.role == 'Manager'){
@@ -1432,7 +1399,7 @@ app.get('/moveAction', async(req, res)=>{
                     }
                         
                 })
-                Files.findOne({_id:IDselected}, async(err, toMove)=>{
+                Files.findOne({_id:IDSelected}, async(err, toMove)=>{
                     if(toMove){
                         toMove.parent = "";
                         toMove.save((err, updated)=>{});

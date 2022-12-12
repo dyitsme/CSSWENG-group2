@@ -10,13 +10,13 @@
     </head>
     <body>
         <div id="topBar">
-            <img id="topLogo" src="../../UI/gilagan_log_no_text.png">
+            <img id="topLogo" src="../../pictures/logo.png">
             <a href="/admanagerhome">Files</a>
             <a id="{{design}}" href="{{ID}}">{{Content}}</a>
             <a href="/profile">Profile</a>
             <a href="/" >Logout</a>
             <form id="topSearch" method="get" action="/search-file">
-                    <button><img id="sIcon" src="../../UI/search icon.png"></button>
+                    <button><img id="sIcon" src="../../pictures/search icon.png"></button>
                     <input type="text" id="textSearch" name="textSearch" placeholder="Search Files">
             </form>
         </div>
@@ -89,7 +89,7 @@
                     <div class="folderDiv" oncontextmenu="contextMenu(event,'{{this.name}} cm'); return false">
                          <input type="checkbox" class="foldersCheckbox" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
                         <div class="folderNameDiv" id="{{this.name}}">
-                            <img class="folderIcon" src="../../UI/Folder Icon.png">
+                            <img class="folderIcon" src="../../pictures/Folder Icon.png">
                             <label for="{{this.name}}" class="folderName">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
                         </div>
                         <label for="{{this.name}}" class="folderUploadedBy">{{this.uploader}}</label><!--change the USERNAME and LABEL of the checkbox for each folder name-->
@@ -108,7 +108,7 @@
                     <div class="fileDiv" oncontextmenu="contextMenu(event, '{{this.name}} cm'); return false">
                         <input type="checkbox" class="filesCheckbox" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
                         <div class="filenameDiv">
-                            <img class="fileIcon" src="../../UI/File Icon.png">
+                            <img class="fileIcon" src="../../pictures/File Icon.png">
                             <label for="{{this.name}}" class="filename">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each filename-->
                         </div>
                         <label for="{{this.name}}" class="fileUploadedBy">{{this.uploader}}</label><!--change the USERNAME and LABEL of the checkbox for each filename-->
@@ -132,7 +132,7 @@
                         {{#each movFolder}}
                             <div class="folderDiv" oncontextmenu="moveMenu('{{this.name}} cm'); return false">
                                 <div class="folderMoveDiv" id="{{this.name}} mov">
-                                    <img class="folderIcon" src="../../UI/Folder Icon.png">
+                                    <img class="folderIcon" src="../../pictures/Folder Icon.png">
                                     <label for="{{this.name}} mov" class="folderName">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
                                 </div>
                             </div>

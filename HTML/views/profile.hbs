@@ -8,14 +8,14 @@
     </head>
     <body>
         <div id="topBar">
-            <img id="topLogo" src="../../UI/gilagan_log_no_text.png">
+            <img id="topLogo" src="../../pictures/logo.png">
             <a href="{{link}}">Files</a>
             <a href="/profile">Profile</a>
             <a href="/" >Logout</a>
             
             {{#if (eq role "Administrator")}}
             <form id="topSearch" method="get" action="/search-user">
-                    <button><img id="sIcon" src="../../UI/search icon.png"></button>
+                    <button><img id="sIcon" src="../../pictures/search icon.png"></button>
                     <input type="text" id="textSearch" name="textSearch" placeholder="Search Users">
             </form>
             {{/if}}
