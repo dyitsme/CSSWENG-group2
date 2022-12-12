@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --navbar-color: #F0F0F0;
+    --navBar-color: #F0F0F0;
     --border-color: #B1B1B1;
     --input-color: #ECECEC;
     --error-color: #BF0707;
@@ -17,23 +17,23 @@
     box-sizing: border-box;
 }
 
-.navbar {
+.navBar {
     display: flex;
     align-items: center;
 
     width: 100%;
     height: 67px;
 
-    background-color: var(--navbar-color);
+    background-color: var(--navBar-color);
 }
 
-.navbar .logo {
+.navBar .logo {
     width: 205px;
     height: 45px;
     margin: 0 25px 0 10px;
 }
 
-.navbar .logo:hover {
+.navBar .logo:hover {
     cursor: pointer;
 }
 

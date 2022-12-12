@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../CSS/modal.css">
-    <link rel="stylesheet" href="../../CSS/edit-admin.css">
+    <link rel="stylesheet" href="../../CSS/editAdmin.css">
     <title>G. Ilagan Designs and Construction</title>
 </head>
 
@@ -24,7 +24,7 @@
         <div class="sideBySide">
             <div class="container">
                 <p class="title">Edit Password</p>
-                <form class="edit" method="post" action="/change-selected-password?text_search={{username}}">
+                <form class="edit" method="post" action="/change-selected-password?textSearch={{username}}">
                     <input type="password" name="password" id="" required="true">
                     <input type="submit" value="Submit">
                 </form>
@@ -32,7 +32,7 @@
         
             <div class="container">
                 <p class="title">Edit Role</p>
-                <form class="edit" method="post" action="/edit-role?text_search={{username}}">
+                <form class="edit" method="post" action="/edit-role?textSearch={{username}}">
                     <select id="roles" name="roles" required="true">
                         <option value="" selected disabled hidden>Role</option>
                         <option value="Employee">Employee</option>
@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <button class="delete" onclick="window.location.href='/delete-user?text_search={{username}}'">Delete Account</button>
+        <button class="delete" onclick="window.location.href='/delete-user?textSearch={{username}}'">Delete Account</button>
     </div>
 
     <div class="notificationModal success" id="successModal" style="visibility: {{vSuccess}}; opacity: {{oSuccess}};">

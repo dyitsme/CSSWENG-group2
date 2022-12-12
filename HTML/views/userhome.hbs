@@ -28,7 +28,7 @@
             </div>
             <div id="breadCrumb">
                 <button style="{{styling}}" onclick="{{func}}">{{contents}}</button><!--Change display to NONE when not in folder-->
-                <p id="breadCrumb_dir">{{path}}</p><!--change the FILE LOCATION-->
+                <p id="breadCrumbDir">{{path}}</p><!--change the FILE LOCATION-->
             </div>
         
             <div id="titleBar">
@@ -64,8 +64,8 @@
                 {{#each files}}
                     <div class="fileDiv" oncontextmenu="contextMenu(event, '{{this.name}} cm'); return false">
                         <input type="checkBox" class="filesCheckbox" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
-                        <div class="file_name_div">
-                            <img class="file_icon" src="../../UI/File Icon.png">
+                        <div class="filenameDiv">
+                            <img class="fileIcon" src="../../UI/File Icon.png">
                             <label for="{{this.name}}" class="fileName">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each filename-->
                         </div>
                         <label for="{{this.name}}" class="fileUploadedBy">{{this.uploader}}</label><!--change the USERNAME and LABEL of the checkbox for each filename-->

@@ -15,7 +15,7 @@
             <a id="{{design}}" href="{{ID}}">{{Content}}</a>
             <a href="/profile">Profile</a>
             <a href="/" >Logout</a>
-            <form id="topSearch" method="get" action="/searchFile">
+            <form id="topSearch" method="get" action="/search-file">
                     <button><img id="sIcon" src="../../UI/search icon.png"></button>
                     <input type="text" id="textSearch" name="textSearch" placeholder="Search Files">
             </form>
@@ -31,8 +31,8 @@
                     <button id="selectBtn"  class="nextBtn" onclick="toggleSelect()"><iconify-icon icon="material-symbols:select-check-box"></iconify-icon>Select</button>
             </div>
 
-                        <form class="formPopup" id="popup" method="POST" action="/createfolder">
-                            <div class="popupContent">
+                        <form class="formPopUp" id="popUp" method="POST" action="/createfolder">
+                            <div class="popUpContent">
                                 <label for="folderName"><b>Folder Name:</b></label>
                                 <input type="text" placeholder="Name" name="folderName" onkeypress="return disableSpecialChar(event)" onpaste="return false" autocomplete="off" required>
                                 <select id="accessLevel" name="accessLevel" required="true">
@@ -44,16 +44,16 @@
                                 <button type="button" id="cancelButton" onclick="closeForm()">Cancel</button>
                             </div>
                         </form>
-                        <form class="formPopup" id="folderPop" method="POST" action="/rename-folder">
-                            <div class="popupContent">
+                        <form class="formPopUp" id="folderPop" method="POST" action="/rename-folder">
+                            <div class="popUpContent">
                                 <label for="newName1"><b>Folder Name:</b></label>
                                 <input type="text" placeholder="Name" name="newName1" id="newName1" onkeypress="return disableSpecialChar(event)" onpaste="return false" autocomplete="off" required>
                                 <button type="submit" id="createButton"  onclick="renameFolder()" >Rename Folder</button>
                                 <button type="button" id="cancelButton" onclick="folderClose()">Cancel</button>
                             </div>
                         </form>
-                        <form class="formPopup" id="filePop" method="POST" action="/rename-file">
-                            <div class="popupContent">
+                        <form class="formPopUp" id="filePop" method="POST" action="/rename-file">
+                            <div class="popUpContent">
                                 <label for="newName2"><b>File Name:</b></label>
                                 <input type="text" placeholder="Name" name="newName2" id="newName2" onkeypress="return disableSpecialChar(event)" onpaste="return false" autocomplete="off" required>
                                 <button type="submit" id="createButton" onclick="renameFile()">Rename File</button>
@@ -106,10 +106,10 @@
 
                 {{#each files}}
                     <div class="fileDiv" oncontextmenu="contextMenu(event, '{{this.name}} cm'); return false">
-                        <input type="checkBox" class="filesCheckbox" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
-                        <div class="fileNameDiv">
+                        <input type="checkbox" class="filesCheckbox" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
+                        <div class="filenameDiv">
                             <img class="fileIcon" src="../../UI/File Icon.png">
-                            <label for="{{this.name}}" class="fileName">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each filename-->
+                            <label for="{{this.name}}" class="filename">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each filename-->
                         </div>
                         <label for="{{this.name}}" class="fileUploadedBy">{{this.uploader}}</label><!--change the USERNAME and LABEL of the checkbox for each filename-->
                         <label for="{{this.name}}" class="fileUploadDate">{{this.date}}</label><!--change the DATE and LABEL of the checkbox for each filename-->
@@ -124,8 +124,8 @@
                     </div> 
                 {{/each}}
 
-                <div id="blocker" style="{{blockermodal}}">
-                    <div id="moveModal" style="{{movemodal}}">
+                <div id="blocker" style="{{blockerModal}}">
+                    <div id="moveModal" style="{{moveModal}}">
                         <h1>Folders</h1>
                         <hr>
                         <div id="folderContainer">
@@ -148,13 +148,13 @@
                 <form class="fileModal" id="fileModal" action="/uploadfile" method="POST" enctype="multipart/form-data">
                     <img class="exit" src="../../pictures/cross.png" alt="cross" onclick="closeFileModal()">
 
-                    <input type="file" id="uploadFile" name="uploadFile" multiple="multiple" onchange="getFileNames()" required>
+                    <input type="file" id="uploadFile" name="uploadFile" multiple="multiple" onchange="getFilenames()" required>
                     <label class="choose" for="uploadFile">
                         <p>Choose Files</p>
                         <img src="pictures/choose file.png" alt="">
                     </label>
                 
-                    <div class="itemset" id="itemset">
+                    <div class="itemSet" id="itemSet">
                         <h1>File Name</h1>
                     </div>
                 

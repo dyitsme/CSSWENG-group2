@@ -117,15 +117,15 @@ app.get('/profile', (req,res)=>{
     Account.findOne({username: req.session.name}, (err, user)=>{
         if(user){
             if(user.role == "Administrator"){
-                res.render('profile.hbs',{link:"/admanagerhome",profilename: req.session.name, role:user.role, C:"regisbutton",act:"redirectRegister()", content:"Register an Account"});
+                res.render('profile.hbs',{link:"/admanagerhome",profileName: req.session.name, role:user.role, C:"regisButton",act:"redirectRegister()", content:"Register an Account"});
             }
             else if(user.role == "Manager"){
                
-                    res.render('profile.hbs',{link: "/admanagerhome",profilename: req.session.name, role:user.role, design:"trap" })
+                    res.render('profile.hbs',{link: "/admanagerhome",profileName: req.session.name, role:user.role, design:"background:transparent; border: none !important;" })
                 }
             
             else{
-                res.render('profile.hbs',{link:"/userhome",profilename: req.session.name, role:user.role, design:"trap"});
+                res.render('profile.hbs',{link:"/userhome",profileName: req.session.name, role:user.role, design:"background:transparent; border: none !important;"});
             }
         }
         else{
@@ -216,7 +216,7 @@ app.get('/movloadfolder', async(req, res)=>{
                     }
 
                 }
-                //const folders1 = await Folders.find({parent: folIDmove,_id:{$ne:IDselected}})
+            
                 console.log("ADMIN");
                 if(directory == ""){
                     res.render('adManagerHome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", styling:"background:transparent; border: none !important;",movFolder:folders1,moveModal:"visibility:visible", blockerModal:"display:flex"  });
@@ -315,13 +315,13 @@ app.get('/loadfolder', async(req, res)=>{
                 
                 if(clickedFol.parent != ""){
                     nextParent = clickedFol.parent;
-                   console.log(nextparent);
-                    while(nextparent != ""){
+                   
+                    while(nextParent != ""){
                         await new Promise(resolve => setTimeout(resolve, 50));
-                        Folders.findOne({_id: nextparent}, (err, firstFol)=>{
+                        Folders.findOne({_id: nextParent}, (err, firstFol)=>{
                             if(firstFol){
                                 nextParent = firstFol.parent;
-                                console.log(nextparent)
+                               
                                 parentList.push(firstFol.name);
                             }
                             else{
@@ -329,7 +329,7 @@ app.get('/loadfolder', async(req, res)=>{
                             }
                         })
                     }
-                    console.log(parentlist);
+               
 
         
                     for(let g = 0; g < parentList.length; g++){
@@ -788,21 +788,21 @@ app.post('/uploadfile', async (req, res) => {
 });
 
 app.get('/delete-folder', (req, res) => {
-    let listofNames = [];
+    let listOfNames = [];
     Account.findOne({ username: req.session.name }, async(err, user) => {
-        Folders.findOne({name: req.query.name}, async(err, mainfol)=>{
+        Folders.findOne({name: req.query.name}, async(err, mainFol)=>{
                 
-            if(mainfol){
+            if(mainFol){
                 
                 let holder = await Folders.find({parent:mainFol._id});
                 let fHolder = await Files.find({parent:mainFol._id})
                 
                 
                 for(let val = 0; val < holder.length; val++){
-                    listofNames.push(holder[val]);
+                    listOfNames.push(holder[val]);
                 }
                 for(let val = 0; val < fHolder.length; val++){
-                    listofNames.push(fHolder[val]);
+                    listOfNames.push(fHolder[val]);
                 }
                 for (let index = 0; index < holder.length; index++){
                     let temp = await Folders.find({parent:holder[index]._id});
@@ -812,29 +812,29 @@ app.get('/delete-folder', (req, res) => {
                             holder.push(temp[val]);
                         }
                         for(let val = 0; val < temp.length; val++){
-                            listofNames.push(temp[val]);
+                            listOfNames.push(temp[val]);
                         }
                     }
                     if(temp1.length != 0){
                         for(let val = 0; val < temp1.length; val++){
-                            listofNames.push(temp1[val]);
+                            listOfNames.push(temp1[val]);
                         }
                         
                     }
                 }
-                listofNames.push(mainFol);
-                console.log(listofNames);
-                for(let d = 0; d < listofNames.length; d++){
+                listOfNames.push(mainFol);
+              
+                for(let d = 0; d < listOfNames.length; d++){
                   
-                    Folders.deleteOne({ _id: listofNames[d]._id }, (error, ans1) => {
+                    Folders.deleteOne({ _id: listOfNames[d]._id }, (error, ans1) => {
                         if(ans1){
                             console.log(ans1);
                         }
                     })
-                    Files.findOne({ _id: listofNames[d]._id }, (error, result) => {
+                    Files.findOne({ _id: listOfNames[d]._id }, (error, result) => {
                         if (result) {
                             fs.unlink(path.join(__dirname, 'uploaded', result.name), (error, result) => { });
-                            Files.deleteOne({ _id: listofNames[d]._id }, (err, ans1) => {
+                            Files.deleteOne({ _id: listOfNames[d]._id }, (err, ans1) => {
                                 if (ans1) {
                                     console.log(ans1);
                                 }
@@ -1171,15 +1171,15 @@ app.post('/change-selected-password', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
     Account.updateOne({ username: req.query.textSearch }, { pass: hashedPassword }, (error, success) => {
         if (success) {
-            res.redirect('/search-user?text_search=' + req.query.text_search)
+            res.redirect('/search-user?textSearch=' + req.query.textSearch)
         }
     })
 });
 
 app.post('/edit-role', (req, res) => {
-    Account.updateOne({ username: req.query.text_search }, { role: req.body.roles }, (error, success) => {
+    Account.updateOne({ username: req.query.textSearch }, { role: req.body.roles }, (error, success) => {
         if (success) {
-            res.redirect('/search-user?text_search=' + req.query.text_search)
+            res.redirect('/search-user?textSearch=' + req.query.textSearch)
         }
     })
 });
@@ -1274,7 +1274,7 @@ app.get('/deleteMany', async (req, res) => {
                             holder.push(temp[val]);
                         }
                         for(let val = 0; val < temp.length; val++){
-                            listofNames.push(temp[val]);
+                            listOfNames.push(temp[val]);
                         }
                     }
                     if(temp1.length != 0){
@@ -1366,7 +1366,7 @@ app.get('/filterMany', async(req, res)=>{
     }
 })
 app.get('/filterSelected', async(req, res)=>{
-        const folders1 = await Folders.find({_id:{$ne:IDselected}, parent:""});
+        const folders1 = await Folders.find({_id:{$ne:IDSelected}, parent:""});
         if(directory == ""){
             const folders = await Folders.find({parent:""});
             const files = await Files.find({parent:""});
@@ -1399,7 +1399,7 @@ app.get('/moveAction', async(req, res)=>{
         Account.findOne({username:req.session.name}, (err, user)=>{
             if(folIDMove == ""){
                 console.log("START");
-                Folders.findOne({_id:IDselected}, async(err, tomove)=>{
+                Folders.findOne({_id:IDSelected}, async(err, toMove)=>{
                     if(toMove){
                         toMove.parent = "";
                         toMove.save((err, updated)=>{});
@@ -1423,7 +1423,7 @@ app.get('/moveAction', async(req, res)=>{
                     }
                         
                 })
-                Files.findOne({_id:IDselected}, async(err, tomove)=>{
+                Files.findOne({_id:IDselected}, async(err, toMove)=>{
                     if(toMove){
                         toMove.parent = "";
                         toMove.save((err, updated)=>{});
@@ -1448,8 +1448,8 @@ app.get('/moveAction', async(req, res)=>{
                 })
             }
             else{
-                Folders.findOne({_id:folIDMove}, (err, newParentfol)=>{
-                    Folders.findOne({_id:IDselected}, async(err, toMove)=>{
+                Folders.findOne({_id:folIDMove}, (err, newParentFol)=>{
+                    Folders.findOne({_id:IDSelected}, async(err, toMove)=>{
                         if(toMove){
                             toMove.parent = newParentFol._id;
                             toMove.save((err, updated)=>{});
@@ -1473,7 +1473,7 @@ app.get('/moveAction', async(req, res)=>{
                         }
                        
                     })
-                    Files.findOne({_id:IDselected}, async(err,toMove)=>{
+                    Files.findOne({_id:IDSelected}, async(err,toMove)=>{
                         if(toMove){
                             toMove.parent = newParentFol._id;
                             toMove.save((err, updated)=>{});
@@ -1534,7 +1534,7 @@ app.get('/moveAction', async(req, res)=>{
                             Folders.findById(IDMultMove[k], (err, toMove)=>{
                                 if(toMove){
                                     console.log("FOUNDFOUNDFOUND");
-                                    toMove.parent = newParentfol._id;
+                                    toMove.parent = newParentFol._id;
                                     toMove.save((err, updated)=>{});
                                    
                                 }
@@ -1578,16 +1578,16 @@ app.get('/moveAction', async(req, res)=>{
 })
 
 app.get('/downloadSingleFile', (req, res) => {
-    Files.findOne({ _id: req.query.fileName }, (error, result) => {
+    Files.findOne({ _id: req.query.filename }, (error, result) => {
         res.download(path.join(__dirname, 'uploaded', result.name));
     })
 });
 
 app.get('/downloadMultipleFile', (req, res) => {
-    const fileNames = req.query.filenames.split(",")
+    const filenames = req.query.filenames.split(",")
     var container = []
 
-    Files.find({ _id: fileNames }, (error, result) => {
+    Files.find({ _id: filenames }, (error, result) => {
         result.forEach(file => {
             console.log(file.name);
             container.push({ path: path.join(__dirname, 'uploaded', file.name), name: file.name })

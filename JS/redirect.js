@@ -162,14 +162,14 @@ function closeNotificationModal(type) {
     }
 }
 
-function getFileNames() {
+function getFilenames() {
     dataTransfer = new DataTransfer();
     input = document.getElementById('uploadFile');
     const { files } = input;
 
     for (var i = 0; i < files.length; i++) {
         fileContainer.push(files[i])
-        document.getElementById('itemSet').innerHTML += '<div id="' + files[i].name + '"> <p>' + files[i].name + '</p> <img src="pictures/remove.png" alt="" onclick="removeSelectedFileName(' + "'" + files[i].name + "'" + ')"> </div>';
+        document.getElementById('itemSet').innerHTML += '<div id="' + files[i].name + '"> <p>' + files[i].name + '</p> <img src="pictures/remove.png" alt="" onclick="removeSelectedFilename(' + "'" + files[i].name + "'" + ')"> </div>';
     }
 
     for (i = 0; i < fileContainer.length; i++) {
@@ -179,7 +179,7 @@ function getFileNames() {
     input.files = dataTransfer.files
 }
 
-function removeSelectedFileName(filename) {
+function removeSelectedFilename(filename) {
     dataTransfer = new DataTransfer();
     input = document.getElementById('uploadFile');
 
@@ -193,20 +193,20 @@ function removeSelectedFileName(filename) {
 
     fileContainer = newArray
     input.files = dataTransfer.files
-    document.getElementById(fileName).remove()
+    document.getElementById(filename).remove()
 }
 
 function openSelectable() {
     document.getElementById('saDiv').style.display = 'flex';
 
-    let checkBoxes = document.getElementsByClassName('filesCheckbox');
+    let checkboxes = document.getElementsByClassName('filesCheckbox');
    
-    for (i = 0; i < checkBoxes.length; i++) {
-        checkBoxes[i].style.display = "flex";
+    for (i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].style.display = "flex";
     }
-    checkBoxes = document.getElementsByClassName('foldersCheckbox');
-    for (i = 0; i < checkBoxes.length; i++) {
-        checkBoxes[i].style.display = "flex";
+    checkboxes = document.getElementsByClassName('foldersCheckbox');
+    for (i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].style.display = "flex";
     }
 }
 
@@ -217,9 +217,9 @@ function downloadSingle(id) {
 async function downloadMany() {
     let selected = [];
     let selected1 = [];
-    const checkBoxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
+    const checkboxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
     const foldersCheck = document.querySelectorAll('input[class="foldersCheckbox"]:checked');
-    checkBoxes.forEach(checkBox => { selected.push(checkBox.value); });
+    checkboxes.forEach(checkbox => { selected.push(checkbox.value); });
     foldersCheck.forEach(folderBox => { selected1.push(folderBox.value); });
     console.log(selected1);
     if(selected1.length && selected1){
@@ -269,13 +269,13 @@ function toggleSelectAll(){
 
 function deleteMany(){
     let arrSelected = [];
-    let checkBoxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
+    let checkboxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
     let folderBoxes = document.querySelectorAll('input[class="foldersCheckbox"]:checked');
-    checkBoxes.forEach((checkBox)=>{
-        arrSelected.push(checkBox.value);
+    checkboxes.forEach((checkbox)=>{
+        arrSelected.push(checkbox.value);
     });
-    folderBoxes.forEach((checkBox)=>{
-        arrSelected.push(checkBox.value);
+    folderBoxes.forEach((checkbox)=>{
+        arrSelected.push(checkbox.value);
     });
     console.log(arrSelected);
     if(arrSelected && arrSelected.length){
@@ -287,20 +287,20 @@ function deleteMany(){
 function moveMany(){
     let arrSelected = [];
     let arrNotselect = [];
-    let checkBoxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
-    checkBoxes.forEach((checkBox)=>{
-        arrSelected.push(checkBox.value);
+    let checkboxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
+    checkboxes.forEach((checkbox)=>{
+        arrSelected.push(checkbox.value);
     });
 
-    checkBoxes = document.querySelectorAll('input[class="foldersCheckbox"]:checked');
-    checkBoxes.forEach((checkBox)=>{
-        arrSelected.push(checkBox.value);
+    checkboxes = document.querySelectorAll('input[class="foldersCheckbox"]:checked');
+    checkboxes.forEach((checkbox)=>{
+        arrSelected.push(checkbox.value);
     });
 
     let allBoxes = document.querySelectorAll('input[class="filesCheckbox"]');
     
-    allboxes.forEach((allbox)=>{
-        arrNotselect.push(allbox.value);
+    allBoxes.forEach((allBox)=>{
+        arrNotselect.push(allBox.value);
     });
 
     allBoxes = document.querySelectorAll('input[class="foldersCheckbox"]');
