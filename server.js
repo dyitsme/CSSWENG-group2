@@ -1071,15 +1071,17 @@ app.post('/rename-file', (req, res)=>{
 
 app.get('/search-user', (req, res) => {
     Account.findOne({ username: req.query.textSearch }, (error, targetUser) => {
-        if (targetUser && req.query.success == "password") {
-            return res.render('editUser.hbs', { username: req.query.textSearch, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Password has been changed" })
-        } 
-        else if (targetUser && req.query.success == "role") {
-            return res.render('editUser.hbs', { username: req.query.textSearch, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Role has been changed" })
-        } 
-        else if (targetUser) {
-            return res.render('editUser.hbs', { username: req.query.textSearch })
-        } 
+        if (req.query.textSearch != req.session.name) {
+            if (targetUser && req.query.success == "password") {
+                return res.render('editUser.hbs', { username: req.query.textSearch, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Password has been changed" })
+            } 
+            else if (targetUser && req.query.success == "role") {
+                return res.render('editUser.hbs', { username: req.query.textSearch, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Role has been changed" })
+            } 
+            else if (targetUser) {
+                return res.render('editUser.hbs', { username: req.query.textSearch })
+            } 
+        }   
         else {
             Account.findOne({ username: req.session.name }, (err, user) => {
                 if (user.role == "Administrator") {
