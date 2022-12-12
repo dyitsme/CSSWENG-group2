@@ -25,12 +25,12 @@
         <div id="mainBody">
             <div id="actionLabels">
                 <h1>Files</h1>
-                <h2 id="errorCode">{{error}}</h3>
+                
                     <button id="uploadBtn" onclick="openFileModal()"><iconify-icon icon="material-symbols:upload"></iconify-icon>Upload</button>
                     <button id="newFolderBtn" onclick="openForm()" class="nextBtn"><iconify-icon icon="material-symbols:create-new-folder-outline"></iconify-icon>New Folder</button>
                     <button id="selectBtn"  class="nextBtn" onclick="toggleSelect()"><iconify-icon icon="material-symbols:select-check-box"></iconify-icon>Select</button>
             </div>
-
+            <h2 id="errorCode">{{error}}</h2>
                         <form class="formPopUp" id="popUp" method="POST" action="/createfolder">
                             <div class="popUpContent">
                                 <label for="folderName"><b>Folder Name:</b></label>
