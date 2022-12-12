@@ -41,6 +41,7 @@ function openForm() {
 function closeForm() {
     document.getElementById("popUp").style.display = "none";
 }
+
 function fileForm(identifier) {
     selected = identifier;
     $.get('/select', { selected: selected }, (result) => {
@@ -48,6 +49,7 @@ function fileForm(identifier) {
     })
     document.getElementById("filePop").style.display = "block";
 }
+
 function folderForm(identifier) {
     selected = identifier;
     $.get('/select', { selected: selected }, (result) => {
@@ -55,9 +57,11 @@ function folderForm(identifier) {
     })
     document.getElementById("folderPop").style.display = "block";
 }
+
 function fileClose() {
     document.getElementById("filePop").style.display = "none";
 }
+
 function folderClose() {
     document.getElementById("folderPop").style.display = "none";
 }
@@ -119,7 +123,6 @@ window.addEventListener('click', (e) => {
         document.getElementById(opened).style.visibility = "hidden";
     }
 })
-
 
 function deleteFolder(identifier) {
     location.href = "/delete-folder?name=" + identifier;
@@ -236,8 +239,8 @@ async function downloadMany() {
 function backFolder(){
     location.href ="/back";
 }
-function toggleSelect(){
-    
+
+function toggleSelect(){   
     if(btnCount % 2 != 0){
         $(".filesCheckbox").css('display', 'none');
         $(".foldersCheckbox").css('display', 'none');
@@ -252,8 +255,8 @@ function toggleSelect(){
         document.getElementById("multContext").style.visibility = "visible";
         btnCount += 1;
     }
-   
 }
+
 function toggleSelectAll(){
     if(allBtn % 2 != 0){
         $(".filesCheckbox").prop('checked', false);
@@ -284,6 +287,7 @@ function deleteMany(){
         location.href="/deleteManyResult";
     }
 }
+
 function moveMany(){
     let arrSelected = [];
     let arrNotselect = [];
@@ -320,11 +324,7 @@ function moveMany(){
 
         });
         location.href="/filterMany";
-    }
-        
-    
-   
-   
+    } 
 }
 
 function fileFolderSearch() {
@@ -332,7 +332,6 @@ function fileFolderSearch() {
 }
 
 function moveSingle(identifier){
-    
     document.getElementById("blocker").style.display = "flex";
     document.getElementById("moveModal").style.visibility = "visible";
     $.get("/getMove", {arrFilter: identifier}, (result)=>{
@@ -340,10 +339,12 @@ function moveSingle(identifier){
     });
     location.href="/filterSelected";
 }
+
 function cancelMov(){
     document.getElementById("blocker").style.display = "none";
     document.getElementById("moveModal").style.visibility = "hidden";
 }
+
 function folderClickMove(){
     var folderName = this.getAttribute("id");
     var length = folderName.length;
@@ -354,13 +355,11 @@ function folderClickMove(){
             if (result) {
                 location.href = "/movloadfolder";
             }
-        });
-   
-    
+        });   
 }
+
 function moveHere(){
-    location.href="/moveAction";
-    
+    location.href="/moveAction";  
 }
 
 function formatSize(bytes, decimals = 2) {

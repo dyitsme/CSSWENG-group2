@@ -69,6 +69,7 @@ app.get('/', async(req, res)=>{
     res.render('login.hbs');
 
 })
+
 app.get('/back', (req, res)=>{
     arrDirect = directory.split('/');
     arrDirect.pop();
@@ -113,6 +114,7 @@ app.get('/back', (req, res)=>{
         
    
 })
+
 app.get('/profile', (req,res)=>{
     Account.findOne({username: req.session.name}, (err, user)=>{
         if(user){
@@ -154,11 +156,9 @@ app.get('/admanagerhome', async(req, res)=>{
         else{
             res.redirect("/");
         }
-      
     })
-   
-
 })
+
 app.get('/folder', (req,res)=>{
         fol = req.query.folder;
         Folders.findOne({name:req.query.folder}, (err, ans)=>{
@@ -168,9 +168,9 @@ app.get('/folder', (req,res)=>{
         })
       
         result = {garbage:"garbage"};
-        res.send(result);
-    
+        res.send(result);   
 })
+
 app.get('/movfolder', (req,res)=>{
     folMove = req.query.folder;
     Folders.findOne({name:req.query.folder}, (err, ans)=>{
@@ -183,6 +183,7 @@ app.get('/movfolder', (req,res)=>{
     res.send(result);
 
 })
+
 app.get('/movloadfolder', async(req, res)=>{
     if(directory1 =="" || directory1 == null){
         directory1 = "/"+folMove;
@@ -251,13 +252,11 @@ app.get('/movloadfolder', async(req, res)=>{
                 }
                 else{
                     res.render('adManagerHome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()" ,movFolder:folders1,moveModal:"visibility:visible", blockerModal:"display:flex"  });
-                }
-                
-            }
-            
+                }            
+            }         
         })
-    
 })
+
 app.get('/loadfolder', async(req, res)=>{
     if(triggerSearch == true){
         directory = "";
@@ -265,8 +264,7 @@ app.get('/loadfolder', async(req, res)=>{
         let parentList = [];
         //compute breadcrumb
         Folders.findOne({name:fol}, async(err, clickedFol)=>{
-            if(clickedFol){
-                
+            if(clickedFol){            
                 
                 if(clickedFol.parent != ""){
                     nextParent = clickedFol.parent;
@@ -284,7 +282,6 @@ app.get('/loadfolder', async(req, res)=>{
                         })
                     }
                     console.log(parentList);
-
         
                     for(let g = 0; g < parentList.length; g++){
                         directory = "/" + parentList[g] + directory;
@@ -296,7 +293,6 @@ app.get('/loadfolder', async(req, res)=>{
                     directory = "/"+fol;
                 }
             }
-            
         })
         await new Promise(resolve => setTimeout(resolve, 1000));
         triggerSearch = false;
@@ -311,8 +307,7 @@ app.get('/loadfolder', async(req, res)=>{
         //compute breadcrumb
         Folders.findOne({name:fol}, async(err, clickedFol)=>{
             if(clickedFol){
-                
-                
+                     
                 if(clickedFol.parent != ""){
                     nextParent = clickedFol.parent;
                    
@@ -329,8 +324,6 @@ app.get('/loadfolder', async(req, res)=>{
                             }
                         })
                     }
-               
-
         
                     for(let g = 0; g < parentList.length; g++){
                         directory = "/" + parentList[g] + directory;
@@ -341,12 +334,10 @@ app.get('/loadfolder', async(req, res)=>{
                 else{
                     directory = "/"+fol;
                 }
-            }
-            
+            }     
         })
         await new Promise(resolve => setTimeout(resolve, 1000));
-        triggerSearch = false;
-      
+        triggerSearch = false;    
     }
    
     arrDirect = directory.split('/');
@@ -375,6 +366,7 @@ app.get('/loadfolder', async(req, res)=>{
         })
     
 })
+
 app.get('/userhome', async(req, res)=>{
     fol="";
     directory="";
@@ -388,8 +380,7 @@ app.get('/userhome', async(req, res)=>{
             }
             else{
                 res.redirect('/');
-            }
-            
+            }          
         }
         else{
             res.redirect('/')
@@ -397,6 +388,7 @@ app.get('/userhome', async(req, res)=>{
     })
     
 })
+
 app.get('/register', (req, res)=>{
     Account.findOne({username:req.session.name}, (err, user)=>{
         if(user){
@@ -414,8 +406,8 @@ app.get('/register', (req, res)=>{
     })
     
 })
+
 app.get('/changepassword', (req, res) => {
-   
    
     Account.findOne({username: req.session.name}, (err, user)=>{
         if(user){
@@ -435,6 +427,7 @@ app.get('/changepassword', (req, res) => {
         }
     })
 })
+
 app.post('/login-post', (req,res)=>{
     Account.findOne({username : req.body.username}, (err, user)=>{
         if(err){
@@ -483,8 +476,7 @@ app.post('/register-post', async(req, res)=>{
        
         //check if username exists
         Account.findOne({username : req.body.username},(err,result)=>{
-            if(!result)
-            {
+            if(!result){
                 if ((req.body.username).length > 30){
                     res.render('register.hbs',{error:"Username should not be greater than 30 chars"});
                 }
@@ -500,10 +492,8 @@ app.post('/register-post', async(req, res)=>{
                     })
                     res.redirect('/admanagerhome')
                 }
-                
             }
-            else
-            {
+            else{
                 res.render('register.hbs',{
                     error: "Username already exists",
                 })
@@ -548,8 +538,7 @@ app.post('/change-password-post', async (req, res) => {
                                 else{
                                     res.render('changePassword.hbs', {link:'/userhome', error: "Password Change Error!",design:"trap" }) 
                                 }
-                                
-                                }
+                            }
                         })
                     }
                     else {  
@@ -583,7 +572,6 @@ app.post('/change-password-post', async (req, res) => {
 
 app.post('/createfolder', async(req, res) =>{
    
-    
     if (directory == "" && fol == ""){
         const folders  = await Folders.find({parent:""});
         const files = await Files.find({parent:""});
@@ -595,23 +583,22 @@ app.post('/createfolder', async(req, res) =>{
                 yyyy = today.getFullYear();
                 now = mm + '/' + dd + '/' + yyyy;
                 
-                    Folders.create({
-                        name: req.body.folderName,
-                        access: req.body.accessLevel,
-                        parent: "",
-                        date: now,
-                        uploader: req.session.name,
-                    });
-                    Account.findOne({ username: req.session.name }, (err, user) => {
-                        if(user.role == 'Administrator' || user.role == "Manager"){
-                            console.log('worked');
-                            res.redirect('/admanagerhome');
-                        }
-                        else{
-                            res.redirect('/userhome');
-                        }
-                    });
-               
+                Folders.create({
+                    name: req.body.folderName,
+                    access: req.body.accessLevel,
+                    parent: "",
+                    date: now,
+                    uploader: req.session.name,
+                });
+                Account.findOne({ username: req.session.name }, (err, user) => {
+                    if(user.role == 'Administrator' || user.role == "Manager"){
+                        console.log('worked');
+                        res.redirect('/admanagerhome');
+                    }
+                    else{
+                        res.redirect('/userhome');
+                    }
+                });
             }
             else{
                 Account.findOne({ username: req.session.name }, (err, user) => {
@@ -622,14 +609,12 @@ app.post('/createfolder', async(req, res) =>{
                     }
                     else if(user.role == 'Manager'){
                         res.render('adManagerHome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap",styling:"background:transparent; border: none !important;"})
-                    }
-                   
+                    } 
                 });
             }
         })
     }
-    else{
-        
+    else{ 
         arrDirect = directory.split("/");
         console.log(fol);
         console.log("INSIDE");
@@ -657,36 +642,24 @@ app.post('/createfolder', async(req, res) =>{
                     }
                     else{
                         res.render('adManagerHome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()"   });
-                    }
-                    
-                    
+                    }                                    
                 });
             }
         
-           else{
-           
-                    
-            Account.findOne({ username: req.session.name }, async(err, user) => {
-                const folders  = await Folders.find({parent: folID});
-                const files = await Files.find({parent: folID});
-                if(user.role == 'Administrator'){
-                    res.render('adManagerHome.hbs',{error:"Folder name already exists", folders: folders, files: files, func:"backFolder()" , ID: "/register", Content:"Register a User" });
-                }
-                else{
-                    res.render('adManagerHome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()"   });
-                }
-                
-            });
-           }
-            
-                
-            
-        })
-       
-        
-        
+            else{              
+                Account.findOne({ username: req.session.name }, async(err, user) => {
+                    const folders  = await Folders.find({parent: folID});
+                    const files = await Files.find({parent: folID});
+                    if(user.role == 'Administrator'){
+                        res.render('adManagerHome.hbs',{error:"Folder name already exists", folders: folders, files: files, func:"backFolder()" , ID: "/register", Content:"Register a User" });
+                    }
+                    else{
+                        res.render('adManagerHome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()"   });
+                    }          
+                });
+            }                   
+        })    
     }
-    
 });
 
 app.post('/uploadfile', async (req, res) => {
@@ -730,7 +703,8 @@ app.post('/uploadfile', async (req, res) => {
                         duplicateContainer.unshift(last)
 
                         duplicateCount += 1
-                    } else { 
+                    } 
+                    else { 
                         continue 
                     }
                 }
@@ -743,7 +717,8 @@ app.post('/uploadfile', async (req, res) => {
                     else { Files.create({ 
                         name: file.name, access: selectedAccess, parent: folID, date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) 
                     }
-                } else {
+                } 
+                else {
                     file.mv(path.resolve(__dirname, 'uploaded', "(" + duplicateCount + ") " + file.name), async (error) => { });
                     if (directory == "") {
                          Files.create({ name: "(" + duplicateCount + ") " + file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) 
@@ -790,7 +765,8 @@ app.post('/uploadfile', async (req, res) => {
                          Files.create({ name: files.name, access: selectedAccess, parent: folID, date: now, size: files.size, uploader: req.session.name }, (error, post) => { }) 
                         }
                 });
-            } else {
+            } 
+            else {
                 files.mv(path.resolve(__dirname, 'uploaded', "(" + duplicateCount + ") " + files.name), async (error) => {
                     if (directory == "") {
                          Files.create({ name: "(" + duplicateCount + ") " + files.name, access: selectedAccess, parent: "", date: now, size: files.size, uploader: req.session.name }, (error, post) => { }) 
@@ -811,11 +787,9 @@ app.get('/delete-folder', (req, res) => {
         Folders.findOne({name: req.query.name}, async(err, mainFol)=>{
                 
             if(mainFol){
-                
                 let holder = await Folders.find({parent:mainFol._id});
                 let fHolder = await Files.find({parent:mainFol._id})
-                
-                
+                             
                 for(let val = 0; val < holder.length; val++){
                     listOfNames.push(holder[val]);
                 }
@@ -836,8 +810,7 @@ app.get('/delete-folder', (req, res) => {
                     if(temp1.length != 0){
                         for(let val = 0; val < temp1.length; val++){
                             listOfNames.push(temp1[val]);
-                        }
-                        
+                        }                   
                     }
                 }
                 listOfNames.push(mainFol);
@@ -865,11 +838,12 @@ app.get('/delete-folder', (req, res) => {
         
         await new Promise(resolve => setTimeout(resolve, 1000));
         if(directory == ""){
-            if (user.role == 'Administrator' || user.role == "Manager") { res.redirect('/admanagerhome'); }
-                    else { 
-                        res.redirect('/userhome'); 
-                    }
-            
+            if (user.role == 'Administrator' || user.role == "Manager") { 
+                res.redirect('/admanagerhome'); 
+            }
+            else { 
+                res.redirect('/userhome'); 
+            }     
         }
         else{
             const folders = await Folders.find({parent:folID});
@@ -879,8 +853,7 @@ app.get('/delete-folder', (req, res) => {
             }
             else{
                 res.render('adManagerHome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()" })
-            }
-            
+            }    
         }
     });
 });
@@ -914,6 +887,7 @@ app.get('/delete-file', (req, res) => {
        
     });
 });
+
 app.get('/select', (req, res)=>{
     Folders.findOne({name:req.query.selected}, (err, ans)=>{
         if(ans){
@@ -923,6 +897,7 @@ app.get('/select', (req, res)=>{
     })
     console.log(selected);
 })
+
 app.get('/selectfile', (req, res)=>{
     Files.findOne({name: req.query.selected}, (err, ans)=>{
         if(ans){
@@ -931,6 +906,7 @@ app.get('/selectfile', (req, res)=>{
         }
     })
 })
+
 app.post('/rename-folder', (req, res)=>{
    
     Account.findOne({ userName: req.session.name }, (err, user) => {
@@ -1001,6 +977,7 @@ app.post('/rename-folder', (req, res)=>{
        
     })
 })
+
 app.post('/rename-file', (req, res)=>{
     Account.findOne({ username: req.session.name }, (err, user) => {
         if(directory == ""){
@@ -1035,10 +1012,7 @@ app.post('/rename-file', (req, res)=>{
                             const folders = await Folders.find({parent:folID});
                             const files = await Files.find({parent:folID});
                             await new Promise(resolve => setTimeout(resolve, 1000));
-                            if(user.role == 'Administrator'){
-                        
-                          
-                    
+                            if(user.role == 'Administrator'){                 
                                 res.render('adManagerHome.hbs',{error:"File name already exists", folders: folders,files: files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",styling:"background:transparent; border: none !important;"  });
                             }
                             else if(user.role == 'Manager'){
@@ -1075,11 +1049,9 @@ app.post('/rename-file', (req, res)=>{
                             }
                             else{
                                 res.render('adManagerHome.hbs', {folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap", func:"backFolder()"  })
-                            }
-                            
+                            }                           
                         }
-                        else{
-                            
+                        else{     
                                 const folders = await Folders.find({parent:folID});
                                 const files = await Files.find({parent:folID});
                                 await new Promise(resolve => setTimeout(resolve, 1000));
@@ -1088,25 +1060,27 @@ app.post('/rename-file', (req, res)=>{
                                 }
                                 else if(user.role == 'Manager'){
                                     res.render('adManagerHome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap",func:"backFolder()" })
-                                }
-                            
+                                }                      
                         }
                     })
                 }
             })
-        }
-        
+        }      
     })
 })
+
 app.get('/search-user', (req, res) => {
     Account.findOne({ username: req.query.textSearch }, (error, targetUser) => {
         if (targetUser && req.query.success == "password") {
             return res.render('editUser.hbs', { username: req.query.textSearch, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Password has been changed" })
-        } else if (targetUser && req.query.success == "role") {
+        } 
+        else if (targetUser && req.query.success == "role") {
             return res.render('editUser.hbs', { username: req.query.textSearch, vSuccess: 'visible', oSuccess: '1', type: 'success', mSuccess: "Role has been changed" })
-        } else if (targetUser) {
+        } 
+        else if (targetUser) {
             return res.render('editUser.hbs', { username: req.query.textSearch })
-        } else {
+        } 
+        else {
             Account.findOne({ username: req.session.name }, (err, user) => {
                 if (user.role == "Administrator") {
                     return res.render('profile.hbs', { link: "/admanagerhome", profileName: req.session.name, role: user.role, C: "regisButton", act: "redirectRegister()", content: "Register an Account", vError: 'visible', oError: '1', type: 'error', mError: "Failed to find user" });
@@ -1120,7 +1094,6 @@ app.get('/search-user', (req, res) => {
 });
 
 app.get('/search-file', async (req, res) => {
-
     Account.findOne({ username: req.session.name }, async(err, user) => {
         if (user.role == "Administrator") {
             const files = await Files.find({ name: { $regex: req.query.textSearch } });
@@ -1169,39 +1142,40 @@ app.get('/delete-user', (req, res) => {
         }
     })
 });
+
 app.get('/uploadresult', async(req, res)=>{
     await new Promise(resolve => setTimeout(resolve, 1000)); // for some reason it takes time for the file to be displayed
-        if (directory == "") {
-            const files = await Files.find({ parent: "" });
-            const folders = await Folders.find({ parent: "" });
-            Account.findOne({ username: req.session.name }, (err, user) => {
-                if (err){
-                    res.render('adManagerHome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vError: 'visible' , oError: '1', type: 'error'});
-                }
+    if (directory == "") {
+        const files = await Files.find({ parent: "" });
+        const folders = await Folders.find({ parent: "" });
+        Account.findOne({ username: req.session.name }, (err, user) => {
+            if (err){
+                res.render('adManagerHome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vError: 'visible' , oError: '1', type: 'error'});
+            }
 
-                if (user.role == "Administrator") {
-                    res.render('adManagerHome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vSuccess: 'visible' , oSuccess: '1', type: 'success',styling: "background:transparent; border: none !important;"});
-                }
-                if (user.role == "Manager") {
-                    res.render('adManagerHome.hbs', { folders: folders, files: files , link: "/admanagerhome", design:"trap",styling: "background:transparent; border: none !important;" });
-                }
-            })
-        }
-        else {
-            Account.findOne({ username: req.session.name }, async(err, user) => {
-               
-                    const resultingFolder = await Folders.find({ parent: folID })
-                    const resultingFiles = await Files.find({ parent: folID })
-                        if (user.role == 'Administrator') {
-                            console.log("ADMIN");
-                            res.render('adManagerHome.hbs', { folders: resultingFolder, files: resultingFiles, path: directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",func:"backFolder()"  });
-                        }
-                        else if (user.role == "Manager") {
-                            res.render('adManagerHome.hbs', { folders: resultingFolder, files: resultingFiles, path: directory, link: "/admanagerhome", design:"trap",func:"backFolder()"  });
-                        }
-            });
-        }
+            if (user.role == "Administrator") {
+                res.render('adManagerHome.hbs', { folders, files, link: "/admanagerhome", ID: "/register", Content:"Register a User", vSuccess: 'visible' , oSuccess: '1', type: 'success',styling: "background:transparent; border: none !important;"});
+            }
+            if (user.role == "Manager") {
+                res.render('adManagerHome.hbs', { folders: folders, files: files , link: "/admanagerhome", design:"trap",styling: "background:transparent; border: none !important;" });
+            }
+        })
+    }
+    else {
+        Account.findOne({ username: req.session.name }, async(err, user) => {
+            const resultingFolder = await Folders.find({ parent: folID })
+            const resultingFiles = await Files.find({ parent: folID })
+            if (user.role == 'Administrator') {
+                console.log("ADMIN");
+                res.render('adManagerHome.hbs', { folders: resultingFolder, files: resultingFiles, path: directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",func:"backFolder()"  });
+            }
+            else if (user.role == "Manager") {
+                res.render('adManagerHome.hbs', { folders: resultingFolder, files: resultingFiles, path: directory, link: "/admanagerhome", design:"trap",func:"backFolder()"  });
+            }
+        });
+    }
 })
+
 app.get('/deleteManyResult', async(req,res)=>{
     await new Promise(resolve => setTimeout(resolve, 1500));
     if(directory == ""){
@@ -1230,12 +1204,10 @@ app.get('/deleteMany', async (req, res) => {
         console.log(arrSelected[i]);
         Folders.findOne({_id: arrSelected[i]}, async(err, mainFol)=>{
                 
-            if(mainFol){
-                
+            if(mainFol){        
                 let holder = await Folders.find({parent:mainFol._id});
                 let fHolder = await Files.find({parent:mainFol._id})
-                
-                
+                       
                 for(let val = 0; val < holder.length; val++){
                     listOfNames.push(holder[val]);
                 }
@@ -1294,7 +1266,6 @@ app.get('/deleteMany', async (req, res) => {
             }
         })
     }
-    
 })
 
 app.get('/getMove', (req, res)=>{
@@ -1302,13 +1273,13 @@ app.get('/getMove', (req, res)=>{
     allID = [];
    
 })
+
 app.get('/getMultMove', (req, res)=>{
     IDMultMove = req.query.arrFilter;
     allID = req.query.arrNotFilter;
     IDSelected = "";
-    
-   
 })
+
 app.get('/filterMany', async(req, res)=>{
     IDSelected = "";
     if(directory == ""){
@@ -1341,6 +1312,7 @@ app.get('/filterMany', async(req, res)=>{
         })
     }
 })
+
 app.get('/filterSelected', async(req, res)=>{
         const folders1 = await Folders.find({_id:{$ne:IDSelected}, parent:""});
         if(directory == ""){
@@ -1370,6 +1342,7 @@ app.get('/filterSelected', async(req, res)=>{
             })
         }
 })
+
 app.get('/moveAction', async(req, res)=>{
     if(IDSelected != ""){
         Account.findOne({username:req.session.name}, (err, user)=>{
@@ -1446,8 +1419,7 @@ app.get('/moveAction', async(req, res)=>{
                                     res.render('adManagerHome.hbs',{link: "/admanagerhome", design:"trap", folders, files,func:"backFolder()" ,path:directory })
                                 }
                             }
-                        }
-                       
+                        }                    
                     })
                     Files.findOne({_id:IDSelected}, async(err,toMove)=>{
                         if(toMove){
@@ -1473,12 +1445,10 @@ app.get('/moveAction', async(req, res)=>{
                         }
                     })
                 })
-            }
-           
+            }      
         })
     }
-    else{
-        
+    else{  
         Account.findOne({username:req.session.name}, async(err, user)=>{
             if(user){
                 if(folIDMove == ""){
@@ -1499,9 +1469,7 @@ app.get('/moveAction', async(req, res)=>{
                                 toMove.save((err, updated)=>{});
                             }  
                         })
-                    }
-                  
-                    
+                    }                           
                 }
                 else{
                     for(let k = 0; k < IDMultMove.length; k++){
@@ -1523,8 +1491,7 @@ app.get('/moveAction', async(req, res)=>{
                                 }
                             })
                         })
-                    }
-                    
+                    }                    
                 }
                 directory1 = "";
                 folIDMove = "";
@@ -1544,13 +1511,9 @@ app.get('/moveAction', async(req, res)=>{
                         res.render('adManagerHome.hbs',{link: "/admanagerhome", design:"trap", folders, files,func:"backFolder()" ,path:directory})
                     }
                 }
-            }
-            
-            
-        })
-        
+            }           
+        })    
     }
-   
 })
 
 app.get('/downloadSingleFile', (req, res) => {
@@ -1572,6 +1535,7 @@ app.get('/downloadMultipleFile', (req, res) => {
         res.zip(container);
     })
 });
+
 app.get('/getrole', (req, res)=>{
     Account.findOne({username:req.session.name}, (err, ans)=>{
         if(ans){
