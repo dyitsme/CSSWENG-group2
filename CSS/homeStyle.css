@@ -294,7 +294,7 @@ body{
     cursor: pointer;
 }
 
-.fileNameDiv:hover{
+.fileDiv:hover{
     background-color: #e4e4e4;
 }
 
