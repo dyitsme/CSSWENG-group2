@@ -990,7 +990,7 @@ app.post('/rename-file', (req, res)=>{
                     let fsNew;
                     fsOld = file1.name;
                     arrName= fsOld.split('.');
-                    fsNew = req.body.newname2 + '.' + arrName[1];
+                    fsNew = req.body.newName2 + '.' + arrName[1];
                     Files.findOne({name:fsNew}, async(err, file2)=>{
                         if(!file2){
                             file1.name = fsNew;
