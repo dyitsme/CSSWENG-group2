@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="navbar">
+    <div class="navBar">
         <img class="logo" src="pictures/logo.png" alt="logo">
         <a class="link" href="/admanagerhome">Files</a>
         <a id="{{design}}" href="{{ID}}">{{Content}}</a>
@@ -19,9 +19,9 @@
     </div>
 
     <div class="screen">
-        <p class="title">{{username}}</p>
+        <p class="title">{{userName}}</p>
 
-        <div class="side-by-side">
+        <div class="sideBySide">
             <div class="container">
                 <p class="title">Edit Password</p>
                 <form class="edit" method="post" action="/change-selected-password?text_search={{username}}">
@@ -46,7 +46,7 @@
         <button class="delete" onclick="window.location.href='/delete-user?text_search={{username}}'">Delete Account</button>
     </div>
 
-    <div class="notification-modal success" id="successModal" style="visibility: {{vSuccess}}; opacity: {{oSuccess}};">
+    <div class="notificationModal success" id="successModal" style="visibility: {{vSuccess}}; opacity: {{oSuccess}};">
         <img class="exit" src="pictures/cross.png" alt="cross" onclick="closeNotificationModal('{{type}}')">
         <div class="linear">
             <img src="pictures/success.png" alt="">

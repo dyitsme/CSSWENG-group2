@@ -5,18 +5,18 @@ var allBtn = 0;
 let fileContainer = []
 
 $(document).ready(function () {
-    var elements = document.getElementsByClassName('folder_name_div');
+    var elements = document.getElementsByClassName('folderNameDiv');
     $('#trap').remove();
     for (var i = 0; i < elements.length; i++) {
         elements[i].addEventListener('click', folderClick);
     }
 
-    var elements1 = document.getElementsByClassName('folder_move_div');
+    var elements1 = document.getElementsByClassName('folderMoveDiv');
     for (var i = 0; i < elements1.length; i++) {
         elements1[i].addEventListener('click', folderClickMove);
     }
 
-    var elements1 = document.getElementsByClassName('file_size');
+    var elements1 = document.getElementsByClassName('fileSize');
     for (var i = 0; i < elements1.length; i++) {
         elements1[i].innerHTML = formatSize(elements1[i].innerHTML);
     }
@@ -35,51 +35,51 @@ function changePassword() {
 }
 
 function openForm() {
-    document.getElementById("popup").style.display = "block";
+    document.getElementById("popUp").style.display = "block";
 }
 
 function closeForm() {
-    document.getElementById("popup").style.display = "none";
+    document.getElementById("popUp").style.display = "none";
 }
 function fileForm(identifier) {
     selected = identifier;
     $.get('/select', { selected: selected }, (result) => {
 
     })
-    document.getElementById("filepop").style.display = "block";
+    document.getElementById("filePop").style.display = "block";
 }
 function folderForm(identifier) {
     selected = identifier;
     $.get('/select', { selected: selected }, (result) => {
 
     })
-    document.getElementById("folderpop").style.display = "block";
+    document.getElementById("folderPop").style.display = "block";
 }
 function fileClose() {
-    document.getElementById("filepop").style.display = "none";
+    document.getElementById("filePop").style.display = "none";
 }
 function folderClose() {
-    document.getElementById("folderpop").style.display = "none";
+    document.getElementById("folderPop").style.display = "none";
 }
 
 function fileForm(identifier) {
     selected = identifier;
     $.get('/selectfile', { selected: selected }, (result) => { })
-    document.getElementById("filepop").style.display = "block";
+    document.getElementById("filePop").style.display = "block";
 }
 
 function folderForm(identifier) {
     selected = identifier;
     $.get('/select', { selected: selected }, (result) => { })
-    document.getElementById("folderpop").style.display = "block";
+    document.getElementById("folderPop").style.display = "block";
 }
 
 function fileClose() {
-    document.getElementById("filepop").style.display = "none";
+    document.getElementById("filePop").style.display = "none";
 }
 
 function folderClose() {
-    document.getElementById("folderpop").style.display = "none";
+    document.getElementById("folderPop").style.display = "none";
 }
 
 function folderClick() {
@@ -130,13 +130,13 @@ function deleteFile(identifier) {
 }
 
 function renameFolder() {
-    newfolder = document.getElementById("newname1").value;
-    $.get('/rename-folder', { newname: newfolder, current: selected }, function (result) { })
+    newFolder = document.getElementById("newName1").value;
+    $.get('/rename-folder', { newName: newFolder, current: selected }, function (result) { })
 }
 
 function renameFile() {
-    newfile = document.getElementById("newname2").value;
-    $.get('/rename-folder', { newname: newfile, current: selected }, function (result) { })
+    newFile = document.getElementById("newName2").value;
+    $.get('/rename-folder', { newName: newFile, current: selected }, function (result) { })
 }
 
 function openFileModal() {
@@ -169,7 +169,7 @@ function getFileNames() {
 
     for (var i = 0; i < files.length; i++) {
         fileContainer.push(files[i])
-        document.getElementById('itemset').innerHTML += '<div id="' + files[i].name + '"> <p>' + files[i].name + '</p> <img src="pictures/remove.png" alt="" onclick="removeSelectedFileName(' + "'" + files[i].name + "'" + ')"> </div>';
+        document.getElementById('itemSet').innerHTML += '<div id="' + files[i].name + '"> <p>' + files[i].name + '</p> <img src="pictures/remove.png" alt="" onclick="removeSelectedFileName(' + "'" + files[i].name + "'" + ')"> </div>';
     }
 
     for (i = 0; i < fileContainer.length; i++) {
@@ -193,20 +193,20 @@ function removeSelectedFileName(filename) {
 
     fileContainer = newArray
     input.files = dataTransfer.files
-    document.getElementById(filename).remove()
+    document.getElementById(fileName).remove()
 }
 
 function openSelectable() {
-    document.getElementById('sa_div').style.display = 'flex';
+    document.getElementById('saDiv').style.display = 'flex';
 
-    let checkboxes = document.getElementsByClassName('files_checkbox');
+    let checkBoxes = document.getElementsByClassName('filesCheckbox');
    
-    for (i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].style.display = "flex";
+    for (i = 0; i < checkBoxes.length; i++) {
+        checkBoxes[i].style.display = "flex";
     }
-    checkboxes = document.getElementsByClassName('folders_checkbox');
-    for (i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].style.display = "flex";
+    checkBoxes = document.getElementsByClassName('foldersCheckbox');
+    for (i = 0; i < checkBoxes.length; i++) {
+        checkBoxes[i].style.display = "flex";
     }
 }
 
@@ -217,16 +217,16 @@ function downloadSingle(id) {
 async function downloadMany() {
     let selected = [];
     let selected1 = [];
-    const checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
-    const folderscheck = document.querySelectorAll('input[class="folders_checkbox"]:checked');
-    checkboxes.forEach(checkbox => { selected.push(checkbox.value); });
-    folderscheck.forEach(folderbox => { selected1.push(folderbox.value); });
+    const checkBoxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
+    const foldersCheck = document.querySelectorAll('input[class="foldersCheckbox"]:checked');
+    checkBoxes.forEach(checkBox => { selected.push(checkBox.value); });
+    foldersCheck.forEach(folderBox => { selected1.push(folderBox.value); });
     console.log(selected1);
     if(selected1.length && selected1){
         alert("Folders cannot be downloaded");
     }
     else if (selected.length == 1) {
-         location.href = "/downloadSingleFile?filename=" + selected[0]; 
+        location.href = "/downloadSingleFile?filename=" + selected[0]; 
     }
     else if (selected.length > 1) { 
         location.href = '/downloadMultipleFile?filenames=' + selected.join(',') 
@@ -239,16 +239,16 @@ function backFolder(){
 function toggleSelect(){
     
     if(btnCount % 2 != 0){
-        $(".files_checkbox").css('display', 'none');
-        $(".folders_checkbox").css('display', 'none');
-        $("#sa_div").css('display', 'none');
+        $(".filesCheckbox").css('display', 'none');
+        $(".foldersCheckbox").css('display', 'none');
+        $("#saDiv").css('display', 'none');
         document.getElementById("multContext").style.visibility = "hidden";
         btnCount += 1;
     }
     else{
-        $(".files_checkbox").css('display', 'inline-block');
-        $(".folders_checkbox").css('display', 'inline-block');
-        $("#sa_div").css('display', 'flex');
+        $(".filesCheckbox").css('display', 'inline-block');
+        $(".foldersCheckbox").css('display', 'inline-block');
+        $("#saDiv").css('display', 'flex');
         document.getElementById("multContext").style.visibility = "visible";
         btnCount += 1;
     }
@@ -256,26 +256,26 @@ function toggleSelect(){
 }
 function toggleSelectAll(){
     if(allBtn % 2 != 0){
-        $(".files_checkbox").prop('checked', false);
-         $(".folders_checkbox").prop('checked', false);
+        $(".filesCheckbox").prop('checked', false);
+         $(".foldersCheckbox").prop('checked', false);
         allBtn += 1;
     }
     else{
-        $(".files_checkbox").prop('checked', true);
-         $(".folders_checkbox").prop('checked', true);
+        $(".filesCheckbox").prop('checked', true);
+         $(".foldersCheckbox").prop('checked', true);
         allBtn += 1;
     }
 }
 
 function deleteMany(){
     let arrSelected = [];
-    let checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
-   let folderboxes = document.querySelectorAll('input[class="folders_checkbox"]:checked');
-    checkboxes.forEach((checkbox)=>{
-        arrSelected.push(checkbox.value);
+    let checkBoxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
+    let folderBoxes = document.querySelectorAll('input[class="foldersCheckbox"]:checked');
+    checkBoxes.forEach((checkBox)=>{
+        arrSelected.push(checkBox.value);
     });
-    folderboxes.forEach((checkbox)=>{
-        arrSelected.push(checkbox.value);
+    folderBoxes.forEach((checkBox)=>{
+        arrSelected.push(checkBox.value);
     });
     console.log(arrSelected);
     if(arrSelected && arrSelected.length){
@@ -287,26 +287,26 @@ function deleteMany(){
 function moveMany(){
     let arrSelected = [];
     let arrNotselect = [];
-    let checkboxes = document.querySelectorAll('input[class="files_checkbox"]:checked');
-    checkboxes.forEach((checkbox)=>{
-        arrSelected.push(checkbox.value);
+    let checkBoxes = document.querySelectorAll('input[class="filesCheckbox"]:checked');
+    checkBoxes.forEach((checkBox)=>{
+        arrSelected.push(checkBox.value);
     });
 
-    checkboxes = document.querySelectorAll('input[class="folders_checkbox"]:checked');
-    checkboxes.forEach((checkbox)=>{
-        arrSelected.push(checkbox.value);
+    checkBoxes = document.querySelectorAll('input[class="foldersCheckbox"]:checked');
+    checkBoxes.forEach((checkBox)=>{
+        arrSelected.push(checkBox.value);
     });
 
-    let allboxes = document.querySelectorAll('input[class="files_checkbox"]');
+    let allBoxes = document.querySelectorAll('input[class="filesCheckbox"]');
     
     allboxes.forEach((allbox)=>{
         arrNotselect.push(allbox.value);
     });
 
-    allboxes = document.querySelectorAll('input[class="folders_checkbox"]');
+    allBoxes = document.querySelectorAll('input[class="foldersCheckbox"]');
 
-    allboxes.forEach((allbox)=>{
-        arrNotselect.push(allbox.value);
+    allBoxes.forEach((allBox)=>{
+        arrNotselect.push(allBox.value);
     });
     for(var j = 0; j < arrSelected.length; j++){
         for (var i = arrNotselect.length - 1; i >= 0; i--) {
@@ -327,14 +327,14 @@ function moveMany(){
    
 }
 
-function file_folder_search() {
+function fileFolderSearch() {
     setTimeout(file_folder_searched(), 100000);
 }
 
 function moveSingle(identifier){
     
     document.getElementById("blocker").style.display = "flex";
-    document.getElementById("move_modal").style.visibility = "visible";
+    document.getElementById("moveModal").style.visibility = "visible";
     $.get("/getMove", {arrFilter: identifier}, (result)=>{
 
     });
@@ -342,7 +342,7 @@ function moveSingle(identifier){
 }
 function cancelMov(){
     document.getElementById("blocker").style.display = "none";
-    document.getElementById("move_modal").style.visibility = "hidden";
+    document.getElementById("moveModal").style.visibility = "hidden";
 }
 function folderClickMove(){
     var folderName = this.getAttribute("id");

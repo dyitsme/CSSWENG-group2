@@ -16,7 +16,7 @@ body {
 }
 
 
-#topbar{
+#topBar{
     display: flex;
     height: 67px;
     width: 100%;
@@ -27,7 +27,7 @@ body {
 
 
 
-#topbar a{
+#topBar a{
     margin-left: 24px;
 
     font: 400 20px 'Inter';
@@ -35,7 +35,7 @@ body {
     text-decoration: none;
 }
 
-#topbar a::after{
+#topBar a::after{
     display: block;
 
     width: 0;
@@ -48,19 +48,19 @@ body {
 }
 
 
-#topbar a:hover::after {
+#topBar a:hover::after {
     width: 100%;
 }
 
 
-#top_logo{
+#topLogo{
     height: 47px;
     width: 206px;
     align-self: center;
     margin-left: 10px; 
 }
 
-#top_search{
+#topSearch{
     display: flex;
     margin-left: auto;
     margin-right: 10px;
@@ -71,7 +71,7 @@ body {
     background-color: white;
 }
 
-#top_search button{
+#topSearch button{
     border: 0;
     padding: 5px;
     outline: none;
@@ -79,7 +79,7 @@ body {
     cursor: pointer;
 }
 
-#text_search{
+#textSearch{
     font-size: 16px;
     flex: 1;
     border: 0;
@@ -87,7 +87,7 @@ body {
     background: transparent;
 }
 
-#main_body{
+#mainBody{
     margin: 0;
     padding: 0;
     height: 90vh;
@@ -96,7 +96,7 @@ body {
     align-items: center;
 }
 
-#profpage{
+#profPage{
     margin: 2em 0;
     width: 35vw;
     height: 50vh;
@@ -109,7 +109,7 @@ body {
     justify-content: center;
 }
 
-#profname{
+#profName{
     font: 2vw "Roboto";
     color:black;
     text-align:center;
@@ -126,7 +126,7 @@ body {
     text-align:center;
 }
 
-#passbutton{
+#passButton{
     background-color: #1E3F5A;
     color: #FFFFFF;
     padding: 10px 20px;
@@ -139,7 +139,7 @@ body {
 }
 
 
-#regisbutton{
+#regisButton{
     background-color: #1E3F5A;
     color: #FFFFFF;
     padding: 10px 20px;
@@ -151,7 +151,7 @@ body {
     border-radius:10px;
 }
 
-#regisbutton:hover, #passbutton:hover{
+#regisButton:hover, #passbutton:hover{
     cursor:pointer;
     transform: scale(1.05);
 }

@@ -9,69 +9,69 @@
          <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
     </head>
     <body>
-        <div id="topbar">
-            <img id="top_logo" src="../../UI/gilagan_log_no_text.png">
+        <div id="topBar">
+            <img id="topLogo" src="../../UI/gilagan_log_no_text.png">
             <a href="{{link}}">Files</a>
             <a href="/profile">Profile</a>
             <a href="/" >Logout</a>
-            <form id="top_search" action="/search-file">
-                    <button><img id="s_icon" src="../../UI/search icon.png"></button>
-                    <input type="text" id="text_search" name="text_search" placeholder="Search Files">
+            <form id="topSearch" action="/search-file">
+                    <button><img id="sIcon" src="../../UI/search icon.png"></button>
+                    <input type="text" id="textSearch" name="textSearch" placeholder="Search Files">
             </form>
         </div>
     
 
-        <div id="main_body">
-            <div id="action_labels">
+        <div id="mainBody">
+            <div id="actionLabels">
                 <h1>Files</h1> 
-                 <button id="select_btn"  class="next_btn" onclick="toggleSelect()" style="margin-left:auto"><iconify-icon icon="material-symbols:select-check-box"></iconify-icon>Select</button> 
+                 <button id="selectBtn"  class="nextBtn" onclick="toggleSelect()" style="margin-left:auto"><iconify-icon icon="material-symbols:select-check-box"></iconify-icon>Select</button> 
             </div>
-            <div id="breadcrumb">
+            <div id="breadCrumb">
                 <button style="{{styling}}" onclick="{{func}}">{{contents}}</button><!--Change display to NONE when not in folder-->
-                <p id="breadcrumb_dir">{{path}}</p><!--change the FILE LOCATION-->
+                <p id="breadCrumb_dir">{{path}}</p><!--change the FILE LOCATION-->
             </div>
         
-            <div id="title_bar">
-                <div class="name_div"><p id="name">Name</p></div>
-                <div class="uploader_div"><p class="bordered" id="uploader">Uploaded By</p></div>
-                <div class="upload_date_div"><p class="bordered" id="upload_date">Upload Date</p></div>
-                <div class="upload_size_div"><p class="bordered" id="upload_size">File Size</p></div>
+            <div id="titleBar">
+                <div class="nameDiv"><p id="name">Name</p></div>
+                <div class="uploaderDiv"><p class="bordered" id="uploader">Uploaded By</p></div>
+                <div class="uploadDateDiv"><p class="bordered" id="uploadDate">Upload Date</p></div>
+                <div class="uploadSizeDiv"><p class="bordered" id="uploadSize">File Size</p></div>
             </div>
                     
-             <div id="sa_div">
-                <input type="checkbox" class="checkbox" id="selectall_checkbox" name="select_all" onchange="toggleSelectAll()">
-                <label id="sa_label" for="select_all">Select All</label>
+             <div id="saDiv">
+                <input type="checkbox" class="checkbox" id="selectallCheckbox" name="selectAll" onchange="toggleSelectAll()">
+                <label id="saLabel" for="selectAll">Select All</label>
             </div>  
             <div id="multContext">
                 <p onclick="downloadMany()">Download Selected</p>
             </div>
-            <div id="files_container">
+            <div id="filesContainer">
                 {{#each folders}}
-                    <div class="folder_div" oncontextmenu="contextMenu(event, '{{this.name}} cm'); return false">
-                        <input type="checkbox" class="folders_checkbox" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
-                        <div class="folder_name_div" id="{{this.name}}">
-                            <img class="folder_icon" src="../../UI/Folder Icon.png">
-                            <label for="{{this.name}}" class="folder_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
+                    <div class="folderDiv" oncontextmenu="contextMenu(event, '{{this.name}} cm'); return false">
+                        <input type="checkbox" class="foldersCheckbox" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
+                        <div class="folderNameDiv" id="{{this.name}}">
+                            <img class="folderIcon" src="../../UI/Folder Icon.png">
+                            <label for="{{this.name}}" class="folderName">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each folder name-->
                         </div>
-                        <label for="{{this.name}}" class="folder_uploaded_by">{{this.uploader}}</label><!--change the USERNAME and LABEL of the checkbox for each folder name-->
-                        <label for="{{this.name}}" class="folder_upload_date">{{this.date}}</label><!--change the DATE and LABEL of the checkbox for each folder name-->
-                        <label for="{{this.name}}" class="folder_size"></label><!--change the SIZE and LABEL of the checkbox for each filename-->
+                        <label for="{{this.name}}" class="folderUploadedBy">{{this.uploader}}</label><!--change the USERNAME and LABEL of the checkbox for each folder name-->
+                        <label for="{{this.name}}" class="folderUploadDate">{{this.date}}</label><!--change the DATE and LABEL of the checkbox for each folder name-->
+                        <label for="{{this.name}}" class="folderSize"></label><!--change the SIZE and LABEL of the checkbox for each filename-->
             
                     </div>
                 {{/each}}
 
 
                 {{#each files}}
-                    <div class="file_div" oncontextmenu="contextMenu(event, '{{this.name}} cm'); return false">
-                        <input type="checkbox" class="files_checkbox" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
+                    <div class="fileDiv" oncontextmenu="contextMenu(event, '{{this.name}} cm'); return false">
+                        <input type="checkBox" class="filesCheckbox" value="{{this._id}}"><!--change the NAME of the checkbox for each filename-->
                         <div class="file_name_div">
                             <img class="file_icon" src="../../UI/File Icon.png">
-                            <label for="{{this.name}}" class="file_name">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each filename-->
+                            <label for="{{this.name}}" class="fileName">{{this.name}}</label><!--change the NAME and LABEL of the checkbox for each filename-->
                         </div>
-                        <label for="{{this.name}}" class="file_uploaded_by">{{this.uploader}}</label><!--change the USERNAME and LABEL of the checkbox for each filename-->
-                        <label for="{{this.name}}" class="file_upload_date">{{this.date}}</label><!--change the DATE and LABEL of the checkbox for each filename-->
-                        <label for="{{this.name}}" class="file_size">{{this.size}}</label><!--change the SIZE and LABEL of the checkbox for each filename-->
-                        <div class="context-menu" id="{{this.name}} cm">
+                        <label for="{{this.name}}" class="fileUploadedBy">{{this.uploader}}</label><!--change the USERNAME and LABEL of the checkbox for each filename-->
+                        <label for="{{this.name}}" class="fileUploadDate">{{this.date}}</label><!--change the DATE and LABEL of the checkbox for each filename-->
+                        <label for="{{this.name}}" class="fileSize">{{this.size}}</label><!--change the SIZE and LABEL of the checkbox for each filename-->
+                        <div class="contextMenu" id="{{this.name}} cm">
                              <p onclick="downloadSingle('{{this._id}}')">Download</p>
                     </div>
                         
