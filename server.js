@@ -981,52 +981,7 @@ app.post('/rename-folder', (req, res)=>{
        
     })
 })
-app.post('/rename-file', (req, res)=>{
-    Account.findOne({ username: req.session.name }, (err, user) => {
-        if(directory == ""){
-          
-            Files.findOne({_id:selected}, (err, file1)=>{
-                
-                if(file1){
-                    let fsOld;
-                    let arrName;
-                    let fsNew;
-                    fsOld = file1.name;
-                    arrName= fsOld.split('.');
-                    fsNew = req.body.newName2 + '.' + arrName[1];
-                    Files.findOne({name:fsNew}, async(err, file2)=>{
-                        if(!file2){
-                            file1.name = fsNew;
-                            file1.save((err, updated)=>{})
-                            fs.rename(path.join(__dirname, 'uploaded', fsOld), path.join(__dirname, 'uploaded', fsNew), function (err){
-                                if(err){
-                                    console.log(err);
-                                }
-                            });
-                            
-                            if (user.role == 'Administrator' || user.role == "Manager") { res.redirect('/admanagerhome'); }
-                            else { res.redirect('/userhome'); }
-                        }
-                        else{
-                            const folders = await Folders.find({parent:folID});
-                            const files = await Files.find({parent:folID});
-                            await new Promise(resolve => setTimeout(resolve, 1000));
-                            if(user.role == 'Administrator'){
-                        
-                    
-                                res.render('admanagerhome.hbs',{error:"Folder name already exists", folders: folders,files: files, path:directory, link: "/admanagerhome", ID: "/register", Content:"Register a User",func:"backFolder()"  });
-                            }
-                            else if(user.role == 'Manager'){
-                                res.render('admanagerhome.hbs', {error: "Folder name already exists", folders:folders, files:files, path:directory, link: "/admanagerhome", design:"trap",func:"backFolder()" })
-                            }
-                        }
-                    })
-                }
-            })
-        }
-       
-    })
-})
+
 app.post('/rename-file', (req, res)=>{
     Account.findOne({ username: req.session.name }, (err, user) => {
         if(directory == ""){
@@ -1122,6 +1077,7 @@ app.post('/rename-file', (req, res)=>{
         
     })
 })
+
 app.get('/search-user', (req, res) => {
     Account.findOne({ username: req.query.textSearch }, (error, targetUser) => {
         if (targetUser && req.query.success == "password") {
