@@ -585,7 +585,7 @@ app.post('/createfolder', async(req, res) =>{
     if (directory == "" && fol == ""){
         const folders  = await Folders.find({parent:""});
         const files = await Files.find({parent:""});
-        Folders.findOne({name:req.body.foldername}, (err,result)=>{
+        Folders.findOne({name:req.body.folderName}, (err,result)=>{
             if(!result){
                 today = new Date();
                 dd = String(today.getDate()).padStart(2, '0');
@@ -728,13 +728,19 @@ app.post('/uploadfile', async (req, res) => {
                         duplicateContainer.unshift(last)
 
                         duplicateCount += 1
-                    } else { continue }
+                    } else { 
+                        continue 
+                    }
                 }
 
                 if (duplicateCount == 0) {
                     file.mv(path.resolve(__dirname, 'uploaded', file.name), async (error) => { });
-                    if (directory == "") { Files.create({ name: file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) }
-                    else { Files.create({ name: file.name, access: selectedAccess, parent: folID, date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) }
+                    if (directory == "") { 
+                        Files.create({ name: file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) 
+                    }
+                    else { Files.create({ 
+                        name: file.name, access: selectedAccess, parent: folID, date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) 
+                    }
                 } else {
                     file.mv(path.resolve(__dirname, 'uploaded', "(" + duplicateCount + ") " + file.name), async (error) => { });
                     if (directory == "") { Files.create({ name: "(" + duplicateCount + ") " + file.name, access: selectedAccess, parent: "", date: now, size: file.size, uploader: req.session.name }, (error, post) => { }) }
@@ -760,7 +766,10 @@ app.post('/uploadfile', async (req, res) => {
                     duplicateContainer.unshift(last)
 
                     duplicateCount += 1
-                } else { break }
+                } 
+                else { 
+                    break 
+                }
             }
 
             if (duplicateCount == 0) {
